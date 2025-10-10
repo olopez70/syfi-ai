@@ -1,57 +1,176 @@
-/* Home Page Specific Styles */
+/* Home Page Styles - Professional Financial Institution Design */
 
-.builder-card {
+/* Welcome Banner */
+.welcome-banner {
+    text-align: center;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, var(--radar-blue-lighter) 0%, var(--radar-blue-light) 100%);
+    border-radius: 8px;
     margin-bottom: 2rem;
 }
 
-.btn-success:hover {
+.welcome-title {
+    font-size: 2.25rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.welcome-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Feature Cards */
+.feature-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(182, 200, 228, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border-color: var(--radar-blue-medium);
 }
 
-.btn-warning {
-    background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
-    border: none;
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    background: var(--radar-blue-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
-.btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+.feature-icon i {
+    font-size: 1.5rem;
+    color: var(--radar-blue-dark);
 }
 
-.form-label {
+.feature-card:hover .feature-icon {
+    background: var(--radar-blue-primary);
+    transform: scale(1.05);
+}
+
+.feature-card:hover .feature-icon i {
+    color: white;
+}
+
+.feature-title {
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
+    letter-spacing: -0.3px;
 }
 
-.required {
-    color: var(--danger);
-}
-
-.container {
-    max-width: 1200px;
-}
-
-.alert {
-    border-radius: 6px;
-}
-
-.tab-content {
-    background: white;
-    border-radius: 0 6px 6px 6px;
-    padding: 2rem;
-}
-
-.nav-tabs .nav-link {
-    border: none;
-    border-radius: 6px 6px 0 0;
+.feature-description {
     color: var(--text-secondary);
-    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
 }
 
-.nav-tabs .nav-link.active {
-    background-color: white;
+/* Button Styling */
+.feature-card .btn {
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    transition: all 0.2s ease;
+}
+
+.feature-card .btn-outline-primary {
+    border-color: var(--radar-blue-medium);
     color: var(--radar-blue-dark);
-    border-bottom: 3px solid var(--radar-blue-primary);
+}
+
+.feature-card .btn-outline-primary:hover {
+    background: var(--radar-blue-dark);
+    border-color: var(--radar-blue-dark);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 1.75rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-icon i {
+        font-size: 1.25rem;
+    }
+    
+    .feature-title {
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .welcome-banner {
+        padding: 1.5rem 0;
+        margin: 0 -15px 2rem;
+        border-radius: 0;
+    }
+    
+    .welcome-title {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-subtitle {
+        font-size: 0.925rem;
+    }
+}
+
+/* Focus States for Accessibility */
+.feature-card .btn:focus {
+    box-shadow: 0 0 0 3px rgba(182, 200, 228, 0.25);
+    outline: none;
+}
+
+/* Professional Loading States */
+.loading-card {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading-card .feature-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
 }

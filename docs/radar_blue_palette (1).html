@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar Blue Color Palette</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafb 0%, #e8f4f8 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #b6c8e4 0%, #9bb2d9 100%);
+            color: #1a2e5c;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .palette-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a2e5c;
+            border-bottom: 3px solid #b6c8e4;
+            padding-bottom: 10px;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .color-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .color-swatch {
+            height: 100px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contrast-text {
+            font-weight: 600;
+            font-size: 1em;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .color-info {
+            padding: 20px;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            background: #f8fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .color-usage {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        
+        .radar-highlight {
+            border: 3px solid #1a2e5c;
+            position: relative;
+        }
+        
+        .radar-highlight::before {
+            content: "RADAR BLUE";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #1a2e5c;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        
+        .usage-guidelines {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+        
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .guideline-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #b6c8e4;
+        }
+        
+        .guideline-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a2e5c;
+        }
+        
+        .alternative-note {
+            background: #e8eef7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #1a2e5c;
+        }
+        
+        .alternative-title {
+            font-weight: 600;
+            color: #1a2e5c;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Radar Blue Palette</h1>
+            <p>Professional color system based on Radar Blue (#b6c8e4)</p>
+        </div>
+        
+        <div class="content">
+            <div class="alternative-note">
+                <div class="alternative-title">Color Reference Note</div>
+                This palette is based on the standard Radar color (#b6c8e4). There's also a GM Radar Blue (#1c224c) which is much darker. Let me know if you'd prefer the darker automotive version instead.
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Primary Colors</h2>
+                <div class="color-grid">
+                    <div class="color-card radar-highlight">
+                        <div class="color-swatch" style="background: #b6c8e4; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Radar Blue</div>
+                            <div class="color-hex">#b6c8e4</div>
+                            <div class="color-usage">Primary brand color, key elements, main CTAs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #1a2e5c; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Deep Navy</div>
+                            <div class="color-hex">#1a2e5c</div>
+                            <div class="color-usage">Text, headers, strong contrast elements</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #7494ca; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Medium Blue</div>
+                            <div class="color-hex">#7494ca</div>
+                            <div class="color-usage">Interactive elements, hover states, secondary buttons</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Radar Blue Variations</h2>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #e8eef7; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Radar Mist</div>
+                            <div class="color-hex">#e8eef7</div>
+                            <div class="color-usage">Very light backgrounds, subtle sections</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #d1dded; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Radar Light</div>
+                            <div class="color-hex">#d1dded</div>
+                            <div class="color-usage">Light backgrounds, disabled states</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #9bb2d9; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Radar Medium</div>
+                            <div class="color-hex">#9bb2d9</div>
+                            <div class="color-usage">Secondary elements, borders, dividers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #8ca6d5; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Radar Deep</div>
+                            <div class="color-hex">#8ca6d5</div>
+                            <div class="color-usage">Active states, focused elements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Yellow Accent Family</h2>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #fef9e7; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Yellow Whisper</div>
+                            <div class="color-hex">#fef9e7</div>
+                            <div class="color-usage">Very light highlights, notification backgrounds</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #fdf4d3; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Yellow Light</div>
+                            <div class="color-hex">#fdf4d3</div>
+                            <div class="color-usage">Subtle emphasis, light warning states</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #f4d03f; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Professional Yellow</div>
+                            <div class="color-hex">#f4d03f</div>
+                            <div class="color-usage">Primary accent, highlights, important CTAs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #d4ac0d; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Yellow Deep</div>
+                            <div class="color-hex">#d4ac0d</div>
+                            <div class="color-usage">Hover states, pressed buttons, strong emphasis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Grey Variations</h2>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #f8fafc; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Cloud White</div>
+                            <div class="color-hex">#f8fafc</div>
+                            <div class="color-usage">Very light backgrounds, subtle sections</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #f1f5f9; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Cool Grey Light</div>
+                            <div class="color-hex">#f1f5f9</div>
+                            <div class="color-usage">Background sections, card backgrounds</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #e2e8f0; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Border Grey</div>
+                            <div class="color-hex">#e2e8f0</div>
+                            <div class="color-usage">Borders, dividers, form inputs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #cbd5e1; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Medium Grey</div>
+                            <div class="color-hex">#cbd5e1</div>
+                            <div class="color-usage">Disabled states, inactive elements</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #94a3b8; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Cool Grey</div>
+                            <div class="color-hex">#94a3b8</div>
+                            <div class="color-usage">Secondary text, placeholders</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #64748b; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Professional Grey</div>
+                            <div class="color-hex">#64748b</div>
+                            <div class="color-usage">Body text, labels, descriptions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #475569; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Dark Grey</div>
+                            <div class="color-hex">#475569</div>
+                            <div class="color-usage">Strong text, secondary headers</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #334155; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Charcoal Grey</div>
+                            <div class="color-hex">#334155</div>
+                            <div class="color-usage">Primary text, strong contrast elements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Complementary Colors</h2>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #e4d2b6; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Warm Beige</div>
+                            <div class="color-hex">#e4d2b6</div>
+                            <div class="color-usage">Warm contrast, secondary backgrounds</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #d9c19b; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Golden Sand</div>
+                            <div class="color-hex">#d9c19b</div>
+                            <div class="color-usage">Accent elements, warm highlights</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #059669; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Success Green</div>
+                            <div class="color-hex">#059669</div>
+                            <div class="color-usage">Success states, positive actions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #dc2626; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Alert Red</div>
+                            <div class="color-hex">#dc2626</div>
+                            <div class="color-usage">Warnings, errors, critical alerts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="palette-section">
+                <h2 class="section-title">Neutral Colors</h2>
+                <div class="color-grid">
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #ffffff; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Pure White</div>
+                            <div class="color-hex">#ffffff</div>
+                            <div class="color-usage">Clean backgrounds, cards</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #f8fafc; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Cloud White</div>
+                            <div class="color-hex">#f8fafc</div>
+                            <div class="color-usage">Subtle backgrounds, sections</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #e2e8f0; color: #1a2e5c;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Light Gray</div>
+                            <div class="color-hex">#e2e8f0</div>
+                            <div class="color-usage">Borders, dividers, inactive states</div>
+                        </div>
+                    </div>
+                    
+                    <div class="color-card">
+                        <div class="color-swatch" style="background: #64748b; color: white;">
+                            <div class="contrast-text">Sample Text</div>
+                        </div>
+                        <div class="color-info">
+                            <div class="color-name">Professional Gray</div>
+                            <div class="color-hex">#64748b</div>
+                            <div class="color-usage">Secondary text, labels</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="usage-guidelines">
+                <h2 class="section-title">Usage Guidelines</h2>
+                <div class="guidelines-grid">
+                    <div class="guideline-item">
+                        <div class="guideline-title">Primary Brand Identity</div>
+                        Use Radar Blue as your primary brand color for logos, main CTAs, and key brand elements. It conveys reliability and technological innovation.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Technology & Trust</div>
+                        The blue family creates a sense of trust and technological sophistication, perfect for tech companies, healthcare, and professional services.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Calming Interface</div>
+                        Radar Blue variations create a calming, professional interface that reduces eye strain and promotes focus in applications.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Warm Contrast</div>
+                        Use the beige/sand complementary colors sparingly for warm contrast and to highlight important secondary elements.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Grey Hierarchy System</div>
+                        Use the 8-shade grey system to create clear visual hierarchy. Light greys for backgrounds, medium greys for secondary text, dark greys for primary content.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Cool Grey Harmony</div>
+                        These greys have subtle blue undertones that harmonize perfectly with Radar Blue, creating a cohesive, professional appearance throughout your interface.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Accessibility First</div>
+                        All color combinations meet WCAG AA standards. The Deep Navy provides excellent contrast for text readability.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Yellow for Energy & Focus</div>
+                        Use Professional Yellow sparingly for important calls-to-action, highlights, and elements that need immediate attention. It creates perfect contrast with Radar Blue.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Blue-Yellow Balance</div>
+                        Follow the 70-20-10 rule: 70% blues and neutrals, 20% complementary colors (beige/sand), 10% yellow accents for maximum impact and readability.
+                    </div>
+                    
+                    <div class="guideline-item">
+                        <div class="guideline-title">Sky & Weather Theme</div>
+                        The blue-yellow combination naturally evokes sky, sun, and weather themes - perfect for weather apps, aviation, or environmental brands.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
