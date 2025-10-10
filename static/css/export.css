@@ -1,0 +1,423 @@
+/* Export Page Styles */
+
+.export-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Schema Selection */
+#schema-select {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+#sch.export-file-meta {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Selection Controls */
+.export-selection-controls {
+    display: flex;
+    align-items: center;
+}
+
+.export-selection-controls .form-check-input {
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background-color: transparent;
+}
+
+.export-selection-controls .form-check-input:checked {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.export-selection-controls .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+}
+
+.export-selection-controls .btn-success {
+    background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+    border: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.export-selection-controls .btn-success:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+}
+
+.export-selection-controls .btn-success:disabled {
+    background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* File Selection Checkboxes */
+.recent-export-item .form-check {
+    margin: 0;
+}
+
+.recent-export-item .form-check-input {
+    border: 2px solid #dee2e6;
+    transition: all 0.2s ease;
+}
+
+.recent-export-item .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.recent-export-item .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.recent-export-item:hover .form-check-input {
+    border-color: #0d6efd;
+}
+
+/* Loading States */lect:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Schema Description */
+#schema-description .alert {
+    background: linear-gradient(135deg, #d1ecf1 0%, #e7f3ff 100%);
+    border: 1px solid #bee5eb;
+}
+
+/* Export Form Buttons */
+#preview-btn, #export-btn {
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+#preview-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+}
+
+#export-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+}
+
+/* Progress Bar */
+#export-progress .progress {
+    height: 25px;
+    background-color: #e9ecef;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#export-progress .progress-bar {
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 15px;
+    transition: width 0.6s ease;
+}
+
+#progress-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Schema Details */
+.table-info {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid #0d6efd;
+}
+
+.table-info h6 {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.field-mapping {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: white;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+}
+
+.field-mapping:hover {
+    border-color: #adb5bd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.field-source {
+    font-family: 'Courier New', monospace;
+    background-color: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+
+.field-arrow {
+    color: #6c757d;
+    margin: 0 10px;
+}
+
+.field-target {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Preview Panel */
+.preview-table {
+    font-size: 0.85rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.preview-table th {
+    background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+    color: white;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.preview-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.preview-table tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* Export Results */
+.export-file-item {
+    background: linear-gradient(135deg, #d4edda 0%, #e7f4e8 100%);
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.export-file-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
+}
+
+.file-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-details {
+    flex-grow: 1;
+}
+
+.file-name {
+    font-weight: 600;
+    color: #155724;
+    margin-bottom: 5px;
+}
+
+.file-stats {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(25, 135, 84, 0.3);
+}
+
+/* Download All Button */
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+}
+
+.btn-primary:disabled {
+    background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+    cursor: not-allowed;
+}
+
+/* Recent Exports */
+.recent-export-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.2s ease;
+}
+
+.recent-export-item:hover {
+    background-color: #f8f9fa;
+}
+
+.recent-export-item:last-child {
+    border-bottom: none;
+}
+
+.export-file-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.export-file-icon.csv {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.export-file-icon.json {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+}
+
+.export-file-icon.xml {
+    background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+}
+
+.export-file-icon.excel {
+    background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+}
+
+.export-file-icon.sql {
+    background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+}
+
+.export-file-info {
+    flex-grow: 1;
+}
+
+.export-file-name {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 2px;
+}
+
+.export-file-meta {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Loading States */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #0d6efd;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Collapsible Card Styles */
+.card-header .btn-link {
+    border: none;
+    background: none;
+    font-size: inherit;
+    font-weight: 500;
+}
+
+.card-header .btn-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.card-header .btn-link:focus {
+    box-shadow: none;
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.collapse-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+}
+
+/* Rotate icon when collapsed */
+.btn-link[aria-expanded="false"] .collapse-icon {
+    transform: rotate(-90deg);
+}
+
+/* Icon should be in normal state when expanded */
+.btn-link[aria-expanded="true"] .collapse-icon {
+    transform: rotate(0deg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .field-mapping {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .field-arrow {
+        margin: 5px 0;
+        align-self: center;
+    }
+    
+    .file-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .recent-export-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,49 @@
+# Simple Customer List - Minimal CSV for mailing lists
+name: "simple_customer_list"
+description: "Basic customer contact information in simple CSV format for mailing lists"
+version: "1.0"
+format: "csv"
+encoding: "utf-8"
+delimiter: ","
+include_headers: true
+
+tables:
+  - table_name: "customers"
+    export_name: "customer_contacts"
+    sort_by: "last_name, first_name"
+    fields:
+      - source_field: "first_name"
+        target_field: "First Name"
+        data_type: "string"
+      
+      - source_field: "last_name"
+        target_field: "Last Name"
+        data_type: "string"
+      
+      - source_field: "email"
+        target_field: "Email"
+        data_type: "string"
+      
+      - source_field: "phone"
+        target_field: "Phone"
+        data_type: "string"
+      
+      - source_field: "address"
+        target_field: "Address"
+        data_type: "string"
+      
+      - source_field: "city"
+        target_field: "City"
+        data_type: "string"
+      
+      - source_field: "state"
+        target_field: "State"
+        data_type: "string"
+      
+      - source_field: "zip_code"
+        target_field: "ZIP Code"
+        data_type: "string"
+
+output_options:
+  quote_all_fields: true
+  escape_quotes: true

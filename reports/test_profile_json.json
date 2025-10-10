@@ -1,0 +1,1008 @@
+{
+  "summary": {
+    "database_path": "profile_test.db",
+    "analysis_date": "2025-09-30T11:50:56.430430",
+    "total_customers": 23,
+    "total_accounts": 77,
+    "total_transactions": 0,
+    "database_size_kb": 80.0,
+    "unique_profiles": 3,
+    "date_range": null
+  },
+  "tables": {
+    "customers": {
+      "table_name": "customers",
+      "row_count": 23,
+      "column_count": 22,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "first_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "last_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "phone",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "address",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "city",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "state",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "zip_code",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "ssn_hash",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "household_size",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_adults",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_children",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_pets",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "household_income",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "employment_status",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "marital_status",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "profile_description",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "profile_tags",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "customer_id": "TEXT",
+        "first_name": "TEXT",
+        "last_name": "TEXT",
+        "email": "TEXT",
+        "phone": "TEXT",
+        "date_of_birth": "DATE",
+        "address": "TEXT",
+        "city": "TEXT",
+        "state": "TEXT",
+        "zip_code": "TEXT",
+        "ssn_hash": "TEXT",
+        "created_date": "TIMESTAMP",
+        "household_size": "INTEGER",
+        "num_adults": "INTEGER",
+        "num_children": "INTEGER",
+        "num_pets": "INTEGER",
+        "household_income": "DECIMAL(15,2)",
+        "employment_status": "TEXT",
+        "marital_status": "TEXT",
+        "profile_description": "TEXT",
+        "profile_tags": "TEXT",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "customer_id": 0,
+        "first_name": 0,
+        "last_name": 0,
+        "email": 0,
+        "phone": 0,
+        "date_of_birth": 0,
+        "address": 0,
+        "city": 0,
+        "state": 0,
+        "zip_code": 0,
+        "ssn_hash": 0,
+        "created_date": 0,
+        "household_size": 0,
+        "num_adults": 0,
+        "num_children": 0,
+        "num_pets": 0,
+        "household_income": 13,
+        "employment_status": 0,
+        "marital_status": 0,
+        "profile_description": 0,
+        "profile_tags": 8,
+        "metadata": 0
+      },
+      "unique_counts": {
+        "customer_id": 23,
+        "first_name": 22,
+        "last_name": 22,
+        "email": 23,
+        "phone": 23,
+        "date_of_birth": 23,
+        "address": 23,
+        "city": 23,
+        "state": 18,
+        "zip_code": 23,
+        "ssn_hash": 23,
+        "created_date": 23,
+        "household_size": 5,
+        "num_adults": 2,
+        "num_children": 5,
+        "num_pets": 3,
+        "household_income": 10,
+        "employment_status": 3,
+        "marital_status": 2,
+        "profile_description": 3,
+        "profile_tags": 2,
+        "metadata": 3
+      },
+      "sample_values": {
+        "customer_id": [
+          "CUST0D38EC",
+          "CUST14D02F",
+          "CUST316CC2",
+          "CUST35F005",
+          "CUST5459E1"
+        ],
+        "first_name": [
+          "Michael",
+          "Brad",
+          "Tiffany",
+          "Rhonda",
+          "Frederick"
+        ],
+        "last_name": [
+          "Ponce",
+          "Mullen",
+          "King",
+          "Johnson",
+          "Benjamin"
+        ],
+        "email": [
+          "bridgesanna@hotmail.com",
+          "sarasmith@yahoo.com",
+          "cstevens@hotmail.com",
+          "terri50@gmail.com",
+          "coltoncarlson@yahoo.com"
+        ],
+        "phone": [
+          "305.928.1769x967",
+          "6374717323",
+          "001-645-564-4637",
+          "+1-285-874-7994",
+          "+1-691-788-7713"
+        ],
+        "date_of_birth": [
+          "2023-11-04",
+          "1914-06-04",
+          "2024-02-15",
+          "2022-12-05",
+          "1938-12-03"
+        ],
+        "address": [
+          "371 Hart Turnpike",
+          "085 Wise Pike",
+          "35721 Esparza Parkways Suite 151",
+          "8227 Brooke Flat Suite 552",
+          "32524 Sara Glen"
+        ],
+        "city": [
+          "Osbornville",
+          "West Alicia",
+          "Marioville",
+          "North Charlesshire",
+          "Christianburgh"
+        ],
+        "state": [
+          "IN",
+          "OK",
+          "WA",
+          "MT",
+          "AK"
+        ],
+        "zip_code": [
+          "90573",
+          "94954",
+          "32316",
+          "76237",
+          "19896"
+        ],
+        "ssn_hash": [
+          "33a697af28172ae8",
+          "adea447761c0a3f1",
+          "afab0fa4dcaa682d",
+          "0a3979ec05207f64",
+          "b53c74418d1065ad"
+        ],
+        "created_date": [
+          "2025-09-30 11:12:13.904582",
+          "2025-09-30 11:12:13.906098",
+          "2025-09-30 11:12:13.907655",
+          "2025-09-30 11:12:13.909333",
+          "2025-09-30 11:12:13.910587"
+        ],
+        "household_size": [
+          6,
+          5,
+          4,
+          3,
+          1
+        ],
+        "num_adults": [
+          2,
+          1
+        ],
+        "num_children": [
+          4,
+          3,
+          2,
+          1,
+          0
+        ],
+        "num_pets": [
+          1,
+          2,
+          0
+        ],
+        "household_income": [
+          130725,
+          98369,
+          77285,
+          138692,
+          96119
+        ],
+        "employment_status": [
+          "dual_income",
+          "employed",
+          "retired"
+        ],
+        "marital_status": [
+          "married",
+          "single"
+        ],
+        "profile_description": [
+          "Two income households with 2 adults, 1-4 children, 0-2 pets, mortgage, 1-2 car loans, and 1-4 credit cards. Mortgages, car loans and credit cards may be held at an external bank, but could also be held at this bank.",
+          "Single professionals, age 25-40, high income, urban, tech workers, 1-2 credit cards",
+          "Single retired individual"
+        ],
+        "profile_tags": [
+          "[\"family_with_children\", \"pet_owners\", \"multi_adult_household\", \"dual_income\", \"homeowners\", \"auto_borrowers\", \"credit_card_users\", \"multi_bank_relationships\"]",
+          "[\"credit_card_users\"]"
+        ],
+        "metadata": [
+          "{\"has_mortgage\": true, \"has_car_loan\": true, \"has_credit_cards\": true, \"car_loan_range\": [1, 2], \"credit_card_range\": [1, 4], \"external_accounts\": [\"mortgage\", \"car_loan\", \"credit_card\"]}",
+          "{\"has_mortgage\": false, \"has_car_loan\": false, \"has_credit_cards\": true, \"car_loan_range\": [0, 0], \"credit_card_range\": [1, 2], \"external_accounts\": []}",
+          "{\"has_mortgage\": false, \"has_car_loan\": false, \"has_credit_cards\": false, \"car_loan_range\": [0, 0], \"credit_card_range\": [0, 0], \"external_accounts\": []}"
+        ]
+      }
+    },
+    "accounts": {
+      "table_name": "accounts",
+      "row_count": 77,
+      "column_count": 13,
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_number",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "available_balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "closed_date",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "interest_rate",
+          "type": "DECIMAL(5,4)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "credit_limit",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "account_id": "TEXT",
+        "customer_id": "TEXT",
+        "account_number": "TEXT",
+        "account_type": "TEXT",
+        "balance": "DECIMAL(15,2)",
+        "available_balance": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "created_date": "TIMESTAMP",
+        "closed_date": "DATE",
+        "is_active": "BOOLEAN",
+        "interest_rate": "DECIMAL(5,4)",
+        "credit_limit": "DECIMAL(15,2)",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "account_id": 0,
+        "customer_id": 0,
+        "account_number": 0,
+        "account_type": 0,
+        "balance": 0,
+        "available_balance": 0,
+        "currency": 0,
+        "created_date": 0,
+        "closed_date": 77,
+        "is_active": 0,
+        "interest_rate": 77,
+        "credit_limit": 77,
+        "metadata": 77
+      },
+      "unique_counts": {
+        "account_id": 77,
+        "customer_id": 23,
+        "account_number": 77,
+        "account_type": 4,
+        "balance": 48,
+        "available_balance": 51,
+        "currency": 1,
+        "created_date": 77,
+        "closed_date": 0,
+        "is_active": 1,
+        "interest_rate": 0,
+        "credit_limit": 0,
+        "metadata": 0
+      },
+      "sample_values": {
+        "account_id": [
+          "ACCT0044739B",
+          "ACCT024D0FBF",
+          "ACCT049B06E4",
+          "ACCT0A0BE515",
+          "ACCT156F5EE9"
+        ],
+        "customer_id": [
+          "CUST0D38EC",
+          "CUST14D02F",
+          "CUST316CC2",
+          "CUST35F005",
+          "CUST5459E1"
+        ],
+        "account_number": [
+          "CHE124435",
+          "CHE126541",
+          "CHE260127",
+          "CHE267009",
+          "CHE313552"
+        ],
+        "account_type": [
+          "checking",
+          "savings",
+          "credit",
+          "investment"
+        ],
+        "balance": [
+          15000,
+          16644.6,
+          0,
+          3723.53,
+          3468.63
+        ],
+        "available_balance": [
+          15000,
+          16644.6,
+          1000,
+          3723.53,
+          3468.63
+        ],
+        "currency": [
+          "USD"
+        ],
+        "created_date": [
+          "2025-09-30 11:12:13.904639",
+          "2025-09-30 11:12:13.904668",
+          "2025-09-30 11:12:13.904685",
+          "2025-09-30 11:12:13.904697",
+          "2025-09-30 11:12:13.906142"
+        ],
+        "closed_date": [],
+        "is_active": [
+          1
+        ],
+        "interest_rate": [],
+        "credit_limit": [],
+        "metadata": []
+      }
+    },
+    "transactions": {
+      "table_name": "transactions",
+      "row_count": 0,
+      "column_count": 17,
+      "columns": [
+        {
+          "name": "transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(15,2)",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_name",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_date",
+          "type": "TIMESTAMP",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "posted_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "reference_number",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "balance_after",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "transaction_id": "TEXT",
+        "account_id": "TEXT",
+        "transaction_type": "TEXT",
+        "amount": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "description": "TEXT",
+        "category": "TEXT",
+        "merchant_name": "TEXT",
+        "merchant_category": "TEXT",
+        "transaction_date": "TIMESTAMP",
+        "posted_date": "TIMESTAMP",
+        "reference_number": "TEXT",
+        "balance_after": "DECIMAL(15,2)",
+        "related_account_id": "TEXT",
+        "related_transaction_id": "TEXT",
+        "location": "TEXT",
+        "metadata": "TEXT"
+      },
+      "null_counts": {},
+      "unique_counts": {},
+      "sample_values": {}
+    },
+    "generation_metadata": {
+      "table_name": "generation_metadata",
+      "row_count": 0,
+      "column_count": 7,
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "generation_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "generation_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "parameters",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "record_count",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "seed",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "id": "INTEGER",
+        "generation_type": "TEXT",
+        "generation_date": "TIMESTAMP",
+        "parameters": "TEXT",
+        "record_count": "INTEGER",
+        "seed": "INTEGER",
+        "notes": "TEXT"
+      },
+      "null_counts": {},
+      "unique_counts": {},
+      "sample_values": {}
+    }
+  },
+  "banking_metrics": {
+    "account_metrics": {
+      "account_type_distribution": {
+        "credit": {
+          "count": 26,
+          "avg_balance": 0,
+          "total_balance": 0,
+          "percentage": 33.8
+        },
+        "savings": {
+          "count": 23,
+          "avg_balance": 15073.01,
+          "total_balance": 346679.18,
+          "percentage": 29.9
+        },
+        "checking": {
+          "count": 23,
+          "avg_balance": 5130.36,
+          "total_balance": 117998.18,
+          "percentage": 29.9
+        },
+        "investment": {
+          "count": 5,
+          "avg_balance": 25096.79,
+          "total_balance": 125483.95,
+          "percentage": 6.5
+        }
+      },
+      "total_accounts": 77,
+      "total_balance_across_all_accounts": 590161.31,
+      "account_status": {
+        "active": 77,
+        "inactive": 0
+      }
+    },
+    "customer_segments": {
+      "age_distribution": {
+        "Senior (65+)": {
+          "count": 10,
+          "avg_income": 91427.25
+        },
+        "Young (18-29)": {
+          "count": 7,
+          "avg_income": 124038.25
+        },
+        "Middle-aged (30-49)": {
+          "count": 4,
+          "avg_income": 112838.5
+        },
+        "Mature (50-64)": {
+          "count": 2,
+          "avg_income": null
+        }
+      },
+      "income_distribution": {
+        "Middle Income ($40k-$80k)": {
+          "count": 2,
+          "avg_household_size": 5.5
+        },
+        "High Income ($80k-$120k)": {
+          "count": 4,
+          "avg_household_size": 4.8
+        },
+        "Very High Income ($120k+)": {
+          "count": 4,
+          "avg_household_size": 5.0
+        }
+      },
+      "family_composition": {
+        "Single Person": {
+          "count": 13,
+          "avg_income": null
+        },
+        "Nuclear Family": {
+          "count": 10,
+          "avg_income": 108753.9
+        }
+      }
+    },
+    "balance_analysis": {
+      "overall_statistics": {
+        "total_accounts": 77,
+        "mean_balance": 7664.43,
+        "min_balance": 0,
+        "max_balance": 58537.66,
+        "total_balance": 590161.31
+      },
+      "balance_distribution": {
+        "Under $1K": {
+          "count": 33,
+          "total_amount": 4966.27,
+          "percentage": 42.9
+        },
+        "$1K - $10K": {
+          "count": 24,
+          "total_amount": 113629.6,
+          "percentage": 31.2
+        },
+        "$10K - $50K": {
+          "count": 19,
+          "total_amount": 413027.78,
+          "percentage": 24.7
+        },
+        "$50K - $100K": {
+          "count": 1,
+          "total_amount": 58537.66,
+          "percentage": 1.3
+        }
+      }
+    },
+    "product_penetration": {
+      "by_product_type": {
+        "checking": {
+          "customers_with_product": 23,
+          "penetration_rate_percent": 100.0,
+          "total_accounts": 23,
+          "accounts_per_customer": 1.0
+        },
+        "credit": {
+          "customers_with_product": 15,
+          "penetration_rate_percent": 65.2,
+          "total_accounts": 26,
+          "accounts_per_customer": 1.73
+        },
+        "investment": {
+          "customers_with_product": 5,
+          "penetration_rate_percent": 21.7,
+          "total_accounts": 5,
+          "accounts_per_customer": 1.0
+        },
+        "savings": {
+          "customers_with_product": 23,
+          "penetration_rate_percent": 100.0,
+          "total_accounts": 23,
+          "accounts_per_customer": 1.0
+        }
+      },
+      "multi_product_analysis": {
+        "2_products": {
+          "customer_count": 8,
+          "percentage": 34.8
+        },
+        "3_products": {
+          "customer_count": 10,
+          "percentage": 43.5
+        },
+        "4_products": {
+          "customer_count": 5,
+          "percentage": 21.7
+        }
+      }
+    },
+    "profile_analysis": {
+      "account_preferences_by_profile": {
+        "Single professionals, age 25-40, high income, urban, tech workers, 1-2 credit cards": {
+          "credit": {
+            "count": 7,
+            "avg_balance": 0
+          },
+          "savings": {
+            "count": 5,
+            "avg_balance": 12963.55
+          },
+          "checking": {
+            "count": 5,
+            "avg_balance": 3808.56
+          }
+        },
+        "Single retired individual": {
+          "savings": {
+            "count": 8,
+            "avg_balance": 17419.29
+          },
+          "checking": {
+            "count": 8,
+            "avg_balance": 3271.97
+          }
+        },
+        "Two income households with 2 adults, 1-4 children, 0-2 pets, mortgage, 1-2 car loans, and 1-4 credit cards. Mortgages, car loans and credit cards may be held at an external bank, but could also be held at this bank.": {
+          "credit": {
+            "count": 19,
+            "avg_balance": 0
+          },
+          "savings": {
+            "count": 10,
+            "avg_balance": 14250.71
+          },
+          "checking": {
+            "count": 10,
+            "avg_balance": 7277.96
+          },
+          "investment": {
+            "count": 5,
+            "avg_balance": 25096.79
+          }
+        }
+      },
+      "demographics_by_profile": {
+        "Two income households with 2 adults, 1-4 children, 0-2 pets, mortgage, 1-2 car loans, and 1-4 credit cards. Mortgages, car loans and credit cards may be held at an external bank, but could also be held at this bank.": {
+          "customer_count": 10,
+          "avg_income": 108753.9,
+          "avg_household_size": 5.0,
+          "avg_children": 3.0
+        },
+        "Single retired individual": {
+          "customer_count": 8,
+          "avg_income": null,
+          "avg_household_size": 1.0,
+          "avg_children": null
+        },
+        "Single professionals, age 25-40, high income, urban, tech workers, 1-2 credit cards": {
+          "customer_count": 5,
+          "avg_income": null,
+          "avg_household_size": 1.0,
+          "avg_children": null
+        }
+      }
+    }
+  },
+  "relationships": {
+    "customer_accounts": {
+      "total_relationships": 23,
+      "avg_accounts_per_customer": 3.35,
+      "min_accounts": 2,
+      "max_accounts": 6
+    },
+    "account_transactions": {
+      "accounts_with_transactions": 77,
+      "total_transactions": 0,
+      "avg_transactions_per_account": 0
+    }
+  },
+  "data_quality": {
+    "referential_integrity": {
+      "orphaned_accounts": 0,
+      "orphaned_transactions": 0
+    },
+    "customer_completeness": {
+      "total_customers": 23,
+      "profile_completeness": 100.0,
+      "email_completeness": 100.0,
+      "phone_completeness": 100.0
+    }
+  },
+  "customer_profiles": {
+    "profile_distribution": {
+      "Two income households with 2 adults, 1-4 children, 0-2 pets, mortgage, 1-2 car loans, and 1-4 credit cards. Mortgages, car loans and credit cards may be held at an external bank, but could also be held at this bank.": 10,
+      "Single retired individual": 8,
+      "Single professionals, age 25-40, high income, urban, tech workers, 1-2 credit cards": 5
+    },
+    "household_composition": {
+      "avg_household_size": 2.7,
+      "avg_adults": 1.4,
+      "avg_children": 1.3,
+      "avg_pets": 0.4
+    },
+    "employment_distribution": {
+      "dual_income": 10,
+      "retired": 8,
+      "employed": 5
+    }
+  }
+}

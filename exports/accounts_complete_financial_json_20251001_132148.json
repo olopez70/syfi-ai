@@ -1,0 +1,1082 @@
+[
+  {
+    "accountId": "ACCT038B7708",
+    "customerId": "CUST666322",
+    "accountType": "savings",
+    "currentBalance": 16078.84,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.769863"
+  },
+  {
+    "accountId": "ACCT04C9816E",
+    "customerId": "CUST52F03F",
+    "accountType": "savings",
+    "currentBalance": 1712.98,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.765684"
+  },
+  {
+    "accountId": "ACCT09B8C2F7",
+    "customerId": "CUST98DE2B",
+    "accountType": "savings",
+    "currentBalance": 1000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.397899"
+  },
+  {
+    "accountId": "ACCT0A0391D1",
+    "customerId": "CUST71F045",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.740713"
+  },
+  {
+    "accountId": "ACCT0A6AE3BF",
+    "customerId": "CUSTE76E17",
+    "accountType": "checking",
+    "currentBalance": 14357.33,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.411699"
+  },
+  {
+    "accountId": "ACCT0ABD6C5D",
+    "customerId": "CUST9CD25C",
+    "accountType": "checking",
+    "currentBalance": 854.2,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.396572"
+  },
+  {
+    "accountId": "ACCT0C6C093C",
+    "customerId": "CUST365080",
+    "accountType": "checking",
+    "currentBalance": 1378.58,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.772277"
+  },
+  {
+    "accountId": "ACCT11949D85",
+    "customerId": "CUST2898C0",
+    "accountType": "checking",
+    "currentBalance": 1389.27,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.399399"
+  },
+  {
+    "accountId": "ACCT12663949",
+    "customerId": "CUSTC4068A",
+    "accountType": "savings",
+    "currentBalance": 13601.72,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.410494"
+  },
+  {
+    "accountId": "ACCT13D69D10",
+    "customerId": "CUST98DE2B",
+    "accountType": "checking",
+    "currentBalance": 1118.55,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.397883"
+  },
+  {
+    "accountId": "ACCT14E38A8A",
+    "customerId": "CUSTC15EDF",
+    "accountType": "savings",
+    "currentBalance": 4265.65,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.760735"
+  },
+  {
+    "accountId": "ACCT15A3696C",
+    "customerId": "CUST53279F",
+    "accountType": "checking",
+    "currentBalance": 7143.46,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.427404"
+  },
+  {
+    "accountId": "ACCT1ADA8E60",
+    "customerId": "CUST7DFB8C",
+    "accountType": "savings",
+    "currentBalance": 9561.4,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.415385"
+  },
+  {
+    "accountId": "ACCT1B660BB5",
+    "customerId": "CUSTFABF12",
+    "accountType": "savings",
+    "currentBalance": 26860.6,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.768618"
+  },
+  {
+    "accountId": "ACCT1FEF4DEE",
+    "customerId": "CUST21DF92",
+    "accountType": "checking",
+    "currentBalance": 549.17,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.438659"
+  },
+  {
+    "accountId": "ACCT20B26466",
+    "customerId": "CUSTEF4799",
+    "accountType": "checking",
+    "currentBalance": 958.72,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.405529"
+  },
+  {
+    "accountId": "ACCT23279FFC",
+    "customerId": "CUST00F78E",
+    "accountType": "savings",
+    "currentBalance": 1000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.430241"
+  },
+  {
+    "accountId": "ACCT23E007BC",
+    "customerId": "CUST8826E4",
+    "accountType": "savings",
+    "currentBalance": 37276.71,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.445223"
+  },
+  {
+    "accountId": "ACCT288F0983",
+    "customerId": "CUSTBA1FA2",
+    "accountType": "checking",
+    "currentBalance": 2618.79,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.746911"
+  },
+  {
+    "accountId": "ACCT2D1E4136",
+    "customerId": "CUST2898C0",
+    "accountType": "savings",
+    "currentBalance": 8751.01,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.399414"
+  },
+  {
+    "accountId": "ACCT2D9A6330",
+    "customerId": "CUST47E36C",
+    "accountType": "savings",
+    "currentBalance": 7884.93,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.395180"
+  },
+  {
+    "accountId": "ACCT2DD6B34B",
+    "customerId": "CUST031516",
+    "accountType": "savings",
+    "currentBalance": 21912.43,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.763114"
+  },
+  {
+    "accountId": "ACCT3013B9A0",
+    "customerId": "CUST7A7CD2",
+    "accountType": "savings",
+    "currentBalance": 18208.64,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.435530"
+  },
+  {
+    "accountId": "ACCT330A4473",
+    "customerId": "CUST76BB67",
+    "accountType": "savings",
+    "currentBalance": 5932.87,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.447624"
+  },
+  {
+    "accountId": "ACCT35D070F7",
+    "customerId": "CUSTE76E17",
+    "accountType": "savings",
+    "currentBalance": 50000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.411712"
+  },
+  {
+    "accountId": "ACCT373D15FB",
+    "customerId": "CUST71F045",
+    "accountType": "savings",
+    "currentBalance": 17219.44,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.740745"
+  },
+  {
+    "accountId": "ACCT38DF5371",
+    "customerId": "CUST402CA1",
+    "accountType": "checking",
+    "currentBalance": 8289.22,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.742048"
+  },
+  {
+    "accountId": "ACCT3D962B8D",
+    "customerId": "CUSTD87914",
+    "accountType": "checking",
+    "currentBalance": 3309.09,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.774922"
+  },
+  {
+    "accountId": "ACCT3FC16FB3",
+    "customerId": "CUSTB38B62",
+    "accountType": "savings",
+    "currentBalance": 4704.91,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.418744"
+  },
+  {
+    "accountId": "ACCT413E3DD2",
+    "customerId": "CUSTE8F5B2",
+    "accountType": "checking",
+    "currentBalance": 13888.93,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.761918"
+  },
+  {
+    "accountId": "ACCT47DB51B3",
+    "customerId": "CUST093DAD",
+    "accountType": "savings",
+    "currentBalance": 13889.97,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.757506"
+  },
+  {
+    "accountId": "ACCT4962DC67",
+    "customerId": "CUST395017",
+    "accountType": "savings",
+    "currentBalance": 22061.56,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.420173"
+  },
+  {
+    "accountId": "ACCT4F63670E",
+    "customerId": "CUST7CF282",
+    "accountType": "checking",
+    "currentBalance": 1759.35,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.433153"
+  },
+  {
+    "accountId": "ACCT53396C6D",
+    "customerId": "CUST7F3539",
+    "accountType": "checking",
+    "currentBalance": 1363.73,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.776638"
+  },
+  {
+    "accountId": "ACCT5A305C47",
+    "customerId": "CUST39F258",
+    "accountType": "savings",
+    "currentBalance": 20627.22,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.417216"
+  },
+  {
+    "accountId": "ACCT5BF3D413",
+    "customerId": "CUSTAFCEF9",
+    "accountType": "savings",
+    "currentBalance": 16200.95,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.402666"
+  },
+  {
+    "accountId": "ACCT5E342C0F",
+    "customerId": "CUSTF89107",
+    "accountType": "checking",
+    "currentBalance": 4473.52,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.745446"
+  },
+  {
+    "accountId": "ACCT5E64BAD7",
+    "customerId": "CUST4FC4CA",
+    "accountType": "savings",
+    "currentBalance": 1601.61,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.424793"
+  },
+  {
+    "accountId": "ACCT606B46DA",
+    "customerId": "CUST36CC5F",
+    "accountType": "savings",
+    "currentBalance": 10193.85,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.771144"
+  },
+  {
+    "accountId": "ACCT6138E95B",
+    "customerId": "CUSTE56FB5",
+    "accountType": "savings",
+    "currentBalance": 9760.3,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.407320"
+  },
+  {
+    "accountId": "ACCT6A81C3F2",
+    "customerId": "CUST52F03F",
+    "accountType": "checking",
+    "currentBalance": 8671.98,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.765669"
+  },
+  {
+    "accountId": "ACCT6B48A88A",
+    "customerId": "CUSTE6514C",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.421761"
+  },
+  {
+    "accountId": "ACCT6E3E54EF",
+    "customerId": "CUSTC4068A",
+    "accountType": "checking",
+    "currentBalance": 2643.39,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.410479"
+  },
+  {
+    "accountId": "ACCT6FB49AEB",
+    "customerId": "CUSTF38F3A",
+    "accountType": "checking",
+    "currentBalance": 6741.52,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.428786"
+  },
+  {
+    "accountId": "ACCT70756517",
+    "customerId": "CUST53279F",
+    "accountType": "savings",
+    "currentBalance": 50000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.427418"
+  },
+  {
+    "accountId": "ACCT70B4C414",
+    "customerId": "CUST36CC5F",
+    "accountType": "checking",
+    "currentBalance": 14301.47,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.771129"
+  },
+  {
+    "accountId": "ACCT74ADC65A",
+    "customerId": "CUST365080",
+    "accountType": "savings",
+    "currentBalance": 10659.28,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.772302"
+  },
+  {
+    "accountId": "ACCT769830E9",
+    "customerId": "CUST7CF282",
+    "accountType": "savings",
+    "currentBalance": 5769.1,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.433169"
+  },
+  {
+    "accountId": "ACCT775DB403",
+    "customerId": "CUST402CA1",
+    "accountType": "savings",
+    "currentBalance": 11570.65,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.742067"
+  },
+  {
+    "accountId": "ACCT7A20609B",
+    "customerId": "CUSTC15EDF",
+    "accountType": "checking",
+    "currentBalance": 9849.26,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.760720"
+  },
+  {
+    "accountId": "ACCT7A2C1E4A",
+    "customerId": "CUSTAFCEF9",
+    "accountType": "checking",
+    "currentBalance": 1019.71,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.402650"
+  },
+  {
+    "accountId": "ACCT7AB4F9B8",
+    "customerId": "CUSTE8F5B2",
+    "accountType": "savings",
+    "currentBalance": 1000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.761932"
+  },
+  {
+    "accountId": "ACCT7D3819C7",
+    "customerId": "CUST666322",
+    "accountType": "checking",
+    "currentBalance": 500,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.769845"
+  },
+  {
+    "accountId": "ACCT7FEC0CD5",
+    "customerId": "CUSTA4D96B",
+    "accountType": "savings",
+    "currentBalance": 11142.05,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.748769"
+  },
+  {
+    "accountId": "ACCT80918848",
+    "customerId": "CUSTEDBD9B",
+    "accountType": "savings",
+    "currentBalance": 27094.44,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.752321"
+  },
+  {
+    "accountId": "ACCT83D42483",
+    "customerId": "CUSTBCCFA1",
+    "accountType": "checking",
+    "currentBalance": 1485.19,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.767034"
+  },
+  {
+    "accountId": "ACCT83FFCF9A",
+    "customerId": "CUST9CD25C",
+    "accountType": "savings",
+    "currentBalance": 4737.55,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.396590"
+  },
+  {
+    "accountId": "ACCT85F8A796",
+    "customerId": "CUSTD87914",
+    "accountType": "savings",
+    "currentBalance": 6577.33,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.774937"
+  },
+  {
+    "accountId": "ACCT8E3D472F",
+    "customerId": "CUSTF38F3A",
+    "accountType": "savings",
+    "currentBalance": 10318.15,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.428801"
+  },
+  {
+    "accountId": "ACCT8F1B5A85",
+    "customerId": "CUST3B646B",
+    "accountType": "checking",
+    "currentBalance": 951.65,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.426177"
+  },
+  {
+    "accountId": "ACCT915CA2D3",
+    "customerId": "CUST39F258",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.417200"
+  },
+  {
+    "accountId": "ACCT921E7953",
+    "customerId": "CUST19F39D",
+    "accountType": "savings",
+    "currentBalance": 50000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.754225"
+  },
+  {
+    "accountId": "ACCT96327323",
+    "customerId": "CUSTC459FF",
+    "accountType": "savings",
+    "currentBalance": 49435.95,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.423401"
+  },
+  {
+    "accountId": "ACCT99EA21D0",
+    "customerId": "CUSTC459FF",
+    "accountType": "checking",
+    "currentBalance": 1914.34,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.423384"
+  },
+  {
+    "accountId": "ACCT9A8F4D01",
+    "customerId": "CUST200039",
+    "accountType": "savings",
+    "currentBalance": 1299.24,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.414088"
+  },
+  {
+    "accountId": "ACCT9B1DC0F2",
+    "customerId": "CUST088941",
+    "accountType": "savings",
+    "currentBalance": 7613.25,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.452689"
+  },
+  {
+    "accountId": "ACCT9D439AE4",
+    "customerId": "CUST088941",
+    "accountType": "checking",
+    "currentBalance": 1953.95,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.452658"
+  },
+  {
+    "accountId": "ACCT9F8198E9",
+    "customerId": "CUST5B774B",
+    "accountType": "savings",
+    "currentBalance": 3105.34,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.755871"
+  },
+  {
+    "accountId": "ACCTA390620B",
+    "customerId": "CUST395017",
+    "accountType": "checking",
+    "currentBalance": 2582.85,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.420158"
+  },
+  {
+    "accountId": "ACCTA72E4F1D",
+    "customerId": "CUSTD5B6FD",
+    "accountType": "savings",
+    "currentBalance": 7362.11,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.404020"
+  },
+  {
+    "accountId": "ACCTAA401308",
+    "customerId": "CUSTB38B62",
+    "accountType": "checking",
+    "currentBalance": 500,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.418726"
+  },
+  {
+    "accountId": "ACCTAAD611F8",
+    "customerId": "CUSTEF4799",
+    "accountType": "savings",
+    "currentBalance": 4008.66,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.405546"
+  },
+  {
+    "accountId": "ACCTAC1C57A6",
+    "customerId": "CUSTDBC82F",
+    "accountType": "savings",
+    "currentBalance": 10798.03,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.764387"
+  },
+  {
+    "accountId": "ACCTAD54DD95",
+    "customerId": "CUSTCEB40E",
+    "accountType": "checking",
+    "currentBalance": 6335.49,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.743733"
+  },
+  {
+    "accountId": "ACCTAD8BB9EB",
+    "customerId": "CUSTE6514C",
+    "accountType": "savings",
+    "currentBalance": 2375.93,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.421782"
+  },
+  {
+    "accountId": "ACCTAD8E5A28",
+    "customerId": "CUSTCEAB43",
+    "accountType": "savings",
+    "currentBalance": 30121.28,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.412882"
+  },
+  {
+    "accountId": "ACCTAF375BF1",
+    "customerId": "CUSTCEB40E",
+    "accountType": "savings",
+    "currentBalance": 50000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.743747"
+  },
+  {
+    "accountId": "ACCTB197BA22",
+    "customerId": "CUSTBCCFA1",
+    "accountType": "savings",
+    "currentBalance": 6716.27,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.767051"
+  },
+  {
+    "accountId": "ACCTB24F3A12",
+    "customerId": "CUST7F3539",
+    "accountType": "savings",
+    "currentBalance": 3319.32,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.776652"
+  },
+  {
+    "accountId": "ACCTB5D7F42F",
+    "customerId": "CUST51305B",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.401472"
+  },
+  {
+    "accountId": "ACCTB6E824B4",
+    "customerId": "CUST5BE6D0",
+    "accountType": "savings",
+    "currentBalance": 7802.38,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.431469"
+  },
+  {
+    "accountId": "ACCTB9577681",
+    "customerId": "CUST19F39D",
+    "accountType": "checking",
+    "currentBalance": 9917.28,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.754210"
+  },
+  {
+    "accountId": "ACCTB9E121DB",
+    "customerId": "CUST200039",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.414072"
+  },
+  {
+    "accountId": "ACCTBCA9AF07",
+    "customerId": "CUST6958AF",
+    "accountType": "checking",
+    "currentBalance": 500,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.442478"
+  },
+  {
+    "accountId": "ACCTBD8DCC92",
+    "customerId": "CUST191362",
+    "accountType": "checking",
+    "currentBalance": 3393.87,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.455999"
+  },
+  {
+    "accountId": "ACCTC39FCC02",
+    "customerId": "CUST5B774B",
+    "accountType": "checking",
+    "currentBalance": 1604.57,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.755854"
+  },
+  {
+    "accountId": "ACCTC4AF4EEE",
+    "customerId": "CUSTA8F004",
+    "accountType": "savings",
+    "currentBalance": 2819,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.773714"
+  },
+  {
+    "accountId": "ACCTC4B4E336",
+    "customerId": "CUST00F78E",
+    "accountType": "checking",
+    "currentBalance": 556.18,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.430226"
+  },
+  {
+    "accountId": "ACCTC5C8E87E",
+    "customerId": "CUST6958AF",
+    "accountType": "savings",
+    "currentBalance": 3049.82,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.442512"
+  },
+  {
+    "accountId": "ACCTC9190B8A",
+    "customerId": "CUST819BCD",
+    "accountType": "savings",
+    "currentBalance": 5970.76,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.450183"
+  },
+  {
+    "accountId": "ACCTCDE561D1",
+    "customerId": "CUST3B646B",
+    "accountType": "savings",
+    "currentBalance": 19916.12,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.426191"
+  },
+  {
+    "accountId": "ACCTCFC1D9F9",
+    "customerId": "CUST05CE43",
+    "accountType": "checking",
+    "currentBalance": 2814.82,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.751101"
+  },
+  {
+    "accountId": "ACCTD01A42BB",
+    "customerId": "CUST819BCD",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.450156"
+  },
+  {
+    "accountId": "ACCTD2A49E15",
+    "customerId": "CUSTBA1FA2",
+    "accountType": "savings",
+    "currentBalance": 23767,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.746928"
+  },
+  {
+    "accountId": "ACCTD379AD93",
+    "customerId": "CUSTF89107",
+    "accountType": "savings",
+    "currentBalance": 9029.22,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.745463"
+  },
+  {
+    "accountId": "ACCTD42C1B71",
+    "customerId": "CUST9150E8",
+    "accountType": "checking",
+    "currentBalance": 2102.45,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.758967"
+  },
+  {
+    "accountId": "ACCTD552FDD9",
+    "customerId": "CUST4FC4CA",
+    "accountType": "checking",
+    "currentBalance": 500,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.424776"
+  },
+  {
+    "accountId": "ACCTD6D3C1A1",
+    "customerId": "CUST031516",
+    "accountType": "checking",
+    "currentBalance": 14423.3,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.763101"
+  },
+  {
+    "accountId": "ACCTD79756F0",
+    "customerId": "CUST76BB67",
+    "accountType": "checking",
+    "currentBalance": 500,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.447594"
+  },
+  {
+    "accountId": "ACCTD8B5497C",
+    "customerId": "CUSTCEAB43",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.412867"
+  },
+  {
+    "accountId": "ACCTDA54C8EA",
+    "customerId": "CUSTE56FB5",
+    "accountType": "checking",
+    "currentBalance": 4984.74,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.407301"
+  },
+  {
+    "accountId": "ACCTDBD370B1",
+    "customerId": "CUSTFABF12",
+    "accountType": "checking",
+    "currentBalance": 1358.06,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.768602"
+  },
+  {
+    "accountId": "ACCTDD8A964D",
+    "customerId": "CUST5BE6D0",
+    "accountType": "checking",
+    "currentBalance": 2744.94,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.431453"
+  },
+  {
+    "accountId": "ACCTDF3C2FAF",
+    "customerId": "CUSTEDBD9B",
+    "accountType": "checking",
+    "currentBalance": 14357.99,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.752305"
+  },
+  {
+    "accountId": "ACCTE1D17151",
+    "customerId": "CUSTD5B6FD",
+    "accountType": "checking",
+    "currentBalance": 3943.31,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.404005"
+  },
+  {
+    "accountId": "ACCTE3DE9321",
+    "customerId": "CUST47E36C",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.395149"
+  },
+  {
+    "accountId": "ACCTE46DF64A",
+    "customerId": "CUSTA8F004",
+    "accountType": "checking",
+    "currentBalance": 3425.45,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.773699"
+  },
+  {
+    "accountId": "ACCTE48FF4C5",
+    "customerId": "CUST05CE43",
+    "accountType": "savings",
+    "currentBalance": 10456.12,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.751119"
+  },
+  {
+    "accountId": "ACCTE6CC3552",
+    "customerId": "CUST51305B",
+    "accountType": "savings",
+    "currentBalance": 4504.9,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.401493"
+  },
+  {
+    "accountId": "ACCTE76B8CA0",
+    "customerId": "CUST9150E8",
+    "accountType": "savings",
+    "currentBalance": 5886.76,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.758982"
+  },
+  {
+    "accountId": "ACCTEA1A5788",
+    "customerId": "CUST45186E",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.409154"
+  },
+  {
+    "accountId": "ACCTEA58BCDA",
+    "customerId": "CUST21DF92",
+    "accountType": "savings",
+    "currentBalance": 10729.64,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.438688"
+  },
+  {
+    "accountId": "ACCTED90EAFF",
+    "customerId": "CUSTDBC82F",
+    "accountType": "checking",
+    "currentBalance": 2244.83,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.764372"
+  },
+  {
+    "accountId": "ACCTF0FF76B5",
+    "customerId": "CUST7A7CD2",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.435502"
+  },
+  {
+    "accountId": "ACCTF18A3264",
+    "customerId": "CUST7DFB8C",
+    "accountType": "checking",
+    "currentBalance": 1707.66,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.415371"
+  },
+  {
+    "accountId": "ACCTF270F486",
+    "customerId": "CUSTA4D96B",
+    "accountType": "checking",
+    "currentBalance": 9024.36,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.748753"
+  },
+  {
+    "accountId": "ACCTF384CA58",
+    "customerId": "CUST191362",
+    "accountType": "savings",
+    "currentBalance": 18655.93,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.456049"
+  },
+  {
+    "accountId": "ACCTF6D50F80",
+    "customerId": "CUST45186E",
+    "accountType": "savings",
+    "currentBalance": 4268.38,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.409170"
+  },
+  {
+    "accountId": "ACCTF88BD5C0",
+    "customerId": "CUST093DAD",
+    "accountType": "checking",
+    "currentBalance": 15000,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:53.757480"
+  },
+  {
+    "accountId": "ACCTF8B5E70C",
+    "customerId": "CUST8826E4",
+    "accountType": "checking",
+    "currentBalance": 6014.34,
+    "interestRate": null,
+    "isActive": 1,
+    "openedDate": "2025-09-30 12:40:29.445196"
+  }
+]

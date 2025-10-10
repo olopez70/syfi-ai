@@ -1,0 +1,872 @@
+{
+  "summary": {
+    "database_path": "syfi_banking.db",
+    "analysis_date": "2025-09-30T12:02:31.429142",
+    "total_customers": 75,
+    "total_accounts": 116,
+    "total_transactions": 44,
+    "database_size_kb": 88.0,
+    "unique_profiles": 0,
+    "date_range": [
+      "2024-01-01",
+      "2024-02-29"
+    ]
+  },
+  "tables": {
+    "customers": {
+      "table_name": "customers",
+      "row_count": 75,
+      "column_count": 13,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "first_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "last_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "phone",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "address",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "city",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "state",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "zip_code",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "ssn_hash",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "customer_id": "TEXT",
+        "first_name": "TEXT",
+        "last_name": "TEXT",
+        "email": "TEXT",
+        "phone": "TEXT",
+        "date_of_birth": "DATE",
+        "address": "TEXT",
+        "city": "TEXT",
+        "state": "TEXT",
+        "zip_code": "TEXT",
+        "ssn_hash": "TEXT",
+        "created_date": "TIMESTAMP",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "customer_id": 0,
+        "first_name": 0,
+        "last_name": 0,
+        "email": 0,
+        "phone": 0,
+        "date_of_birth": 0,
+        "address": 75,
+        "city": 75,
+        "state": 75,
+        "zip_code": 75,
+        "ssn_hash": 75,
+        "created_date": 0,
+        "metadata": 75
+      },
+      "unique_counts": {
+        "customer_id": 75,
+        "first_name": 67,
+        "last_name": 60,
+        "email": 75,
+        "phone": 75,
+        "date_of_birth": 75,
+        "address": 0,
+        "city": 0,
+        "state": 0,
+        "zip_code": 0,
+        "ssn_hash": 0,
+        "created_date": 75,
+        "metadata": 0
+      },
+      "sample_values": {
+        "customer_id": [
+          "CUST000001",
+          "CUST000002",
+          "CUST000003",
+          "CUST000004",
+          "CUST000005"
+        ],
+        "first_name": [
+          "Charles",
+          "Corey",
+          "Jacqueline",
+          "Dr.",
+          "Michael"
+        ],
+        "last_name": [
+          "Garcia",
+          "Butler",
+          "Castro",
+          "DVM",
+          "Chase"
+        ],
+        "email": [
+          "gprice@yahoo.com",
+          "hayeslaurie@hotmail.com",
+          "wendy11@hotmail.com",
+          "taylorsandra@hotmail.com",
+          "kathyharmon@gmail.com"
+        ],
+        "phone": [
+          "227.827.2957",
+          "3773790933",
+          "649.770.5465x668",
+          "001-666-568-9187x4323",
+          "6707572582"
+        ],
+        "date_of_birth": [
+          "1999-03-11",
+          "1914-06-19",
+          "1925-10-27",
+          "1960-06-19",
+          "1922-12-05"
+        ],
+        "address": [],
+        "city": [],
+        "state": [],
+        "zip_code": [],
+        "ssn_hash": [],
+        "created_date": [
+          "2025-09-30 10:53:05.541732",
+          "2025-09-30 10:53:05.543522",
+          "2025-09-30 10:53:05.545100",
+          "2025-09-30 10:53:05.547247",
+          "2025-09-30 10:53:05.548788"
+        ],
+        "metadata": []
+      }
+    },
+    "accounts": {
+      "table_name": "accounts",
+      "row_count": 116,
+      "column_count": 13,
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_number",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "available_balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "closed_date",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "interest_rate",
+          "type": "DECIMAL(5,4)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "credit_limit",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "account_id": "TEXT",
+        "customer_id": "TEXT",
+        "account_number": "TEXT",
+        "account_type": "TEXT",
+        "balance": "DECIMAL(15,2)",
+        "available_balance": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "created_date": "TIMESTAMP",
+        "closed_date": "DATE",
+        "is_active": "BOOLEAN",
+        "interest_rate": "DECIMAL(5,4)",
+        "credit_limit": "DECIMAL(15,2)",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "account_id": 0,
+        "customer_id": 0,
+        "account_number": 0,
+        "account_type": 0,
+        "balance": 0,
+        "available_balance": 0,
+        "currency": 0,
+        "created_date": 0,
+        "closed_date": 116,
+        "is_active": 0,
+        "interest_rate": 116,
+        "credit_limit": 116,
+        "metadata": 116
+      },
+      "unique_counts": {
+        "account_id": 116,
+        "customer_id": 75,
+        "account_number": 116,
+        "account_type": 4,
+        "balance": 95,
+        "available_balance": 98,
+        "currency": 1,
+        "created_date": 116,
+        "closed_date": 0,
+        "is_active": 1,
+        "interest_rate": 0,
+        "credit_limit": 0,
+        "metadata": 0
+      },
+      "sample_values": {
+        "account_id": [
+          "ACCT0382B914",
+          "ACCT067ACA82",
+          "ACCT07170AA8",
+          "ACCT09828E63",
+          "ACCT0994E445"
+        ],
+        "customer_id": [
+          "CUST000001",
+          "CUST000002",
+          "CUST000003",
+          "CUST000004",
+          "CUST000005"
+        ],
+        "account_number": [
+          "CHE102289",
+          "CHE107007",
+          "CHE121840",
+          "CHE143880",
+          "CHE148797"
+        ],
+        "account_type": [
+          "checking",
+          "savings",
+          "investment",
+          "credit"
+        ],
+        "balance": [
+          8835.69,
+          9521.9,
+          716.18,
+          15000,
+          4743.71
+        ],
+        "available_balance": [
+          8835.69,
+          9521.9,
+          716.18,
+          15000,
+          4743.71
+        ],
+        "currency": [
+          "USD"
+        ],
+        "created_date": [
+          "2025-09-30 10:53:05.633121",
+          "2025-09-30 10:53:05.633157",
+          "2025-09-30 10:53:05.633191",
+          "2025-09-30 10:53:05.633216",
+          "2025-09-30 10:53:05.633235"
+        ],
+        "closed_date": [],
+        "is_active": [
+          1
+        ],
+        "interest_rate": [],
+        "credit_limit": [],
+        "metadata": []
+      }
+    },
+    "transactions": {
+      "table_name": "transactions",
+      "row_count": 44,
+      "column_count": 17,
+      "columns": [
+        {
+          "name": "transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(15,2)",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_name",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_date",
+          "type": "TIMESTAMP",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "posted_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "reference_number",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "balance_after",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "transaction_id": "TEXT",
+        "account_id": "TEXT",
+        "transaction_type": "TEXT",
+        "amount": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "description": "TEXT",
+        "category": "TEXT",
+        "merchant_name": "TEXT",
+        "merchant_category": "TEXT",
+        "transaction_date": "TIMESTAMP",
+        "posted_date": "TIMESTAMP",
+        "reference_number": "TEXT",
+        "balance_after": "DECIMAL(15,2)",
+        "related_account_id": "TEXT",
+        "related_transaction_id": "TEXT",
+        "location": "TEXT",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "transaction_id": 0,
+        "account_id": 0,
+        "transaction_type": 0,
+        "amount": 0,
+        "currency": 0,
+        "description": 0,
+        "category": 0,
+        "merchant_name": 19,
+        "merchant_category": 0,
+        "transaction_date": 0,
+        "posted_date": 0,
+        "reference_number": 0,
+        "balance_after": 44,
+        "related_account_id": 44,
+        "related_transaction_id": 44,
+        "location": 44,
+        "metadata": 44
+      },
+      "unique_counts": {
+        "transaction_id": 44,
+        "account_id": 38,
+        "transaction_type": 3,
+        "amount": 44,
+        "currency": 1,
+        "description": 23,
+        "category": 8,
+        "merchant_name": 18,
+        "merchant_category": 8,
+        "transaction_date": 44,
+        "posted_date": 44,
+        "reference_number": 44,
+        "balance_after": 0,
+        "related_account_id": 0,
+        "related_transaction_id": 0,
+        "location": 0,
+        "metadata": 0
+      },
+      "sample_values": {
+        "transaction_id": [
+          "TXN02E76631AA",
+          "TXN04EE872219",
+          "TXN0BC2C24A97",
+          "TXN0EF85A86F4",
+          "TXN1B4C8D4B19"
+        ],
+        "account_id": [
+          "ACCT067ACA82",
+          "ACCT0994E445",
+          "ACCT0EA14D1D",
+          "ACCT17FB3F7D",
+          "ACCT277A5841"
+        ],
+        "transaction_type": [
+          "debit",
+          "deposit",
+          "withdrawal"
+        ],
+        "amount": [
+          171.5,
+          144.88,
+          70.7,
+          56.38,
+          109.68
+        ],
+        "currency": [
+          "USD"
+        ],
+        "description": [
+          "Utilities Transaction",
+          "Atm Transaction",
+          "Shopping Transaction",
+          "Entertainment Transaction",
+          "Subway #2623"
+        ],
+        "category": [
+          "utilities",
+          "atm",
+          "shopping",
+          "entertainment",
+          "restaurant"
+        ],
+        "merchant_name": [
+          "Subway #2623",
+          "Kroger Store 2762",
+          "McDonald's #9111",
+          "Olive Garden",
+          "Trader Joe's"
+        ],
+        "merchant_category": [
+          "utilities",
+          "atm",
+          "shopping",
+          "entertainment",
+          "restaurant"
+        ],
+        "transaction_date": [
+          "2024-01-01 14:14:00",
+          "2024-01-04 17:50:00",
+          "2024-01-06 14:11:00",
+          "2024-01-07 23:38:00",
+          "2024-01-08 19:01:00"
+        ],
+        "posted_date": [
+          "2024-01-01 14:14:00",
+          "2024-01-04 17:50:00",
+          "2024-01-06 14:11:00",
+          "2024-01-07 23:38:00",
+          "2024-01-08 19:01:00"
+        ],
+        "reference_number": [
+          "REF200033",
+          "REF338318",
+          "REF294853",
+          "REF959349",
+          "REF783458"
+        ],
+        "balance_after": [],
+        "related_account_id": [],
+        "related_transaction_id": [],
+        "location": [],
+        "metadata": []
+      }
+    },
+    "generation_metadata": {
+      "table_name": "generation_metadata",
+      "row_count": 0,
+      "column_count": 7,
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "generation_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "generation_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "parameters",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "record_count",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "seed",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "id": "INTEGER",
+        "generation_type": "TEXT",
+        "generation_date": "TIMESTAMP",
+        "parameters": "TEXT",
+        "record_count": "INTEGER",
+        "seed": "INTEGER",
+        "notes": "TEXT"
+      },
+      "null_counts": {},
+      "unique_counts": {},
+      "sample_values": {}
+    }
+  },
+  "banking_metrics": {
+    "account_metrics": {
+      "account_type_distribution": {
+        "checking": {
+          "count": 84,
+          "avg_balance": 6336.57,
+          "total_balance": 532271.66,
+          "percentage": 72.4
+        },
+        "savings": {
+          "count": 23,
+          "avg_balance": 17991.74,
+          "total_balance": 413809.92,
+          "percentage": 19.8
+        },
+        "credit": {
+          "count": 7,
+          "avg_balance": 0,
+          "total_balance": 0,
+          "percentage": 6.0
+        },
+        "investment": {
+          "count": 2,
+          "avg_balance": 54631.33,
+          "total_balance": 109262.66,
+          "percentage": 1.7
+        }
+      },
+      "total_accounts": 116,
+      "total_balance_across_all_accounts": 1055344.24,
+      "account_status": {
+        "active": 116,
+        "inactive": 0
+      }
+    },
+    "customer_segments": {
+      "age_distribution": {
+        "Senior (65+)": {
+          "count": 37,
+          "avg_income": null
+        },
+        "Young (18-29)": {
+          "count": 20,
+          "avg_income": null
+        },
+        "Middle-aged (30-49)": {
+          "count": 10,
+          "avg_income": null
+        },
+        "Mature (50-64)": {
+          "count": 8,
+          "avg_income": null
+        }
+      },
+      "income_distribution": {},
+      "family_composition": {}
+    },
+    "balance_analysis": {
+      "overall_statistics": {
+        "total_accounts": 116,
+        "mean_balance": 9097.8,
+        "min_balance": 0,
+        "max_balance": 55067.32,
+        "total_balance": 1055344.24
+      },
+      "balance_distribution": {
+        "Under $1K": {
+          "count": 16,
+          "total_amount": 6080.36,
+          "percentage": 13.8
+        },
+        "$1K - $10K": {
+          "count": 61,
+          "total_amount": 262104.37,
+          "percentage": 52.6
+        },
+        "$10K - $50K": {
+          "count": 35,
+          "total_amount": 577896.85,
+          "percentage": 30.2
+        },
+        "$50K - $100K": {
+          "count": 4,
+          "total_amount": 209262.66,
+          "percentage": 3.4
+        }
+      }
+    },
+    "product_penetration": {
+      "by_product_type": {
+        "checking": {
+          "customers_with_product": 75,
+          "penetration_rate_percent": 100.0,
+          "total_accounts": 84,
+          "accounts_per_customer": 1.12
+        },
+        "credit": {
+          "customers_with_product": 7,
+          "penetration_rate_percent": 9.3,
+          "total_accounts": 7,
+          "accounts_per_customer": 1.0
+        },
+        "investment": {
+          "customers_with_product": 2,
+          "penetration_rate_percent": 2.7,
+          "total_accounts": 2,
+          "accounts_per_customer": 1.0
+        },
+        "savings": {
+          "customers_with_product": 21,
+          "penetration_rate_percent": 28.0,
+          "total_accounts": 23,
+          "accounts_per_customer": 1.1
+        }
+      },
+      "multi_product_analysis": {
+        "1_products": {
+          "customer_count": 46,
+          "percentage": 61.3
+        },
+        "2_products": {
+          "customer_count": 28,
+          "percentage": 37.3
+        },
+        "3_products": {
+          "customer_count": 1,
+          "percentage": 1.3
+        }
+      }
+    },
+    "profile_analysis": {
+      "profile_accounts": {},
+      "profile_demographics": {}
+    }
+  },
+  "relationships": {
+    "customer_accounts": {
+      "total_relationships": 75,
+      "avg_accounts_per_customer": 1.55,
+      "min_accounts": 1,
+      "max_accounts": 4
+    },
+    "account_transactions": {
+      "accounts_with_transactions": 116,
+      "total_transactions": 44,
+      "avg_transactions_per_account": 1.32
+    }
+  },
+  "data_quality": {
+    "referential_integrity": {
+      "orphaned_accounts": 0,
+      "orphaned_transactions": 0
+    },
+    "customer_completeness": {
+      "total_customers": 75,
+      "profile_completeness": 0.0,
+      "email_completeness": 100.0,
+      "phone_completeness": 100.0
+    }
+  },
+  "customer_profiles": {
+    "profile_distribution": {
+      "No profile data": 0
+    },
+    "employment_distribution": {}
+  }
+}

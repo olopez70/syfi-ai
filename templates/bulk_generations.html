@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Generations - SyFi AI Database Browser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared_navigation_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulk_generations.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    {% include 'shared_navigation.html' %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-wand-magic-sparkles me-2"></i>Bulk Generations
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Alert for database connection -->
+                        <div id="db-alert" class="alert alert-warning" role="alert" style="display: none;">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Please connect to a database to use bulk generations.
+                        </div>
+
+                        <!-- Navigation Tabs -->
+                        <ul class="nav nav-tabs" id="bulkTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create" type="button" role="tab">
+                                    <i class="fas fa-plus me-2"></i>Create New Generation
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">
+                                    <i class="fas fa-history me-2"></i>Generation History
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content mt-3" id="bulkTabContent">
+                            <!-- Create New Generation Tab -->
+                            <div class="tab-pane fade show active" id="create" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <form id="bulk-customer-form">
+                                            <div class="mb-4">
+                                                <label for="customer-count" class="form-label">Number of Customers <span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control" id="customer-count" min="1" max="1000" value="50" required>
+                                                <div class="form-text">Generate 1-1000 customers (recommended: 50-100 for testing)</div>
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="generation-label" class="form-label">Generation Label <span class="text-muted">(optional)</span></label>
+                                                <input type="text" class="form-control" id="generation-label" placeholder="e.g., Q4 Test Data, Marketing Campaign Users, etc.">
+                                                <div class="form-text">Provide a descriptive label to help you identify this bulk generation later</div>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                <label for="customer-profile" class="form-label">Customer Profile Description <span class="text-danger">*</span></label>
+                                                <textarea class="form-control" id="customer-profile" rows="4" required placeholder="Describe the customer profile in natural language...">Suburban two income household with 0 to 4 children, 0 to 3 pets, a mortgage, 1-4 credit cards, and an auto loan</textarea>
+                                                <div class="form-text">Describe the customer demographics, lifestyle, and financial characteristics</div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="create-accounts" checked>
+                                                            <label class="form-check-label" for="create-accounts">
+                                                                <strong>Create Accounts</strong>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-text ms-4">Generate accounts based on profile (checking, savings, credit, loan)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="create-transactions">
+                                                            <label class="form-check-label" for="create-transactions">
+                                                                <strong>Create Transactions</strong>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-text ms-4">Generate realistic transaction history</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex gap-2">
+                                                <button type="submit" class="btn btn-success" id="generate-btn">
+                                                    <i class="fas fa-magic me-2"></i>Generate Customers
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header bg-info text-white">
+                                                <h6 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Example Profiles</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-primary btn-sm w-100 profile-example" 
+                                                            data-profile="Young urban professionals, single or couples, tech-savvy with high credit card usage and student loans">
+                                                        Urban Millennials
+                                                    </button>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-primary btn-sm w-100 profile-example" 
+                                                            data-profile="Suburban families with children, homeowners with mortgage, multiple vehicles, moderate to high income">
+                                                        Suburban Families
+                                                    </button>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-primary btn-sm w-100 profile-example" 
+                                                            data-profile="Retired seniors with fixed income, conservative spending, savings accounts, minimal credit card use">
+                                                        Retired Seniors
+                                                    </button>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-primary btn-sm w-100 profile-example" 
+                                                            data-profile="College students and recent graduates, part-time income, heavy digital banking usage, budget-conscious">
+                                                        College Students
+                                                    </button>
+                                                </div>
+                                                <div class="mb-0">
+                                                    <button class="btn btn-outline-primary btn-sm w-100 profile-example" 
+                                                            data-profile="Small business owners, entrepreneurs with business accounts, variable income, multiple loans and credit lines">
+                                                        Business Owners
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="generation-progress" class="mt-3" style="display: none;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6><i class="fas fa-spinner fa-spin me-2"></i>Generating...</h6>
+                                                    <div class="progress mb-2">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress-bar" role="progressbar" style="width: 0%"></div>
+                                                    </div>
+                                                    <small class="text-muted" id="progress-text">Preparing generation...</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Generation History Tab -->
+                            <div class="tab-pane fade" id="history" role="tabpanel">
+                                <!-- Stats Overview -->
+                                <div id="stats-overview" class="stats-grid mb-4">
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="total-generations">0</div>
+                                        <div class="stat-label">Total Generations</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="total-customers">0</div>
+                                        <div class="stat-label">Customers Created</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="total-accounts">0</div>
+                                        <div class="stat-label">Accounts Created</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="total-transactions">0</div>
+                                        <div class="stat-label">Transactions Created</div>
+                                    </div>
+                                </div>
+
+                                <!-- Bulk Generations Table -->
+                                <div id="generations-table-container">
+                                    <table class="table table-hover" id="generations-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Bulk ID</th>
+                                                <th>Label</th>
+                                                <th>Type</th>
+                                                <th>Profile</th>
+                                                <th>Created</th>
+                                                <th>Customers</th>
+                                                <th>Accounts</th>
+                                                <th>Transactions</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="generations-tbody">
+                                            <tr id="loading-row">
+                                                <td colspan="10" class="text-center text-muted py-4">
+                                                    <i class="fas fa-spinner fa-spin me-2"></i>Loading bulk generations...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- No data message -->
+                                <div id="no-data-message" class="text-center text-muted py-5" style="display: none;">
+                                    <i class="fas fa-inbox fa-3x mb-3 opacity-50"></i>
+                                    <h5>No Bulk Generations Found</h5>
+                                    <p>Create your first bulk generation using the "Create New Generation" tab.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Generation Details Modal -->
+    <div class="modal fade" id="bulkDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-info-circle me-2"></i>Bulk Generation Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="bulk-details-content">
+                    <!-- Content populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/shared_navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bulk_generations.js') }}"></script>
+</body>
+</html>

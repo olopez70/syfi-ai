@@ -1,0 +1,200 @@
+/* Account Details Page Specific Styles */
+
+.detail-card {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.card-header {
+    border: none;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    padding: 1.5rem;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--radar-blue-dark) 0%, var(--radar-blue-medium) 100%) !important;
+}
+
+.card-header.bg-info {
+    background: linear-gradient(135deg, var(--radar-blue-primary) 0%, var(--radar-accent) 100%) !important;
+    color: var(--radar-blue-dark) !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%) !important;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.info-row {
+    margin-bottom: 1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--radar-blue-light);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 150px;
+    display: inline-block;
+}
+
+.balance-positive {
+    color: var(--success);
+    font-weight: 700;
+}
+
+.balance-negative {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+.transaction-credit {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.transaction-debit {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.transaction-table {
+    font-size: 0.9rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--radar-blue-light);
+}
+
+.summary-card {
+    border-left: 4px solid var(--radar-blue-primary);
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--radar-blue-lighter) 0%, rgba(232, 238, 247, 0.8) 100%);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    border: 2px solid var(--radar-blue-light);
+    transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 46, 92, 0.1);
+}
+
+.stat-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--radar-blue-dark);
+    margin-bottom: 0.25rem;
+}
+
+.stat-number.text-success {
+    color: var(--success) !important;
+}
+
+.stat-number.text-danger {
+    color: var(--danger) !important;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.badge {
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.badge.bg-success {
+    background: var(--success) !important;
+}
+
+.badge.bg-secondary {
+    background: var(--text-secondary) !important;
+}
+
+.badge.bg-warning {
+    background: var(--warning) !important;
+    color: white !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger) !important;
+}
+
+.badge.bg-primary {
+    background: var(--radar-blue-medium) !important;
+}
+
+.badge.bg-info {
+    background: var(--radar-blue-primary) !important;
+    color: var(--radar-blue-dark) !important;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--radar-blue-primary);
+    color: var(--radar-blue-dark);
+}
+
+.btn-outline-primary:hover {
+    background: var(--radar-blue-primary);
+    color: var(--radar-blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(182, 200, 228, 0.3);
+}
+
+.text-decoration-none {
+    color: var(--radar-blue-dark);
+    transition: color 0.3s ease;
+}
+
+.text-decoration-none:hover {
+    color: var(--radar-blue-medium);
+}
+
+.font-monospace {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+}
+
+.required {
+    color: var(--danger);
+}
+
+.card-footer {
+    background: var(--radar-blue-lighter);
+    border-top: 1px solid var(--radar-blue-light);
+    padding: 1rem 1.5rem;
+}
+
+.container {
+    max-width: 1200px;
+}

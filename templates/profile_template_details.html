@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Template Details - SyFi AI Database Browser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared_navigation_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profiles.css') }}">
+</head>
+<body class="bg-light">
+    {% include 'shared_navigation.html' %}
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                
+                <!-- Breadcrumb Navigation -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/profiles">
+                                <i class="fas fa-id-card me-1"></i>Profile Templates
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page" id="template-breadcrumb">
+                            <span id="template-breadcrumb-name">Loading...</span>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- Loading State -->
+                <div id="loadingSpinner" class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading template details...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Loading template details...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span id="errorMessage">Failed to load template details</span>
+                </div>
+
+                <!-- Template Details Card -->
+                <div id="templateDetailsCard" class="card d-none">
+                    <div class="card-header d-flex justify-content-between align-items-center" id="template-header">
+                        <h4 class="mb-0 text-white">
+                            <span id="template-icon">📋</span>
+                            <span id="template-name">Profile Template</span>
+                        </h4>
+                        <div class="btn-group">
+                            <a href="/profiles" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-arrow-left me-1"></i>Back to Templates
+                            </a>
+                            <button type="button" class="btn btn-light btn-sm" id="viewProfilesBtn">
+                                <i class="fas fa-users me-1"></i>View Generated Profiles
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="card-body p-0">
+                        <ul class="nav nav-tabs nav-fill" id="templateTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
+                                    <i class="fas fa-info-circle me-2"></i>Overview
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="accounts-tab" data-bs-toggle="tab" data-bs-target="#accounts" type="button" role="tab">
+                                    <i class="fas fa-university me-2"></i>Typical Accounts
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="transactions-tab" data-bs-toggle="tab" data-bs-target="#transactions" type="button" role="tab">
+                                    <i class="fas fa-exchange-alt me-2"></i>Typical Transactions
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab">
+                                    <i class="fas fa-cogs me-2"></i>Configuration
+                                </button>
+                            </li>
+                        </ul>
+                        
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="templateTabsContent">
+                            
+                            <!-- Overview Tab -->
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                <div class="p-4">
+                                    
+                                    <!-- Basic Information -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-8">
+                                            <h5><i class="fas fa-info-circle me-2 text-primary"></i>Description</h5>
+                                            <p id="template-description" class="text-muted">Loading template description...</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="card bg-light">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">Quick Stats</h6>
+                                                    <div class="row text-center">
+                                                        <div class="col-6">
+                                                            <div class="stat-item">
+                                                                <div class="stat-value" id="template-category">-</div>
+                                                                <div class="stat-label">Category</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="stat-item">
+                                                                <div class="stat-value" id="template-complexity">-</div>
+                                                                <div class="stat-label">Complexity</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Income Range -->
+                                    <div class="mb-4">
+                                        <h5><i class="fas fa-dollar-sign me-2 text-success"></i>Typical Income Range</h5>
+                                        <div class="card bg-light border-success">
+                                            <div class="card-body">
+                                                <h6 id="template-income-range" class="text-success mb-0">Loading...</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Tags -->
+                                    <div class="mb-4">
+                                        <h5><i class="fas fa-tags me-2 text-info"></i>Tags</h5>
+                                        <div id="template-tags" class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-light text-dark border">Loading...</span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <!-- Typical Accounts Tab -->
+                            <div class="tab-pane fade" id="accounts" role="tabpanel">
+                                <div class="p-4">
+                                    <h5><i class="fas fa-university me-2 text-primary"></i>Account Types and Structures</h5>
+                                    <p class="text-muted mb-4">This template typically generates the following types of bank accounts:</p>
+                                    
+                                    <div id="accounts-list">
+                                        <div class="text-center py-4">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading accounts...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Typical Transactions Tab -->
+                            <div class="tab-pane fade" id="transactions" role="tabpanel">
+                                <div class="p-4">
+                                    <h5><i class="fas fa-exchange-alt me-2 text-primary"></i>Transaction Patterns</h5>
+                                    <p class="text-muted mb-4">This template generates realistic transaction patterns including:</p>
+                                    
+                                    <div id="transactions-list">
+                                        <div class="text-center py-4">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading transactions...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Configuration Tab -->
+                            <div class="tab-pane fade" id="configuration" role="tabpanel">
+                                <div class="p-4">
+                                    <h5><i class="fas fa-cogs me-2 text-primary"></i>Template Configuration</h5>
+                                    <p class="text-muted mb-4">Technical details and configuration for this profile template:</p>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h6 class="mb-0">Entity Information</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <dl class="row">
+                                                        <dt class="col-sm-4">Entity Type:</dt>
+                                                        <dd class="col-sm-8" id="config-entity-type">-</dd>
+                                                        
+                                                        <dt class="col-sm-4">Template ID:</dt>
+                                                        <dd class="col-sm-8" id="config-template-id">-</dd>
+                                                        
+                                                        <dt class="col-sm-4">Complexity:</dt>
+                                                        <dd class="col-sm-8">
+                                                            <span id="config-complexity-badge" class="badge">-</span>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h6 class="mb-0">Generation Settings</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <dl class="row">
+                                                        <dt class="col-sm-6">Category:</dt>
+                                                        <dd class="col-sm-6" id="config-category">-</dd>
+                                                        
+                                                        <dt class="col-sm-6">Color:</dt>
+                                                        <dd class="col-sm-6">
+                                                            <span id="config-color-badge" class="badge">-</span>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Shared Navigation JS -->
+    <script src="{{ url_for('static', filename='js/shared_navigation.js') }}"></script>
+    <!-- Template Details JavaScript -->
+    <script>
+        // Template ID from the route parameter
+        const TEMPLATE_ID = '{{ template_id }}';
+        
+        let currentTemplate = null;
+        
+        // Load template details when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTemplateDetails();
+            initializeEventListeners();
+        });
+        
+        // Load template details from API
+        async function loadTemplateDetails() {
+            try {
+                showLoading(true);
+                
+                const response = await fetch('/api/profile-templates');
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentTemplate = data.templates.find(t => t.id === TEMPLATE_ID);
+                    if (currentTemplate) {
+                        displayTemplateDetails();
+                        showLoading(false);
+                    } else {
+                        showError('Template not found: ' + TEMPLATE_ID);
+                    }
+                } else {
+                    showError('Failed to load template: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error loading template details:', error);
+                showError('Error loading template: ' + error.message);
+            }
+        }
+        
+        // Display template details in the page
+        function displayTemplateDetails() {
+            const template = currentTemplate;
+            
+            // Update page title
+            document.title = `${template.name} - Profile Template Details - SyFi AI`;
+            
+            // Update breadcrumb
+            document.getElementById('template-breadcrumb-name').textContent = template.name;
+            
+            // Update header
+            document.getElementById('template-icon').textContent = template.icon;
+            document.getElementById('template-name').textContent = template.name;
+            
+            // Set header color
+            const header = document.getElementById('template-header');
+            header.className = `card-header d-flex justify-content-between align-items-center bg-${template.color}`;
+            
+            // Overview tab content
+            document.getElementById('template-description').textContent = template.description;
+            document.getElementById('template-category').textContent = template.category;
+            document.getElementById('template-complexity').textContent = template.complexity_level;
+            document.getElementById('template-income-range').textContent = template.typical_income_range;
+            
+            // Tags
+            const tagsContainer = document.getElementById('template-tags');
+            tagsContainer.innerHTML = template.tags.map(tag => 
+                `<span class="badge bg-light text-dark border">${tag}</span>`
+            ).join('');
+            
+            // Accounts tab content  
+            const accountsList = document.getElementById('accounts-list');
+            accountsList.innerHTML = `
+                <div class="list-group">
+                    ${template.typical_accounts.map(account => `
+                        <div class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-university me-3 text-primary"></i>
+                            <span>${account}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Transactions tab content
+            const transactionsList = document.getElementById('transactions-list');
+            transactionsList.innerHTML = `
+                <div class="list-group">
+                    ${template.typical_transactions.map(transaction => `
+                        <div class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-exchange-alt me-3 text-success"></i>
+                            <span>${transaction}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            // Configuration tab content
+            document.getElementById('config-entity-type').textContent = template.entity_type;
+            document.getElementById('config-template-id').textContent = template.id;
+            document.getElementById('config-category').textContent = template.category;
+            
+            // Complexity badge
+            const complexityBadge = document.getElementById('config-complexity-badge');
+            complexityBadge.textContent = template.complexity_level;
+            complexityBadge.className = `badge bg-${getComplexityColor(template.complexity_level)}`;
+            
+            // Color badge
+            const colorBadge = document.getElementById('config-color-badge');
+            colorBadge.textContent = template.color;
+            colorBadge.className = `badge bg-${template.color}`;
+            
+            document.getElementById('templateDetailsCard').classList.remove('d-none');
+        }
+        
+        // Get complexity badge color
+        function getComplexityColor(complexity) {
+            switch(complexity.toLowerCase()) {
+                case 'low': return 'success';
+                case 'medium': return 'warning';
+                case 'high': return 'danger';
+                default: return 'secondary';
+            }
+        }
+        
+        // View profiles generated from this template
+        function viewProfiles() {
+            if (!currentTemplate) return;
+            
+            const url = `/profile-details?template_id=${encodeURIComponent(currentTemplate.id)}&template_name=${encodeURIComponent(currentTemplate.name)}`;
+            window.location.href = url;
+        }
+        
+        // Show/hide loading state
+        function showLoading(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            const card = document.getElementById('templateDetailsCard');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            if (show) {
+                spinner.classList.remove('d-none');
+                card.classList.add('d-none');
+                errorAlert.classList.add('d-none');
+            } else {
+                spinner.classList.add('d-none');
+            }
+        }
+        
+        // Show error message
+        function showError(message) {
+            const spinner = document.getElementById('loadingSpinner');
+            const card = document.getElementById('templateDetailsCard');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            spinner.classList.add('d-none');
+            card.classList.add('d-none');
+            errorMessage.textContent = message;
+            errorAlert.classList.remove('d-none');
+        }
+        
+        // Initialize event listeners
+        function initializeEventListeners() {
+            const viewProfilesBtn = document.getElementById('viewProfilesBtn');
+            if (viewProfilesBtn) {
+                viewProfilesBtn.addEventListener('click', viewProfiles);
+            }
+        }
+    </script>
+</body>
+</html>

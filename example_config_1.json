@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "name": "Parsed Configuration",
+    "description": "Generated from: generate monthly salary deposits of $3,500 on the 15th",
+    "version": "1.0",
+    "source_text": "generate monthly salary deposits of $3,500 on the 15th"
+  },
+  "generation": {
+    "seed": 12345,
+    "deterministic": true,
+    "output_format": "json",
+    "include_metadata": true,
+    "validate_consistency": true
+  },
+  "accounts": [
+    {
+      "account_id": "default_account",
+      "name": "Primary Account",
+      "type": "checking",
+      "initial_balance": 5000.0,
+      "currency": "USD",
+      "overdraft_limit": null
+    }
+  ],
+  "transaction_patterns": [
+    {
+      "pattern_id": "parsed_pattern_1",
+      "name": "Parsed Transaction Pattern",
+      "type": "income",
+      "category": "salary",
+      "amount": {
+        "type": "fixed",
+        "value": 3500.0,
+        "min": null,
+        "max": null,
+        "mean": null,
+        "std": null,
+        "currency": "USD"
+      },
+      "schedule": {
+        "frequency": "monthly",
+        "interval": 1,
+        "day_of_week": null,
+        "day_of_month": [
+          15
+        ],
+        "time_range": null,
+        "exclude_weekends": false,
+        "exclude_holidays": false
+      },
+      "merchant": null,
+      "description_template": "Salary deposit - {merchant_name}",
+      "enabled": true
+    }
+  ]
+}

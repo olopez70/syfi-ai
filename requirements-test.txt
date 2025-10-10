@@ -1,0 +1,19 @@
+# Testing dependencies for SyFi AI
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.1
+pytest-xdist>=3.3.1
+pytest-benchmark>=4.0.0
+pytest-html>=3.2.0
+coverage>=7.2.0
+
+# Web testing
+flask-testing>=0.8.1
+
+# Performance monitoring (optional)
+psutil>=5.9.0
+memory-profiler>=0.61.0
+
+# Data analysis testing
+pandas>=2.0.0
+ydata-profiling>=4.3.0

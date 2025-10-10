@@ -1,0 +1,409 @@
+{
+  "template": {
+    "template_id": "TMPL_0DF6047A",
+    "name": "Young Professional Families",
+    "description": "\n        Young professional couples (ages 28-35) with 1-2 young children, \n        living in suburban areas. Both partners work in professional roles \n        (technology, healthcare, finance, education). Combined household income \n        between $85,000-$150,000. Recently purchased their first home with a \n        mortgage. They have checking and savings accounts, use credit cards \n        responsibly, and are beginning to invest for retirement and children's \n        education. They shop at grocery stores weekly, use streaming services, \n        eat out occasionally, and have regular childcare expenses.\n        ",
+    "created_date": "2025-10-03T14:50:20.117073",
+    "created_by": "SyFi Application",
+    "tags": [
+      "families",
+      "professionals",
+      "suburban",
+      "homeowners"
+    ],
+    "category": "household",
+    "complexity_level": "medium",
+    "usage_count": 0,
+    "last_used_date": null,
+    "metadata": {}
+  },
+  "profiles": [
+    {
+      "profile_id": "PROF_A08D7CCC",
+      "template_id": "TMPL_0DF6047A",
+      "name": "The Johnson Family",
+      "description": "Generated profile based on Young Professional Families",
+      "created_date": "2025-10-03T14:50:20.117148",
+      "household_type": "family",
+      "total_members": 3,
+      "banking_members": 2,
+      "customers_data": [
+        {
+          "first_name": "Robert",
+          "last_name": "Williams",
+          "age": 31,
+          "employment_status": "Data Analyst",
+          "role": "primary",
+          "is_banking_customer": true
+        },
+        {
+          "first_name": "Michelle",
+          "last_name": "Williams",
+          "age": 27,
+          "employment_status": "Project Manager",
+          "role": "spouse",
+          "is_banking_customer": true
+        }
+      ],
+      "accounts_data": [
+        {
+          "account_type": "checking",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 7122,
+          "purpose": "primary checking"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 36267,
+          "purpose": "emergency fund"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 17675,
+          "purpose": "children education fund"
+        }
+      ],
+      "transaction_profiles": {
+        "household": {
+          "profile_id": "TXPF_CB5CF61F",
+          "income_sources": [
+            {
+              "type": "salary",
+              "amount": 80909.4,
+              "frequency": "biweekly",
+              "description": "Primary salary direct deposit"
+            },
+            {
+              "type": "salary",
+              "amount": 53939.600000000006,
+              "frequency": "biweekly",
+              "description": "Secondary salary direct deposit"
+            }
+          ],
+          "spending_categories": {
+            "groceries": {
+              "avg_amount": 225,
+              "frequency": "weekly",
+              "variability": "medium"
+            },
+            "gas": {
+              "avg_amount": 80,
+              "frequency": "weekly",
+              "variability": "low"
+            },
+            "utilities": {
+              "avg_amount": 350,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "mortgage": {
+              "avg_amount": 2809,
+              "frequency": "monthly",
+              "variability": "none"
+            },
+            "childcare": {
+              "avg_amount": 800,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "restaurant": {
+              "avg_amount": 65,
+              "frequency": "weekly",
+              "variability": "high"
+            },
+            "entertainment": {
+              "avg_amount": 140,
+              "frequency": "monthly",
+              "variability": "medium"
+            },
+            "shopping": {
+              "avg_amount": 300,
+              "frequency": "monthly",
+              "variability": "high"
+            }
+          },
+          "transaction_frequency": {},
+          "seasonal_patterns": {},
+          "preferred_payment_methods": [],
+          "metadata": {}
+        }
+      },
+      "customer_relationships": {},
+      "household_income": "134849",
+      "total_assets": null,
+      "total_liabilities": null,
+      "credit_profile": {},
+      "life_events": [],
+      "generation_seed": 1001,
+      "generation_parameters": {},
+      "is_active": true,
+      "last_generated_date": null,
+      "generation_count": 0,
+      "tags": [],
+      "metadata": {}
+    },
+    {
+      "profile_id": "PROF_FAE14191",
+      "template_id": "TMPL_0DF6047A",
+      "name": "The Garcia Household",
+      "description": "Generated profile based on Young Professional Families",
+      "created_date": "2025-10-03T14:50:20.117374",
+      "household_type": "family",
+      "total_members": 4,
+      "banking_members": 2,
+      "customers_data": [
+        {
+          "first_name": "Michael",
+          "last_name": "Davis",
+          "age": 31,
+          "employment_status": "Teacher",
+          "role": "primary",
+          "is_banking_customer": true
+        },
+        {
+          "first_name": "Lisa",
+          "last_name": "Davis",
+          "age": 28,
+          "employment_status": "Nurse",
+          "role": "spouse",
+          "is_banking_customer": true
+        }
+      ],
+      "accounts_data": [
+        {
+          "account_type": "checking",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 6066,
+          "purpose": "primary checking"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 31715,
+          "purpose": "emergency fund"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 5788,
+          "purpose": "children education fund"
+        }
+      ],
+      "transaction_profiles": {
+        "household": {
+          "profile_id": "TXPF_1360D278",
+          "income_sources": [
+            {
+              "type": "salary",
+              "amount": 86361.59999999999,
+              "frequency": "biweekly",
+              "description": "Primary salary direct deposit"
+            },
+            {
+              "type": "salary",
+              "amount": 57574.4,
+              "frequency": "biweekly",
+              "description": "Secondary salary direct deposit"
+            }
+          ],
+          "spending_categories": {
+            "groceries": {
+              "avg_amount": 250,
+              "frequency": "weekly",
+              "variability": "medium"
+            },
+            "gas": {
+              "avg_amount": 80,
+              "frequency": "weekly",
+              "variability": "low"
+            },
+            "utilities": {
+              "avg_amount": 400,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "mortgage": {
+              "avg_amount": 2998,
+              "frequency": "monthly",
+              "variability": "none"
+            },
+            "childcare": {
+              "avg_amount": 1000,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "restaurant": {
+              "avg_amount": 75,
+              "frequency": "weekly",
+              "variability": "high"
+            },
+            "entertainment": {
+              "avg_amount": 160,
+              "frequency": "monthly",
+              "variability": "medium"
+            },
+            "shopping": {
+              "avg_amount": 350,
+              "frequency": "monthly",
+              "variability": "high"
+            }
+          },
+          "transaction_frequency": {},
+          "seasonal_patterns": {},
+          "preferred_payment_methods": [],
+          "metadata": {}
+        }
+      },
+      "customer_relationships": {},
+      "household_income": "143936",
+      "total_assets": null,
+      "total_liabilities": null,
+      "credit_profile": {},
+      "life_events": [],
+      "generation_seed": 1002,
+      "generation_parameters": {},
+      "is_active": true,
+      "last_generated_date": null,
+      "generation_count": 0,
+      "tags": [],
+      "metadata": {}
+    },
+    {
+      "profile_id": "PROF_FFA122B3",
+      "template_id": "TMPL_0DF6047A",
+      "name": "The Chen Family",
+      "description": "Generated profile based on Young Professional Families",
+      "created_date": "2025-10-03T14:50:20.117452",
+      "household_type": "family",
+      "total_members": 4,
+      "banking_members": 2,
+      "customers_data": [
+        {
+          "first_name": "Christopher",
+          "last_name": "Davis",
+          "age": 33,
+          "employment_status": "Healthcare Professional",
+          "role": "primary",
+          "is_banking_customer": true
+        },
+        {
+          "first_name": "Michelle",
+          "last_name": "Davis",
+          "age": 29,
+          "employment_status": "Data Analyst",
+          "role": "spouse",
+          "is_banking_customer": true
+        }
+      ],
+      "accounts_data": [
+        {
+          "account_type": "checking",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 2712,
+          "purpose": "primary checking"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 37578,
+          "purpose": "emergency fund"
+        },
+        {
+          "account_type": "savings",
+          "ownership": "joint",
+          "primary_user": "both",
+          "initial_balance": 10487,
+          "purpose": "children education fund"
+        }
+      ],
+      "transaction_profiles": {
+        "household": {
+          "profile_id": "TXPF_864C3DF7",
+          "income_sources": [
+            {
+              "type": "salary",
+              "amount": 72973.8,
+              "frequency": "biweekly",
+              "description": "Primary salary direct deposit"
+            },
+            {
+              "type": "salary",
+              "amount": 48649.200000000004,
+              "frequency": "biweekly",
+              "description": "Secondary salary direct deposit"
+            }
+          ],
+          "spending_categories": {
+            "groceries": {
+              "avg_amount": 250,
+              "frequency": "weekly",
+              "variability": "medium"
+            },
+            "gas": {
+              "avg_amount": 80,
+              "frequency": "weekly",
+              "variability": "low"
+            },
+            "utilities": {
+              "avg_amount": 400,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "mortgage": {
+              "avg_amount": 2533,
+              "frequency": "monthly",
+              "variability": "none"
+            },
+            "childcare": {
+              "avg_amount": 1000,
+              "frequency": "monthly",
+              "variability": "low"
+            },
+            "restaurant": {
+              "avg_amount": 75,
+              "frequency": "weekly",
+              "variability": "high"
+            },
+            "entertainment": {
+              "avg_amount": 160,
+              "frequency": "monthly",
+              "variability": "medium"
+            },
+            "shopping": {
+              "avg_amount": 350,
+              "frequency": "monthly",
+              "variability": "high"
+            }
+          },
+          "transaction_frequency": {},
+          "seasonal_patterns": {},
+          "preferred_payment_methods": [],
+          "metadata": {}
+        }
+      },
+      "customer_relationships": {},
+      "household_income": "121623",
+      "total_assets": null,
+      "total_liabilities": null,
+      "credit_profile": {},
+      "life_events": [],
+      "generation_seed": 1003,
+      "generation_parameters": {},
+      "is_active": true,
+      "last_generated_date": null,
+      "generation_count": 0,
+      "tags": [],
+      "metadata": {}
+    }
+  ]
+}

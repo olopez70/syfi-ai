@@ -1,0 +1,20 @@
+Prompt:
+I want a CLI interface that enables me to execute each of these steps independently.
+
+Step 0 - Initialization and setup
+Step 1 - Create synthetic banking data set of multiple customers and accounts and save it to a sqlite database.
+Step 2 - Create synthetic banking transactions for a specified period (ex. October 1, 2024 to October 31, 2024) and add them to the sqllite database.
+Step 3 - Create additional customers and accounts and add them to the sqlite databnase.
+Step 4 - Create synthetic banking transactions for another specified period (ex. November 1, 2025 to November 30, 2024) and add them to the sqllite database.
+Step 5 - Extract the banking data to a set of pipe-delimited files.  Note - In the future the project should support multiple export types and export schemas.
+
+The documentation must be updated to provide instructions on how to complete these steps.
+
+Prompt:
+When creating customers, I want to provide details about the customer.  For example, I want to be able to create 50 customers that are based on the following the following profile within triple single-quotes:
+'''Two income households with 2 adults, 1-4 children, 0-2 pets, mortgage, 1-2 car loans, and 1-4 credit cards. Mortgages, car loans and credit cards may be held at an external bank, but could also be held at this bank.'''
+
+The details specific to each customer's profile should be stored in the sqlite database.
+
+Prompt:
+I want to perform data profiling on the sqlite database.  I am considering (a) using an available data profiling python package and not adding it to this project, (b) adding data profiling features to this project, (c) creating a new project that performs data profiing (d) creating a sub-package that performs data profiling.  Please help me decide.

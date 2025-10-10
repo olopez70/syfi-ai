@@ -1,0 +1,183 @@
+/* Shared Base Styles for All Pages */
+
+:root {
+    --radar-blue-primary: #b6c8e4;
+    --radar-blue-dark: #1a2e5c;
+    --radar-blue-medium: #7494ca;
+    --radar-blue-light: #e8eef7;
+    --radar-blue-lighter: #f8fafc;
+    --radar-accent: #9bb2d9;
+    --text-primary: #2c3e50;
+    --text-secondary: #64748b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
+body {
+    background: linear-gradient(135deg, var(--radar-blue-lighter) 0%, var(--radar-blue-light) 100%);
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-primary);
+    /* Sidebar adjustments are handled in shared_navigation_styles.css */
+}
+
+/* Main content area adjustment for sidebar */
+.main-content {
+    transition: margin-left 0.3s ease;
+    min-height: calc(100vh - 60px);
+}
+
+/* Container adjustments for sidebar layout */
+.container, .container-fluid {
+    transition: all 0.3s ease;
+}
+
+.card, .search-card, .builder-card {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.card-header {
+    border: none;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.card-header.bg-primary {
+    background: linear-gradient(135deg, var(--radar-blue-dark) 0%, var(--radar-blue-medium) 100%) !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%) !important;
+}
+
+.card-header.bg-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%) !important;
+}
+
+.card-header.bg-info {
+    background: linear-gradient(135deg, var(--radar-blue-primary) 0%, var(--radar-accent) 100%) !important;
+    color: var(--radar-blue-dark) !important;
+}
+
+.form-control, .form-select {
+    border: 2px solid var(--radar-blue-light);
+    border-radius: 6px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--radar-blue-primary);
+    box-shadow: 0 0 0 3px rgba(182, 200, 228, 0.2);
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--radar-blue-dark) 0%, var(--radar-blue-medium) 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(26, 46, 92, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    border: none;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+    border: none;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.required {
+    color: var(--danger);
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.alert {
+    border-radius: 6px;
+}
+
+.badge {
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.badge.bg-success {
+    background: var(--success) !important;
+}
+
+.badge.bg-info {
+    background: var(--radar-blue-medium) !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger) !important;
+}
+
+.badge.bg-warning {
+    background: var(--warning) !important;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.text-danger {
+    color: var(--danger) !important;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--radar-blue-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--radar-blue-primary);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--radar-blue-medium);
+}

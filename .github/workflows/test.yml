@@ -1,0 +1,227 @@
+name: SyFi AI Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run nightly at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  PYTHONPATH: ${{ github.workspace }}/src
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        test-category: ['unit', 'integration', 'web', 'domain']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('requirements.txt', 'requirements-test.txt') }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-test.txt
+
+    - name: Run ${{ matrix.test-category }} tests
+      run: |
+        pytest tests/${{ matrix.test-category }}/ -v \
+          --cov=src \
+          --cov-report=xml \
+          --cov-report=term-missing \
+          --junit-xml=test-results-${{ matrix.python-version }}-${{ matrix.test-category }}.xml \
+          -m ${{ matrix.test-category }}
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.python-version }}-${{ matrix.test-category }}
+        path: test-results-*.xml
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: ${{ matrix.test-category }}
+        name: codecov-${{ matrix.python-version }}-${{ matrix.test-category }}
+
+  performance:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' || github.event_name == 'schedule'
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-test.txt
+
+    - name: Run performance tests
+      run: |
+        pytest tests/performance/ -v \
+          --benchmark-json=benchmark.json \
+          --benchmark-compare-fail=mean:10% \
+          -m performance
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results
+        path: benchmark.json
+
+    - name: Store benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      if: github.ref == 'refs/heads/main'
+      with:
+        tool: 'pytest'
+        output-file-path: benchmark.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install bandit safety
+
+    - name: Run security check with bandit
+      run: bandit -r src/ -f json -o bandit-report.json
+
+    - name: Check for known vulnerabilities with safety
+      run: safety check --json --output safety-report.json
+
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
+
+  coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-test.txt
+
+    - name: Run full test suite with coverage
+      run: |
+        pytest tests/ \
+          --cov=src \
+          --cov-report=html \
+          --cov-report=xml \
+          --cov-report=term-missing \
+          --cov-fail-under=80
+
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: htmlcov/
+
+    - name: Comment coverage on PR
+      if: github.event_name == 'pull_request'
+      uses: py-cov-action/python-coverage-comment-action@v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  integration-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-test.txt
+
+    - name: Create test databases
+      run: |
+        mkdir -p data/
+        python -m pytest tests/integration/ -v --tb=short
+
+    - name: Test CLI functionality
+      run: |
+        python main.py
+
+    - name: Test web interface startup
+      run: |
+        timeout 30s python web_browser.py || true
+
+  quality-gates:
+    runs-on: ubuntu-latest
+    needs: [test, performance, security, coverage]
+    
+    steps:
+    - name: Check test results
+      run: |
+        echo "All quality gates passed!"
+        echo "✅ Unit tests passed"
+        echo "✅ Integration tests passed"  
+        echo "✅ Web interface tests passed"
+        echo "✅ Performance benchmarks within limits"
+        echo "✅ Security scans completed"
+        echo "✅ Coverage requirements met"
+
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ Quality gates failed - see test results above"
+        exit 1

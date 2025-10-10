@@ -1,0 +1,47 @@
+/* Bulk Generations Page Specific Styles */
+
+/* Page-specific table styling */
+.table thead th {
+    background: linear-gradient(135deg, var(--radar-blue-light) 0%, var(--radar-blue-primary) 100%);
+    color: var(--radar-blue-dark);
+    font-weight: 600;
+    border: none;
+    padding: 15px;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: var(--radar-blue-lighter);
+    transform: translateY(-1px);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, white 0%, var(--radar-blue-lighter) 100%);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid var(--radar-blue-primary);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--radar-blue-dark);
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}

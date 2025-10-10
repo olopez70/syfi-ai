@@ -1,0 +1,100 @@
+# Banking Customer Export - Standard CSV format for CRM systems
+name: "banking_crm_csv"
+description: "Export customer and account data in standard CSV format for CRM import"
+version: "1.0"
+format: "csv"
+encoding: "utf-8"
+delimiter: ","
+include_headers: true
+
+tables:
+  - table_name: "customers"
+    export_name: "customers"
+    sort_by: "customer_id"
+    fields:
+      - source_field: "customer_id"
+        target_field: "customer_id"
+        data_type: "string"
+      
+      - source_field: "first_name"
+        target_field: "first_name"
+        data_type: "string"
+      
+      - source_field: "last_name"
+        target_field: "last_name"
+        data_type: "string"
+      
+      - source_field: "email"
+        target_field: "email"
+        data_type: "string"
+      
+      - source_field: "phone"
+        target_field: "phone"
+        data_type: "string"
+      
+      - source_field: "address"
+        target_field: "street_address"
+        data_type: "string"
+      
+      - source_field: "city"
+        target_field: "city"
+        data_type: "string"
+      
+      - source_field: "state"
+        target_field: "state"
+        data_type: "string"
+      
+      - source_field: "zip_code"
+        target_field: "zip_code"
+        data_type: "string"
+      
+      - source_field: "date_of_birth"
+        target_field: "birth_date"
+        data_type: "date"
+        format: "%m/%d/%Y"
+      
+      - source_field: "created_date"
+        target_field: "registration_date"
+        data_type: "date"
+        format: "%m/%d/%Y"
+
+  - table_name: "accounts"
+    export_name: "accounts"
+    sort_by: "account_id"
+    fields:
+      - source_field: "account_id"
+        target_field: "account_id"
+        data_type: "string"
+      
+      - source_field: "customer_id"
+        target_field: "customer_id"
+        data_type: "string"
+      
+      - source_field: "account_type"
+        target_field: "account_type"
+        data_type: "string"
+        transform: "uppercase"
+      
+      - source_field: "balance"
+        target_field: "current_balance"
+        data_type: "float"
+        format: ",.2f"
+      
+      - source_field: "interest_rate"
+        target_field: "interest_rate"
+        data_type: "float"
+        format: ".4f"
+      
+      - source_field: "is_active"
+        target_field: "status"
+        data_type: "string"
+        default_value: "ACTIVE"
+      
+      - source_field: "created_date"
+        target_field: "opened_date"
+        data_type: "date"
+        format: "%m/%d/%Y"
+
+output_options:
+  quote_all_fields: false
+  escape_quotes: true

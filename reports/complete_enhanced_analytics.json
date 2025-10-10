@@ -1,0 +1,1051 @@
+{
+  "summary": {
+    "database_path": "enhanced_demo.db",
+    "analysis_date": "2025-09-30T12:23:22.902523",
+    "total_customers": 75,
+    "total_accounts": 150,
+    "total_transactions": 20,
+    "database_size_kb": 108.0,
+    "unique_profiles": 3,
+    "date_range": [
+      "2025-08-02",
+      "2025-09-26"
+    ]
+  },
+  "tables": {
+    "customers": {
+      "table_name": "customers",
+      "row_count": 75,
+      "column_count": 22,
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "first_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "last_name",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "phone",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "address",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "city",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "state",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "zip_code",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "ssn_hash",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "household_size",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_adults",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_children",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "num_pets",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "household_income",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "employment_status",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "marital_status",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "profile_description",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "profile_tags",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "customer_id": "TEXT",
+        "first_name": "TEXT",
+        "last_name": "TEXT",
+        "email": "TEXT",
+        "phone": "TEXT",
+        "date_of_birth": "DATE",
+        "address": "TEXT",
+        "city": "TEXT",
+        "state": "TEXT",
+        "zip_code": "TEXT",
+        "ssn_hash": "TEXT",
+        "created_date": "TIMESTAMP",
+        "household_size": "INTEGER",
+        "num_adults": "INTEGER",
+        "num_children": "INTEGER",
+        "num_pets": "INTEGER",
+        "household_income": "DECIMAL(15,2)",
+        "employment_status": "TEXT",
+        "marital_status": "TEXT",
+        "profile_description": "TEXT",
+        "profile_tags": "TEXT",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "customer_id": 0,
+        "first_name": 0,
+        "last_name": 0,
+        "email": 0,
+        "phone": 0,
+        "date_of_birth": 0,
+        "address": 0,
+        "city": 0,
+        "state": 0,
+        "zip_code": 0,
+        "ssn_hash": 0,
+        "created_date": 0,
+        "household_size": 0,
+        "num_adults": 0,
+        "num_children": 0,
+        "num_pets": 0,
+        "household_income": 75,
+        "employment_status": 0,
+        "marital_status": 0,
+        "profile_description": 0,
+        "profile_tags": 75,
+        "metadata": 0
+      },
+      "unique_counts": {
+        "customer_id": 75,
+        "first_name": 61,
+        "last_name": 65,
+        "email": 75,
+        "phone": 75,
+        "date_of_birth": 75,
+        "address": 75,
+        "city": 75,
+        "state": 46,
+        "zip_code": 75,
+        "ssn_hash": 75,
+        "created_date": 75,
+        "household_size": 1,
+        "num_adults": 1,
+        "num_children": 1,
+        "num_pets": 1,
+        "household_income": 0,
+        "employment_status": 2,
+        "marital_status": 1,
+        "profile_description": 3,
+        "profile_tags": 0,
+        "metadata": 1
+      },
+      "sample_values": {
+        "customer_id": [
+          "CUST041CD7",
+          "CUST115761",
+          "CUST1253B3",
+          "CUST1300B9",
+          "CUST13A78A"
+        ],
+        "first_name": [
+          "Christina",
+          "James",
+          "Susan",
+          "Edward",
+          "Jonathan"
+        ],
+        "last_name": [
+          "Bates",
+          "Johnson",
+          "Patterson",
+          "Smith",
+          "Snyder"
+        ],
+        "email": [
+          "donald36@hotmail.com",
+          "kristenmorrison@yahoo.com",
+          "burnsnicole@gmail.com",
+          "swatkins@yahoo.com",
+          "cscott@gmail.com"
+        ],
+        "phone": [
+          "001-282-340-6627",
+          "443-355-6172x32796",
+          "(871)903-4877x87229",
+          "852-249-0340",
+          "347.858.1814x45157"
+        ],
+        "date_of_birth": [
+          "1921-09-29",
+          "1979-01-24",
+          "1920-10-28",
+          "1989-06-12",
+          "1909-12-28"
+        ],
+        "address": [
+          "2913 Allen Ridge",
+          "269 Hernandez Pines Apt. 307",
+          "9322 Elizabeth Junction Apt. 919",
+          "201 Jeff Mountain",
+          "3038 Erika Overpass Apt. 788"
+        ],
+        "city": [
+          "Lake Jasmine",
+          "Johnsonport",
+          "Wongshire",
+          "New Rebecca",
+          "Stephaniechester"
+        ],
+        "state": [
+          "MT",
+          "IA",
+          "AS",
+          "ID",
+          "WY"
+        ],
+        "zip_code": [
+          "56131",
+          "09017",
+          "31777",
+          "60123",
+          "54815"
+        ],
+        "ssn_hash": [
+          "29932a3384e6e682",
+          "6a21447f506929ea",
+          "e423912f6af955f0",
+          "14d37214ba4df953",
+          "dd290f0401c0261e"
+        ],
+        "created_date": [
+          "2025-09-30 12:21:10.218943",
+          "2025-09-30 12:21:10.220722",
+          "2025-09-30 12:21:10.222080",
+          "2025-09-30 12:21:10.223900",
+          "2025-09-30 12:21:10.225245"
+        ],
+        "household_size": [
+          1
+        ],
+        "num_adults": [
+          1
+        ],
+        "num_children": [
+          0
+        ],
+        "num_pets": [
+          0
+        ],
+        "household_income": [],
+        "employment_status": [
+          "employed",
+          "retired"
+        ],
+        "marital_status": [
+          "single"
+        ],
+        "profile_description": [
+          "Mixed urban and suburban families, young professionals, and retirees with diverse financial needs",
+          "High-income tech professionals in urban areas",
+          "Retired couples with moderate income and conservative spending"
+        ],
+        "profile_tags": [],
+        "metadata": [
+          "{\"has_mortgage\": false, \"has_car_loan\": false, \"has_credit_cards\": false, \"car_loan_range\": [0, 0], \"credit_card_range\": [0, 0], \"external_accounts\": []}"
+        ]
+      }
+    },
+    "accounts": {
+      "table_name": "accounts",
+      "row_count": 150,
+      "column_count": 13,
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "customer_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_number",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "account_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "available_balance",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "created_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "closed_date",
+          "type": "DATE",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "interest_rate",
+          "type": "DECIMAL(5,4)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "credit_limit",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "account_id": "TEXT",
+        "customer_id": "TEXT",
+        "account_number": "TEXT",
+        "account_type": "TEXT",
+        "balance": "DECIMAL(15,2)",
+        "available_balance": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "created_date": "TIMESTAMP",
+        "closed_date": "DATE",
+        "is_active": "BOOLEAN",
+        "interest_rate": "DECIMAL(5,4)",
+        "credit_limit": "DECIMAL(15,2)",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "account_id": 0,
+        "customer_id": 0,
+        "account_number": 0,
+        "account_type": 0,
+        "balance": 0,
+        "available_balance": 0,
+        "currency": 0,
+        "created_date": 0,
+        "closed_date": 150,
+        "is_active": 0,
+        "interest_rate": 150,
+        "credit_limit": 150,
+        "metadata": 150
+      },
+      "unique_counts": {
+        "account_id": 150,
+        "customer_id": 75,
+        "account_number": 150,
+        "account_type": 2,
+        "balance": 137,
+        "available_balance": 137,
+        "currency": 1,
+        "created_date": 150,
+        "closed_date": 0,
+        "is_active": 1,
+        "interest_rate": 0,
+        "credit_limit": 0,
+        "metadata": 0
+      },
+      "sample_values": {
+        "account_id": [
+          "ACCT009A11B2",
+          "ACCT040E0187",
+          "ACCT06233464",
+          "ACCT062F7511",
+          "ACCT06435C45"
+        ],
+        "customer_id": [
+          "CUST041CD7",
+          "CUST115761",
+          "CUST1253B3",
+          "CUST1300B9",
+          "CUST13A78A"
+        ],
+        "account_number": [
+          "CHE117497",
+          "CHE129021",
+          "CHE129759",
+          "CHE136087",
+          "CHE136890"
+        ],
+        "account_type": [
+          "checking",
+          "savings"
+        ],
+        "balance": [
+          2009.87,
+          4241.59,
+          12634.73,
+          30170.59,
+          2334.47
+        ],
+        "available_balance": [
+          2009.87,
+          4241.59,
+          12634.73,
+          30170.59,
+          2334.47
+        ],
+        "currency": [
+          "USD"
+        ],
+        "created_date": [
+          "2025-09-30 12:21:10.219010",
+          "2025-09-30 12:21:10.219037",
+          "2025-09-30 12:21:10.220763",
+          "2025-09-30 12:21:10.220782",
+          "2025-09-30 12:21:10.222116"
+        ],
+        "closed_date": [],
+        "is_active": [
+          1
+        ],
+        "interest_rate": [],
+        "credit_limit": [],
+        "metadata": []
+      }
+    },
+    "transactions": {
+      "table_name": "transactions",
+      "row_count": 20,
+      "column_count": 17,
+      "columns": [
+        {
+          "name": "transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "account_id",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(15,2)",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "currency",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_name",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "merchant_category",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "transaction_date",
+          "type": "TIMESTAMP",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "posted_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "reference_number",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "balance_after",
+          "type": "DECIMAL(15,2)",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_account_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "related_transaction_id",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "metadata",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "transaction_id": "TEXT",
+        "account_id": "TEXT",
+        "transaction_type": "TEXT",
+        "amount": "DECIMAL(15,2)",
+        "currency": "TEXT",
+        "description": "TEXT",
+        "category": "TEXT",
+        "merchant_name": "TEXT",
+        "merchant_category": "TEXT",
+        "transaction_date": "TIMESTAMP",
+        "posted_date": "TIMESTAMP",
+        "reference_number": "TEXT",
+        "balance_after": "DECIMAL(15,2)",
+        "related_account_id": "TEXT",
+        "related_transaction_id": "TEXT",
+        "location": "TEXT",
+        "metadata": "TEXT"
+      },
+      "null_counts": {
+        "transaction_id": 0,
+        "account_id": 0,
+        "transaction_type": 0,
+        "amount": 0,
+        "currency": 0,
+        "description": 0,
+        "category": 20,
+        "merchant_name": 20,
+        "merchant_category": 20,
+        "transaction_date": 0,
+        "posted_date": 20,
+        "reference_number": 20,
+        "balance_after": 20,
+        "related_account_id": 20,
+        "related_transaction_id": 20,
+        "location": 20,
+        "metadata": 20
+      },
+      "unique_counts": {
+        "transaction_id": 20,
+        "account_id": 20,
+        "transaction_type": 2,
+        "amount": 20,
+        "currency": 1,
+        "description": 14,
+        "category": 0,
+        "merchant_name": 0,
+        "merchant_category": 0,
+        "transaction_date": 18,
+        "posted_date": 0,
+        "reference_number": 0,
+        "balance_after": 0,
+        "related_account_id": 0,
+        "related_transaction_id": 0,
+        "location": 0,
+        "metadata": 0
+      },
+      "sample_values": {
+        "transaction_id": [
+          "TX_000001",
+          "TX_000002",
+          "TX_000003",
+          "TX_000004",
+          "TX_000005"
+        ],
+        "account_id": [
+          "ACCT009A11B2",
+          "ACCT040E0187",
+          "ACCT06233464",
+          "ACCT062F7511",
+          "ACCT06435C45"
+        ],
+        "transaction_type": [
+          "debit",
+          "withdrawal"
+        ],
+        "amount": [
+          171.5,
+          144.88,
+          70.7,
+          56.38,
+          109.68
+        ],
+        "currency": [
+          "USD"
+        ],
+        "description": [
+          "Utilities Transaction",
+          "Atm Transaction",
+          "Shopping Transaction",
+          "Entertainment Transaction",
+          "Subway #2623"
+        ],
+        "category": [],
+        "merchant_name": [],
+        "merchant_category": [],
+        "transaction_date": [
+          "2025-08-02 00:00:00",
+          "2025-08-03 00:00:00",
+          "2025-08-07 00:00:00",
+          "2025-08-09 00:00:00",
+          "2025-08-12 00:00:00"
+        ],
+        "posted_date": [],
+        "reference_number": [],
+        "balance_after": [],
+        "related_account_id": [],
+        "related_transaction_id": [],
+        "location": [],
+        "metadata": []
+      }
+    },
+    "generation_metadata": {
+      "table_name": "generation_metadata",
+      "row_count": 0,
+      "column_count": 7,
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": true
+        },
+        {
+          "name": "generation_type",
+          "type": "TEXT",
+          "not_null": true,
+          "primary_key": false
+        },
+        {
+          "name": "generation_date",
+          "type": "TIMESTAMP",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "parameters",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "record_count",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "seed",
+          "type": "INTEGER",
+          "not_null": false,
+          "primary_key": false
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "not_null": false,
+          "primary_key": false
+        }
+      ],
+      "data_types": {
+        "id": "INTEGER",
+        "generation_type": "TEXT",
+        "generation_date": "TIMESTAMP",
+        "parameters": "TEXT",
+        "record_count": "INTEGER",
+        "seed": "INTEGER",
+        "notes": "TEXT"
+      },
+      "null_counts": {},
+      "unique_counts": {},
+      "sample_values": {}
+    }
+  },
+  "banking_metrics": {
+    "account_metrics": {
+      "account_type_distribution": {
+        "savings": {
+          "count": 75,
+          "avg_balance": 13939.76,
+          "total_balance": 1045481.71,
+          "percentage": 50.0
+        },
+        "checking": {
+          "count": 75,
+          "avg_balance": 7091.67,
+          "total_balance": 531875.55,
+          "percentage": 50.0
+        }
+      },
+      "total_accounts": 150,
+      "total_balance_across_all_accounts": 1577357.26,
+      "account_status": {
+        "active": 150,
+        "inactive": 0
+      }
+    },
+    "transaction_metrics": {
+      "total_transactions": 20,
+      "transaction_type_distribution": {
+        "debit": 15,
+        "withdrawal": 5
+      },
+      "amount_distribution": {
+        "Small (<$50)": {
+          "count": 7,
+          "avg_amount": 35.89
+        },
+        "Medium ($50-$200)": {
+          "count": 13,
+          "avg_amount": 99.57
+        }
+      },
+      "monthly_patterns": {
+        "2025-08": {
+          "transaction_count": 13,
+          "total_volume": 765.3,
+          "avg_amount": 58.87
+        },
+        "2025-09": {
+          "transaction_count": 7,
+          "total_volume": 780.31,
+          "avg_amount": 111.47
+        }
+      },
+      "account_activity": {
+        "savings": {
+          "transaction_count": 12,
+          "avg_transaction_amount": 78.32
+        },
+        "checking": {
+          "transaction_count": 8,
+          "avg_transaction_amount": 75.72
+        }
+      }
+    },
+    "customer_segments": {
+      "age_distribution": {
+        "Senior (65+)": {
+          "count": 39,
+          "avg_income": null
+        },
+        "Young (18-29)": {
+          "count": 22,
+          "avg_income": null
+        },
+        "Mature (50-64)": {
+          "count": 8,
+          "avg_income": null
+        },
+        "Middle-aged (30-49)": {
+          "count": 6,
+          "avg_income": null
+        }
+      },
+      "income_distribution": {},
+      "family_composition": {
+        "Single Person": {
+          "count": 75,
+          "avg_income": null
+        }
+      }
+    },
+    "balance_analysis": {
+      "overall_statistics": {
+        "total_accounts": 150,
+        "mean_balance": 10515.72,
+        "min_balance": 500.0,
+        "max_balance": 50000.0,
+        "total_balance": 1577357.26
+      },
+      "balance_distribution": {
+        "Under $1K": {
+          "count": 6,
+          "total_amount": 4527.35,
+          "percentage": 4.0
+        },
+        "$1K - $10K": {
+          "count": 87,
+          "total_amount": 451723.48,
+          "percentage": 58.0
+        },
+        "$10K - $50K": {
+          "count": 56,
+          "total_amount": 1071106.43,
+          "percentage": 37.3
+        },
+        "$50K - $100K": {
+          "count": 1,
+          "total_amount": 50000.0,
+          "percentage": 0.7
+        }
+      }
+    },
+    "product_penetration": {
+      "by_product_type": {
+        "checking": {
+          "customers_with_product": 75,
+          "penetration_rate_percent": 100.0,
+          "total_accounts": 75,
+          "accounts_per_customer": 1.0
+        },
+        "savings": {
+          "customers_with_product": 75,
+          "penetration_rate_percent": 100.0,
+          "total_accounts": 75,
+          "accounts_per_customer": 1.0
+        }
+      },
+      "multi_product_analysis": {
+        "2_products": {
+          "customer_count": 75,
+          "percentage": 100.0
+        }
+      }
+    },
+    "profile_analysis": {
+      "account_preferences_by_profile": {
+        "High-income tech professionals in urban areas": {
+          "savings": {
+            "count": 20,
+            "avg_balance": 16803.52
+          },
+          "checking": {
+            "count": 20,
+            "avg_balance": 7631.46
+          }
+        },
+        "Mixed urban and suburban families, young professionals, and retirees with diverse financial needs": {
+          "savings": {
+            "count": 40,
+            "avg_balance": 13176.98
+          },
+          "checking": {
+            "count": 40,
+            "avg_balance": 7648.64
+          }
+        },
+        "Retired couples with moderate income and conservative spending": {
+          "savings": {
+            "count": 15,
+            "avg_balance": 12155.47
+          },
+          "checking": {
+            "count": 15,
+            "avg_balance": 4886.72
+          }
+        }
+      },
+      "demographics_by_profile": {
+        "Mixed urban and suburban families, young professionals, and retirees with diverse financial needs": {
+          "customer_count": 40,
+          "avg_income": null,
+          "avg_household_size": 1.0,
+          "avg_children": null
+        },
+        "High-income tech professionals in urban areas": {
+          "customer_count": 20,
+          "avg_income": null,
+          "avg_household_size": 1.0,
+          "avg_children": null
+        },
+        "Retired couples with moderate income and conservative spending": {
+          "customer_count": 15,
+          "avg_income": null,
+          "avg_household_size": 1.0,
+          "avg_children": null
+        }
+      }
+    }
+  },
+  "relationships": {
+    "customer_accounts": {
+      "total_relationships": 75,
+      "avg_accounts_per_customer": 2.0,
+      "min_accounts": 2,
+      "max_accounts": 2
+    },
+    "account_transactions": {
+      "accounts_with_transactions": 150,
+      "total_transactions": 20,
+      "avg_transactions_per_account": 1.0
+    }
+  },
+  "data_quality": {
+    "referential_integrity": {
+      "orphaned_accounts": 0,
+      "orphaned_transactions": 0
+    },
+    "customer_completeness": {
+      "total_customers": 75,
+      "profile_completeness": 100.0,
+      "email_completeness": 100.0,
+      "phone_completeness": 100.0
+    }
+  },
+  "customer_profiles": {
+    "profile_distribution": {
+      "Mixed urban and suburban families, young professionals, and retirees with diverse financial needs": 40,
+      "High-income tech professionals in urban areas": 20,
+      "Retired couples with moderate income and conservative spending": 15
+    },
+    "household_composition": {
+      "avg_household_size": 1.0,
+      "avg_adults": 1.0,
+      "avg_children": 0.0,
+      "avg_pets": 0.0
+    },
+    "employment_distribution": {
+      "employed": 60,
+      "retired": 15
+    }
+  }
+}

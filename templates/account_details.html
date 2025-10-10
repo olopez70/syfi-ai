@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - SyFi AI Database Browser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shared_navigation_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/account_details.css') }}">
+</head>
+<body class="bg-light">
+    {% include 'shared_navigation.html' %}
+
+    <div class="container mt-4">
+        <!-- Account Information -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card detail-card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-university me-2"></i>
+                            {{ data.account.account_type.title() }} Account
+                            <small class="opacity-75">({{ data.account.account_id }})</small>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <span class="info-label">Account ID:</span>
+                                    <span class="font-monospace">{{ data.account.account_id }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Account Type:</span>
+                                    <span class="badge bg-info">{{ data.account.account_type.title() }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Balance:</span>
+                                    <span class="{{ 'balance-positive' if data.account.balance >= 0 else 'balance-negative' }}">
+                                        ${{ "{:,.2f}".format(data.account.balance) }}
+                                    </span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Status:</span>
+                                    <span class="badge bg-{{ 'success' if data.account.get('account_status', 'active') == 'active' else 'secondary' }}">
+                                        {{ (data.account.get('account_status', 'active')).title() }}
+                                    </span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Active:</span>
+                                    <span class="badge bg-{{ 'success' if data.account.is_active else 'danger' }}">
+                                        {{ 'Yes' if data.account.is_active else 'No' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <span class="info-label">Customer:</span>
+                                    <a href="/customer/{{ data.account.customer_id }}" class="text-decoration-none">
+                                        {{ data.account.first_name }} {{ data.account.last_name }}
+                                    </a>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Email:</span>
+                                    <span>{{ data.account.email or 'N/A' }}</span>
+                                </div>
+                                {% if data.account.get('interest_rate') %}
+                                <div class="info-row">
+                                    <span class="info-label">Interest Rate:</span>
+                                    <span>{{ "{:.3f}%".format(data.account.get('interest_rate', 0) * 100) }}</span>
+                                </div>
+                                {% endif %}
+                                <div class="info-row">
+                                    <span class="info-label">Created:</span>
+                                    <span>{{ data.account.created_date or 'N/A' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Summary -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card detail-card summary-card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Transaction Summary
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="stat-box">
+                                    <div class="stat-number">{{ data.transaction_summary.total_transactions }}</div>
+                                    <div class="stat-label">Total Transactions</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-box">
+                                    <div class="stat-number text-success">${{ "{:,.2f}".format(data.transaction_summary.total_credits) }}</div>
+                                    <div class="stat-label">Total Credits</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-box">
+                                    <div class="stat-number text-danger">${{ "{:,.2f}".format(data.transaction_summary.total_debits) }}</div>
+                                    <div class="stat-label">Total Debits</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stat-box">
+                                    <div class="stat-number">${{ "{:,.2f}".format(data.transaction_summary.avg_amount) }}</div>
+                                    <div class="stat-label">Average Amount</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card detail-card">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>
+                            Recent Transactions (Last 50)
+                        </h5>
+                        <button type="button" class="btn btn-light btn-sm" id="add-transaction-btn" data-bs-toggle="modal" data-bs-target="#addTransactionModal">
+                            <i class="fas fa-plus me-1"></i>Add Transaction
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        {% if data.transactions %}
+                            <div class="table-responsive">
+                                <table class="table table-hover transaction-table mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Date</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Description</th>
+                                            <th>Related</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for transaction in data.transactions %}
+                                        <tr>
+                                            <td class="font-monospace">{{ transaction.transaction_id }}</td>
+                                            <td>{{ transaction.transaction_date[:19] if transaction.transaction_date else 'N/A' }}</td>
+                                            <td>
+                                                <span class="badge bg-{{ 'primary' if transaction.transaction_type == 'deposit' else ('warning' if transaction.transaction_type == 'withdrawal' else 'secondary') }}">
+                                                    {{ transaction.transaction_type.title() }}
+                                                </span>
+                                            </td>
+                                            <td class="{{ 'transaction-credit' if transaction.transaction_type in ['deposit', 'credit'] else 'transaction-debit' }}">
+                                                {% if transaction.transaction_type in ['deposit', 'credit'] %}
+                                                    <strong>+${{ "{:,.2f}".format(transaction.amount) }}</strong>
+                                                {% else %}
+                                                    <strong>-${{ "{:,.2f}".format(transaction.amount) }}</strong>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ transaction.description or 'N/A' }}</td>
+                                            <td class="font-monospace">
+                                                {% if transaction.related_transaction_id %}
+                                                    <small>{{ transaction.related_transaction_id }}</small>
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No transactions found for this account.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if data.transactions|length >= 50 %}
+                    <div class="card-footer bg-light">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Showing the 50 most recent transactions only.
+                        </small>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/shared_navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/account_details.js') }}"></script>
+
+    <!-- Add Transaction Modal -->
+    <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="addTransactionModalLabel">
+                        <i class="fas fa-exchange-alt me-2"></i>Add New Transaction for Account {{ data.account.account_id }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="transaction-form">
+                        <input type="hidden" id="transaction-account-id" value="{{ data.account.account_id }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="transaction-id" class="form-label">Transaction ID</label>
+                                    <input type="text" class="form-control" id="transaction-id" placeholder="Auto-generated if empty">
+                                    <div class="form-text">Leave empty for auto-generation</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transaction-type" class="form-label">Transaction Type <span class="required">*</span></label>
+                                    <select class="form-select" id="transaction-type" required>
+                                        <option value="">Select transaction type...</option>
+                                        <option value="deposit">Deposit</option>
+                                        <option value="withdrawal">Withdrawal</option>
+                                        <option value="credit">Credit</option>
+                                        <option value="debit">Debit</option>
+                                        <option value="transfer">Transfer</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="amount" class="form-label">Amount <span class="required">*</span></label>
+                                    <input type="number" class="form-control" id="amount" step="0.01" required>
+                                    <div class="form-text">Enter positive amount (sign handled by transaction type)</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="transaction-date" class="form-label">Transaction Date</label>
+                                    <input type="datetime-local" class="form-control" id="transaction-date">
+                                    <div class="form-text">Leave empty for current date/time</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" rows="3" placeholder="Transaction description"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="related-transaction-id" class="form-label">Related Transaction ID</label>
+                                    <input type="text" class="form-control" id="related-transaction-id">
+                                    <div class="form-text">Optional - for linked transactions</div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    <strong>Account:</strong> {{ data.account.account_id }}<br>
+                                    <strong>Type:</strong> {{ data.account.account_type|title }}<br>
+                                    <strong>Current Balance:</strong> ${{ "%.2f"|format(data.account.balance) }}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-warning" id="create-transaction-btn">
+                        <i class="fas fa-exchange-alt me-1"></i>Create Transaction
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

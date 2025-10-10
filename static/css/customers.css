@@ -1,0 +1,112 @@
+/* Customers Page Specific Styles */
+
+.results-table {
+    font-size: 0.9rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--radar-blue-light);
+}
+
+.badge {
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.badge.bg-success {
+    background: var(--success) !important;
+}
+
+.badge.bg-info {
+    background: var(--radar-blue-medium) !important;
+}
+
+.badge.bg-danger {
+    background: var(--danger) !important;
+}
+
+.customer-link {
+    color: var(--radar-blue-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.customer-link:hover {
+    color: var(--radar-blue-medium);
+    text-decoration: none;
+}
+
+.loading {
+    display: none;
+}
+
+.required {
+    color: var(--danger);
+}
+
+.spinner-border.text-primary {
+    color: var(--radar-blue-primary) !important;
+}
+
+.no-results {
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 3rem 0;
+    padding: 2rem;
+}
+
+.no-results i {
+    color: var(--radar-blue-light);
+}
+
+.preset-btn {
+    margin: 4px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    padding: 6px 16px;
+}
+
+.text-success {
+    color: var(--success) !important;
+}
+
+.text-danger {
+    color: var(--danger) !important;
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+#advanced-search {
+    background: var(--radar-blue-lighter);
+    padding: 24px;
+    border-radius: 6px;
+    margin-top: 16px;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--radar-blue-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--radar-blue-primary);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--radar-blue-medium);
+}

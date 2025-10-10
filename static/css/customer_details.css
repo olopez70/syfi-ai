@@ -1,0 +1,46 @@
+/* Customer Details Page Specific Styles */
+
+.nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--radar-blue-dark) !important;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.detail-card {
+    margin-bottom: 2rem;
+}
+
+.detail-row {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--radar-blue-light);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detail-value {
+    color: var(--text-secondary);
+}
+
+.transaction-row:hover {
+    background-color: var(--radar-blue-lighter);
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+}

@@ -1,0 +1,12 @@
+In src/syfi/models, we have Customer, Account and Transaction defined.  I want to define too more models.  The first is Profile, and the second is ProfileTemplate. A ProfileTemplate contains a natural language description of a banking customer, or group of banking customers (e.g. household or network).   The description is provided by the user.  The application then uses this description to create one or more Profiles which contain detailed characteristics of the customer or group of customers.  The Profile has sufficient information to create customers, accounts and transactions, on request by the user.
+
+Example:
+ProfileTemplate: Is passed the following description "A suburban household of approximately median US income, and moderate spending. The bank provides the households primary banking needs which include but are not limited to checking accounts, savings accounts, credit cards, and mortgage. Overtime the household may upgrade or switch to new accounts offered by the bank."
+
+Profile: The household comprises John Doe the father 48 years old, Jane Doe the mother 46 years old, three children, Oscar (8 yo), Samuel  (12 yo) and Linda (15 yo)  and a 12 year old dog that is in poor health. John and Jane have one joint checking account, one joint savings account. Jane has a separate checking account of her own.  Linda has a Teen Checking account.  John and Jane have a 30 year  mortgage of 350,000 opened 11 years ago at an interest rate of 4.5%.  They also have two credit cards with the bank with interest rates of 19% and 27%.  The first credit card is paid off every month, and the second carries a balance of $15,000 that is being paid down slowly. The profile stores this information in semi-structured format.
+
+Customer records include John Doe, Jane Doe, Linda Doe.  The other two children do not have customer records because they are not banking customers. Each customer has a transaction profile with records that describe their banking activity.  For example, John is a salaried employee that is paid by direct deposit twice per month.  Jane is a sole proprietor of a dog grooming business and recieves income through cash, check, venmo, paypal, zelle, Apple Pay, etc.  The mortgage and household expenses are paid from the joint account.  Jane transfers money from her account to the joint account approximately one per month in the firs week of the month.
+
+Account records include the checking accounts, savings accounts, credit cards and mortgage.
+
+Transactions records are created based on each customer's transaction profile.

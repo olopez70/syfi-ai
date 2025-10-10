@@ -1,0 +1,128 @@
+# Complete Financial Data Export - JSON format with all related data
+name: "complete_financial_json"
+description: "Export complete customer, account, and transaction data in structured JSON format"
+version: "1.0"
+format: "json"
+encoding: "utf-8"
+
+tables:
+  - table_name: "customers"
+    export_name: "customers"
+    sort_by: "customer_id"
+    fields:
+      - source_field: "customer_id"
+        target_field: "id"
+        data_type: "string"
+      
+      - source_field: "first_name"
+        target_field: "firstName"
+        data_type: "string"
+      
+      - source_field: "last_name"
+        target_field: "lastName"
+        data_type: "string"
+      
+      - source_field: "email"
+        target_field: "emailAddress"
+        data_type: "string"
+      
+      - source_field: "phone"
+        target_field: "phoneNumber"
+        data_type: "string"
+      
+      - source_field: "address"
+        target_field: "address"
+        data_type: "string"
+      
+      - source_field: "city"
+        target_field: "city"
+        data_type: "string"
+      
+      - source_field: "state"
+        target_field: "state"
+        data_type: "string"
+      
+      - source_field: "zip_code"
+        target_field: "postalCode"
+        data_type: "string"
+      
+      - source_field: "date_of_birth"
+        target_field: "dateOfBirth"
+        data_type: "date"
+        transform: "format_date_iso"
+      
+      - source_field: "created_date"
+        target_field: "createdAt"
+        data_type: "date"
+        transform: "format_date_iso"
+
+  - table_name: "accounts"
+    export_name: "accounts"
+    sort_by: "account_id"
+    fields:
+      - source_field: "account_id"
+        target_field: "accountId"
+        data_type: "string"
+      
+      - source_field: "customer_id"
+        target_field: "customerId"
+        data_type: "string"
+      
+      - source_field: "account_type"
+        target_field: "accountType"
+        data_type: "string"
+      
+      - source_field: "balance"
+        target_field: "currentBalance"
+        data_type: "float"
+      
+      - source_field: "interest_rate"
+        target_field: "interestRate"
+        data_type: "float"
+      
+      - source_field: "is_active"
+        target_field: "isActive"
+        data_type: "boolean"
+      
+      - source_field: "created_date"
+        target_field: "openedDate"
+        data_type: "date"
+        transform: "format_date_iso"
+
+  - table_name: "transactions"
+    export_name: "transactions"
+    sort_by: "transaction_date DESC"
+    fields:
+      - source_field: "transaction_id"
+        target_field: "transactionId"
+        data_type: "string"
+      
+      - source_field: "account_id"
+        target_field: "accountId"
+        data_type: "string"
+      
+      - source_field: "transaction_type"
+        target_field: "type"
+        data_type: "string"
+      
+      - source_field: "amount"
+        target_field: "amount"
+        data_type: "float"
+      
+      - source_field: "description"
+        target_field: "description"
+        data_type: "string"
+      
+      - source_field: "transaction_date"
+        target_field: "transactionDate"
+        data_type: "date"
+        transform: "format_date_iso"
+      
+      - source_field: "related_transaction_id"
+        target_field: "relatedTransactionId"
+        data_type: "string"
+
+output_options:
+  single_file: false
+  pretty_print: true
+  sort_keys: true

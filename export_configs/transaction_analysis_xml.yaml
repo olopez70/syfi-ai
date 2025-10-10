@@ -1,0 +1,61 @@
+# Transaction Analysis Export - XML format for analytical tools
+name: "transaction_analysis_xml"
+description: "Export transaction data with customer context in XML format for analytical processing"
+version: "1.0"
+format: "xml"
+encoding: "utf-8"
+
+tables:
+  - table_name: "transactions"
+    export_name: "transactions"
+    sort_by: "transaction_date DESC"
+    joins:
+      - "LEFT JOIN accounts ON transactions.account_id = accounts.account_id"
+      - "LEFT JOIN customers ON accounts.customer_id = customers.customer_id"
+    fields:
+      - source_field: "transaction_id"
+        target_field: "id"
+        data_type: "string"
+      
+      - source_field: "accounts.account_id"
+        target_field: "account_id"
+        data_type: "string"
+      
+      - source_field: "accounts.account_type"
+        target_field: "account_type"
+        data_type: "string"
+        transform: "uppercase"
+      
+      - source_field: "customers.customer_id"
+        target_field: "customer_id"
+        data_type: "string"
+      
+      - source_field: "customers.first_name"
+        target_field: "customer_first_name"
+        data_type: "string"
+      
+      - source_field: "customers.last_name"
+        target_field: "customer_last_name"
+        data_type: "string"
+      
+      - source_field: "transaction_type"
+        target_field: "type"
+        data_type: "string"
+        transform: "uppercase"
+      
+      - source_field: "amount"
+        target_field: "amount"
+        data_type: "float"
+      
+      - source_field: "description"
+        target_field: "description"
+        data_type: "string"
+      
+      - source_field: "transaction_date"
+        target_field: "date"
+        data_type: "date"
+        transform: "format_date_iso"
+
+output_options:
+  include_schema_info: true
+  pretty_format: true

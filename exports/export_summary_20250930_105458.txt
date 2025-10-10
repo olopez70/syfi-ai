@@ -1,0 +1,38 @@
+SyFi AI - Export Summary Report
+========================================
+
+Export Date: 2025-09-30 10:54:58
+Database: syfi_banking.db
+Output Directory: /home/orlando/Projects/syfi-ai/exports
+
+Data Statistics:
+--------------------
+Total Customers: 75
+Total Accounts: 116
+Total Transactions: 44
+Transaction Period: 2024-01-01 to 2024-02-29
+Avg Accounts per Customer: 1.5
+Database Size: 88.0 KB
+
+Export Configuration:
+-------------------------
+Available Schemas: standard, banking, audit
+Available Formats: pipe, csv, json
+
+Schema Definitions:
+--------------------
+
+STANDARD Schema:
+  customers: customer_id, first_name, last_name, email, phone, date_of_birth, created_date
+  accounts: account_id, customer_id, account_number, account_type, balance, currency, created_date
+  transactions: transaction_id, account_id, transaction_type, amount, description, category, merchant_name, transaction_date, posted_date
+
+BANKING Schema:
+  customers: customer_id, first_name, last_name, email, phone, date_of_birth, city, state, zip_code
+  accounts: account_id, customer_id, account_number, account_type, balance, available_balance, currency, opened_date, is_active
+  transactions: transaction_id, account_id, transaction_type, amount, currency, description, category, merchant_name, merchant_category, transaction_date, posted_date, reference_number, balance_after
+
+AUDIT Schema:
+  customers: customer_id, first_name, last_name, email, created_date, metadata
+  accounts: account_id, customer_id, account_number, account_type, balance, created_date, is_active, metadata
+  transactions: transaction_id, account_id, transaction_type, amount, description, transaction_date, posted_date, reference_number, metadata

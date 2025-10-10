@@ -1,0 +1,57 @@
+/* Home Page Specific Styles */
+
+.builder-card {
+    margin-bottom: 2rem;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+    border: none;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.required {
+    color: var(--danger);
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.alert {
+    border-radius: 6px;
+}
+
+.tab-content {
+    background: white;
+    border-radius: 0 6px 6px 6px;
+    padding: 2rem;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 6px 6px 0 0;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: white;
+    color: var(--radar-blue-dark);
+    border-bottom: 3px solid var(--radar-blue-primary);
+}
