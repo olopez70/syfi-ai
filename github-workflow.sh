@@ -104,15 +104,28 @@ function create_issue() {
     
     read -p "Enter choice (1-4): " choice
     
+    # Create labels if they don't exist
+    create_labels_if_needed
+    
     case $choice in
         1)
-            gh issue create --template feature-story.md
+            # Try template first, fallback to manual creation
+            gh issue create --template feature-story.md 2>/dev/null || {
+                echo -e "${YELLOW}Template not found, creating manually...${NC}"
+                gh issue create --label "story,enhancement"
+            }
             ;;
         2)
-            gh issue create --template bug-fix.md
+            gh issue create --template bug-fix.md 2>/dev/null || {
+                echo -e "${YELLOW}Template not found, creating manually...${NC}"
+                gh issue create --label "bug"
+            }
             ;;
         3)
-            gh issue create --template hotfix.md
+            gh issue create --template hotfix.md 2>/dev/null || {
+                echo -e "${YELLOW}Template not found, creating manually...${NC}"
+                gh issue create --label "hotfix,critical"
+            }
             ;;
         4)
             gh issue create
@@ -122,6 +135,15 @@ function create_issue() {
             exit 1
             ;;
     esac
+}
+
+function create_labels_if_needed() {
+    # Create common labels if they don't exist
+    local labels=("story" "bug" "hotfix" "enhancement" "critical" "in-progress" "needs-review")
+    
+    for label in "${labels[@]}"; do
+        gh label create "$label" --description "Auto-created label" 2>/dev/null || true
+    done
 }
 
 function list_issues() {
