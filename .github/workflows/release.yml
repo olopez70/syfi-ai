@@ -1,0 +1,63 @@
+name: Automated Release Management
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  release-notes:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Release Notes
+        id: generate_notes
+        run: |
+          # Get the previous tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          
+          echo "Generating release notes for $CURRENT_TAG"
+          
+          # Create release notes
+          echo "## What's Changed" > release-notes.md
+          echo "" >> release-notes.md
+          
+          if [ -n "$PREVIOUS_TAG" ]; then
+            # Get commits between tags
+            git log --oneline --pretty=format:"- %s" $PREVIOUS_TAG..HEAD >> release-notes.md
+            
+            # Get closed issues in this release
+            echo "" >> release-notes.md
+            echo "## Issues Closed" >> release-notes.md
+            git log $PREVIOUS_TAG..HEAD --grep="[Cc]loses #\|[Ff]ixes #\|[Rr]esolves #" --oneline | \
+              grep -o "#[0-9]\+" | sort -u | \
+              xargs -I {} echo "- {}" >> release-notes.md || echo "- No issues closed" >> release-notes.md
+          else
+            echo "- Initial release" >> release-notes.md
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: release-notes.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  auto-merge-dependabot:
+    if: github.event.pull_request.merged == true && github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-tag patch release for dependency updates
+        run: |
+          echo "Dependency update merged, consider patch release"
