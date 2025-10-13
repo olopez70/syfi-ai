@@ -107,6 +107,215 @@ if issues['missing_tables'] or issues['missing_columns']:
 
 Code changes should be tested and verified using existing test suites. If a test suite does not exist for the changed code, create one.
 
+## Production Hardening Guidelines
+
+### Error Handling & Resilience Standards
+**CRITICAL**: All code must implement enterprise-grade error handling and resilience patterns.
+
+#### Exception Handling Framework
+```python
+# ✅ PREFER: Custom SyFi exceptions with context
+from src.syfi.exceptions import SyFiDatabaseError, SyFiValidationError, SyFiConfigurationError
+
+try:
+    # Database operation
+    result = db.safe_execute(query, params)
+except sqlite3.Error as e:
+    raise SyFiDatabaseError(f"Database query failed: {query}") from e
+except Exception as e:
+    raise SyFiUnexpectedError("Unexpected error during operation") from e
+```
+
+#### Required Error Handling Practices
+1. **Custom Exception Hierarchy**: Use SyFi-specific exceptions with context preservation
+2. **Graceful Degradation**: Provide meaningful fallbacks for non-critical failures
+3. **Input Validation**: Validate all inputs before processing with clear error messages
+4. **Resource Cleanup**: Ensure proper cleanup in finally blocks or context managers
+5. **Circuit Breakers**: Implement circuit breaker patterns for external dependencies
+
+### Logging & Monitoring Standards
+**CRITICAL**: Replace all print statements with structured logging.
+
+#### Structured Logging Pattern
+```python
+# ❌ AVOID: Print statements
+print(f"Processing {count} records")
+
+# ✅ PREFER: Structured logging with context
+import logging
+logger = logging.getLogger(__name__)
+
+logger.info("Processing records", extra={
+    "operation": "data_processing",
+    "record_count": count,
+    "correlation_id": request_id,
+    "performance": {
+        "start_time": start_time.isoformat(),
+        "duration_ms": duration_ms
+    }
+})
+```
+
+#### Required Logging Practices
+1. **Structured JSON Logs**: Use structured logging with consistent field names
+2. **Correlation IDs**: Include correlation IDs for request tracing across components
+3. **Performance Metrics**: Log operation timing and resource usage
+4. **Error Context**: Include full error context with stack traces for debugging
+5. **Audit Trail**: Log all data access, modifications, and export operations
+
+### Security & Validation Standards
+**CRITICAL**: All inputs must be validated and sanitized for security.
+
+#### Input Security Pattern
+```python
+# ✅ PREFER: Comprehensive input validation
+from src.syfi.security import validate_input, sanitize_path, prevent_sql_injection
+
+def process_export_request(table_name: str, file_path: str):
+    # Validate table name against whitelist
+    if not validate_input.is_valid_table_name(table_name):
+        raise SyFiValidationError(f"Invalid table name: {table_name}")
+    
+    # Sanitize file path to prevent directory traversal
+    safe_path = sanitize_path(file_path)
+    
+    # Use parameterized queries to prevent SQL injection
+    query = "SELECT * FROM ? WHERE status = ?"
+    # Note: Table names can't be parameterized, so validate against whitelist
+```
+
+#### Required Security Practices
+1. **Input Validation**: Validate all user inputs against defined schemas and business rules
+2. **SQL Injection Prevention**: Use parameterized queries and input sanitization
+3. **Path Traversal Protection**: Validate and sanitize all file path operations
+4. **Data Encryption**: Encrypt sensitive data at rest using appropriate encryption
+5. **Access Control**: Implement role-based access control for all operations
+
+### Performance & Optimization Standards
+**CRITICAL**: All code must handle enterprise-scale datasets efficiently.
+
+#### Performance Pattern
+```python
+# ✅ PREFER: Streaming and caching for large datasets
+from src.syfi.performance import CacheManager, StreamingProcessor
+
+cache = CacheManager()
+processor = StreamingProcessor(batch_size=1000)
+
+# Cache frequently accessed schema metadata
+@cache.memoize(ttl=300)  # 5 minute cache
+def get_table_schema(table_name):
+    return db.get_table_info(table_name)
+
+# Stream process large datasets
+def process_large_export(query, file_path):
+    with processor.stream_query(query) as stream:
+        with open(file_path, 'w') as f:
+            for batch in stream:
+                # Process batch without loading entire dataset in memory
+                processed_batch = transform_batch(batch)
+                write_batch_to_file(f, processed_batch)
+```
+
+#### Required Performance Practices
+1. **Memory Efficiency**: Use streaming for large datasets to prevent memory exhaustion
+2. **Database Optimization**: Implement connection pooling and query optimization
+3. **Caching Strategy**: Cache frequently accessed data with appropriate TTL
+4. **Resource Monitoring**: Monitor memory, CPU, and I/O usage during operations
+5. **Load Testing**: Validate performance under enterprise-scale load scenarios
+
+### Configuration & Environment Standards
+**CRITICAL**: All configuration must be environment-aware and secure.
+
+#### Configuration Management Pattern
+```python
+# ✅ PREFER: Environment-aware configuration
+from src.syfi.config import get_config, Environment
+
+config = get_config()
+
+# Environment-specific settings
+if config.environment == Environment.PRODUCTION:
+    log_level = "WARNING"
+    enable_debug_features = False
+elif config.environment == Environment.DEVELOPMENT:
+    log_level = "DEBUG"
+    enable_debug_features = True
+
+# Secure credential handling
+database_url = config.get_secret("DATABASE_URL")  # From secure store
+api_key = config.get_secret("API_KEY")  # Never log or expose
+```
+
+#### Required Configuration Practices
+1. **Environment Separation**: Separate configuration for dev/test/prod environments
+2. **Secret Management**: Store sensitive configuration in secure credential stores
+3. **Feature Flags**: Use feature flags for gradual rollout of new functionality
+4. **Configuration Validation**: Validate all configuration at startup with clear errors
+5. **Hot Reload**: Support runtime configuration updates without service restart
+
+### Testing & Quality Assurance Standards
+**CRITICAL**: All production code must have comprehensive test coverage.
+
+#### Production Testing Pattern
+```python
+# ✅ PREFER: Comprehensive test coverage with production scenarios
+import pytest
+from src.syfi.testing import load_test, security_test, performance_test
+
+class TestProductionScenarios:
+    @load_test(concurrent_users=10, duration="60s")
+    def test_concurrent_export_operations(self):
+        """Test system handles concurrent export operations without degradation."""
+        
+    @security_test(inputs=["malicious_sql", "path_traversal", "xss_payload"])
+    def test_input_validation_security(self, malicious_input):
+        """Test system properly validates and sanitizes malicious inputs."""
+        
+    @performance_test(dataset_size=100000, max_duration="30s")
+    def test_large_dataset_performance(self):
+        """Test system processes large datasets within performance targets."""
+```
+
+#### Required Testing Practices
+1. **Load Testing**: Test with enterprise-scale data volumes and concurrent users
+2. **Security Testing**: Test against common security vulnerabilities and attack vectors
+3. **Performance Testing**: Validate performance targets under realistic load conditions
+4. **Integration Testing**: Test complete workflows across all system components
+5. **Monitoring Testing**: Validate that monitoring and alerting systems function correctly
+
+### Deployment & Operations Standards
+**CRITICAL**: All deployments must support zero-downtime updates and monitoring.
+
+#### Operational Pattern
+```python
+# ✅ PREFER: Health checks and monitoring endpoints
+from src.syfi.monitoring import HealthChecker, MetricsCollector
+
+health_checker = HealthChecker()
+metrics = MetricsCollector()
+
+@app.route("/health")
+def health_check():
+    """Health check endpoint for load balancer and monitoring."""
+    status = health_checker.check_all_systems()
+    return jsonify(status), 200 if status["healthy"] else 503
+
+@app.route("/metrics")
+def metrics_endpoint():
+    """Metrics endpoint for monitoring system performance."""
+    return jsonify(metrics.get_current_metrics())
+```
+
+#### Required Operational Practices
+1. **Health Checks**: Implement comprehensive health check endpoints for all services
+2. **Metrics Collection**: Collect and expose key performance and business metrics
+3. **Graceful Shutdown**: Handle shutdown signals gracefully with proper cleanup
+4. **Rolling Deployments**: Support zero-downtime deployments with proper validation
+5. **Monitoring Integration**: Integrate with monitoring and alerting systems
+
+Code changes should be tested and verified using existing test suites. If a test suite does not exist for the changed code, create one.
+
 ## Web Application Design Guidelines
 
 ### Design Philosophy
