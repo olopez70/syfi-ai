@@ -236,6 +236,7 @@ class BankingMetricsCalculator:
         has_income = self._column_exists('customers', 'household_income')
         income_col = "AVG(household_income) as avg_income" if has_income else "NULL as avg_income"
         
+        # Safe query execution - income_col is predefined constant, not user input
         cursor.execute(f"""
             SELECT 
                 CASE 
@@ -250,7 +251,7 @@ class BankingMetricsCalculator:
             WHERE date_of_birth IS NOT NULL
             GROUP BY age_group
             ORDER BY count DESC
-        """)
+        """)  # nosec B608 - income_col is safe constant
         
         age_segments = {}
         for row in cursor.fetchall():
@@ -267,6 +268,7 @@ class BankingMetricsCalculator:
             has_household_size = self._column_exists('customers', 'household_size')
             household_col = "AVG(household_size) as avg_household_size" if has_household_size else "NULL as avg_household_size"
             
+            # Safe query execution - household_col is predefined constant
             cursor.execute(f"""
                 SELECT 
                     CASE 
@@ -287,7 +289,7 @@ class BankingMetricsCalculator:
                         WHEN income_bracket = 'High Income ($80k-$120k)' THEN 3
                         ELSE 4
                     END
-            """)
+            """)  # nosec B608 - household_col is safe constant
             
             income_segments = {}
             for row in cursor.fetchall():
@@ -308,6 +310,7 @@ class BankingMetricsCalculator:
         if has_adults and has_children:
             income_col_family = "AVG(household_income) as avg_income" if has_income else "NULL as avg_income"
             
+            # Safe query execution - income_col_family is predefined constant
             cursor.execute(f"""
                 SELECT 
                     CASE 
@@ -324,7 +327,7 @@ class BankingMetricsCalculator:
                 WHERE num_adults IS NOT NULL AND num_children IS NOT NULL
                 GROUP BY family_type
                 ORDER BY count DESC
-            """)
+            """)  # nosec B608 - income_col_family is safe constant
             
             family_segments = {}
             for row in cursor.fetchall():
@@ -530,6 +533,7 @@ class BankingMetricsCalculator:
         household_col = "AVG(household_size) as avg_household_size" if has_household_size else "NULL as avg_household_size"
         children_col = "AVG(num_children) as avg_children" if has_children else "NULL as avg_children"
         
+        # Safe query execution - all columns are predefined constants
         cursor.execute(f"""
             SELECT 
                 profile_description,
@@ -541,7 +545,7 @@ class BankingMetricsCalculator:
             WHERE profile_description IS NOT NULL
             GROUP BY profile_description
             ORDER BY customer_count DESC
-        """)
+        """)  # nosec B608 - all column expressions are safe constants
         
         profile_demographics = {}
         for row in cursor.fetchall():

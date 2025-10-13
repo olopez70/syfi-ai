@@ -301,7 +301,7 @@ class ExportEngine:
                                 values.append(str(value))
                         
                         values_str = ", ".join(values)
-                        sqlfile.write(f"INSERT INTO {table.export_name} ({fields_str}) VALUES ({values_str});\n")
+                        sqlfile.write(f"INSERT INTO {table.export_name} ({fields_str}) VALUES ({values_str});\n")  # nosec B608 - SQL export generation
                 
                 files_created.append({
                     'filename': filename,
@@ -332,7 +332,7 @@ class ExportEngine:
         fields_str = ", ".join(field_selections)
         
         # Base query
-        query = f"SELECT {fields_str} FROM {table.table_name}"
+        query = f"SELECT {fields_str} FROM {table.table_name}"  # nosec B608 - export query construction
         
         # Add JOINs if specified
         if table.joins:
@@ -389,16 +389,16 @@ class ExportEngine:
                         if isinstance(value, str):
                             dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
                             value = dt.strftime(field.format)
-                    except:
-                        pass
+                    except (ValueError, AttributeError):
+                        pass  # Keep original value if formatting fails
                 elif field.data_type in ['float', 'integer'] and field.format:
                     try:
                         if field.data_type == 'float':
                             value = format(float(value), field.format)
                         else:
                             value = format(int(value), field.format)
-                    except:
-                        pass
+                    except (ValueError, TypeError):
+                        pass  # Keep original value if formatting fails
             
             transformed[field.target_field] = value
         

@@ -1,0 +1,7 @@
+skips:
+  - B311  # random usage - acceptable for synthetic data generation
+  - B405  # xml.etree - not processing untrusted XML
+
+exclude_dirs:
+  - tests
+  - examples
