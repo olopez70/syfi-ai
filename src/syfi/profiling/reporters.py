@@ -390,10 +390,12 @@ class ProfileReporter:
         
         # Extract summary data
         if hasattr(summary, 'to_dict'):
+            db_path = str(summary.database_path)
             total_customers = summary.total_customers
             total_accounts = summary.total_accounts
             total_transactions = summary.total_transactions
         else:
+            db_path = str(summary.get('database_path', ''))
             total_customers = summary.get('total_customers', 0)
             total_accounts = summary.get('total_accounts', 0)
             total_transactions = summary.get('total_transactions', 0)
@@ -401,6 +403,8 @@ class ProfileReporter:
         md_content = f"""# SyFi AI Banking Data Profile Report
 
 Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+**Database:** {db_path}
 
 ## Database Overview
 

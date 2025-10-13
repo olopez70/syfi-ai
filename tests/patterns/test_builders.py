@@ -43,7 +43,7 @@ class TestConcreteProfileBuilder:
             template_id="test_template",
             name="Test Template",
             description="A test template",
-            household_type="family"
+            category="family"  # Use category instead of household_type
         )
     
     def test_builder_initialization(self, builder):
@@ -256,7 +256,7 @@ class TestProfileDirector:
             template_id="family_template",
             name="Family Template",
             description="Template for family profiles",
-            household_type="family"
+            category="family"
         )
     
     def test_director_initialization(self, builder):
@@ -272,7 +272,8 @@ class TestProfileDirector:
         mock_random.randint.return_value = 100000
         builder.seed = 12345
         
-        # Setup builder chain
+        # Setup builder chain - all methods must return builder for chaining
+        builder.reset.return_value = builder
         builder.set_basic_info.return_value = builder
         builder.add_household_members.return_value = builder
         builder.set_income_level.return_value = builder
@@ -300,6 +301,7 @@ class TestProfileDirector:
         """Test building young family profile with custom income range."""
         mock_random.randint.return_value = 150000
         builder.seed = 12345
+        builder.reset.return_value = builder
         builder.set_basic_info.return_value = builder
         builder.add_household_members.return_value = builder
         builder.set_income_level.return_value = builder

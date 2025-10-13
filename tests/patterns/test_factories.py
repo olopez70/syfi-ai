@@ -92,7 +92,7 @@ class TestFamilyCustomerGenerator:
         """Create a FamilyCustomerGenerator instance."""
         try:
             from src.syfi.patterns.factories import FamilyCustomerGenerator
-            return FamilyCustomerGenerator()
+            return FamilyCustomerGenerator(seed=12345)
         except ImportError:
             pytest.skip("FamilyCustomerGenerator not implemented yet")
     
@@ -237,7 +237,7 @@ class TestFamilyTransactionGenerator:
         """Create a FamilyTransactionGenerator instance."""
         try:
             from src.syfi.patterns.factories import FamilyTransactionGenerator
-            return FamilyTransactionGenerator()
+            return FamilyTransactionGenerator(seed=12345)
         except ImportError:
             pytest.skip("FamilyTransactionGenerator not implemented yet")
     

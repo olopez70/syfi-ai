@@ -8,6 +8,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, Dict, Any, List
 from decimal import Decimal
 from datetime import date
+import random
 
 from ..models import Profile, ProfileTemplate
 
@@ -140,7 +141,6 @@ class ProfileDirector:
     def build_young_family_profile(self, template: ProfileTemplate, name: str, 
                                  income_range: tuple = (75000, 125000)) -> Profile:
         """Build a young family profile with predefined characteristics."""
-        import random
         from ..models import TransactionProfile
         
         random.seed(self.builder.seed)

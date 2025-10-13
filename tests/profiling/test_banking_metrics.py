@@ -60,16 +60,25 @@ class TestBankingMetricsCalculator:
             def __getitem__(self, key):
                 return self.data[key]
         
-        mock_cursor.fetchall.return_value = [
-            MockRow('checking', 5, 2500.25, 12500.50),
-            MockRow('savings', 3, 15000.00, 45000.00),
-            MockRow('credit', 2, -750.00, -1500.00)
-        ]
+        # Mock responses for different queries
+        def execute_side_effect(query):
+            if 'PRAGMA table_info' in query:
+                # Return empty for column check (no status column exists)
+                mock_cursor.fetchall.return_value = []
+            elif 'account_type' in query and 'GROUP BY' in query:
+                # Return account distribution data
+                mock_cursor.fetchall.return_value = [
+                    MockRow('checking', 5, 2500.25, 12500.50),
+                    MockRow('savings', 3, 15000.00, 45000.00),
+                    MockRow('credit', 2, -750.00, -1500.00)
+                ]
+                
+        mock_cursor.execute.side_effect = execute_side_effect
         
         result = calculator._calculate_account_metrics()
         
-        # Verify the query was executed
-        mock_cursor.execute.assert_called_once()
+        # Verify queries were executed (should be at least 1 call, possibly 2 for account status)
+        assert mock_cursor.execute.call_count >= 1
         
         # Verify the results structure
         assert isinstance(result, dict)
@@ -446,8 +455,9 @@ class TestBankingMetricsPerformance:
             execution_time = end_time - start_time
             assert execution_time < 5.0  # Should complete within 5 seconds
             
-            # Verify we got results for all account types
-            assert len(result) == 3  # checking, savings, credit
+            # Verify we got expected result structure
+            assert 'account_type_distribution' in result
+            assert len(result['account_type_distribution']) == 3  # checking, savings, credit
             
             conn.close()
             

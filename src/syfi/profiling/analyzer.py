@@ -82,7 +82,13 @@ class BankingDataProfiler:
         if not self.database_path.exists():
             raise FileNotFoundError(f"Database not found: {database_path}")
         
-        self.conn = sqlite3.connect(str(self.database_path))
+        try:
+            self.conn = sqlite3.connect(str(self.database_path))
+            # Test the connection with a simple query to validate the database
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
+            raise sqlite3.DatabaseError(f"Invalid database file: {database_path}") from e
         self.conn.row_factory = sqlite3.Row  # Enable dict-like access
         
     def __enter__(self):
@@ -119,41 +125,62 @@ class BankingDataProfiler:
         
         return profile
     
+    def _table_exists(self, table_name: str) -> bool:
+        """Check if a table exists in the database."""
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name=?
+        """, (table_name,))
+        return cursor.fetchone() is not None
+    
     def _generate_summary(self) -> ProfileSummary:
         """Generate high-level database summary."""
         cursor = self.conn.cursor()
         
-        # Get table counts
-        cursor.execute("SELECT COUNT(*) FROM customers")
-        customer_count = cursor.fetchone()[0]
+        # Get table counts (check if tables exist first)
+        customer_count = 0
+        if self._table_exists('customers'):
+            cursor.execute("SELECT COUNT(*) FROM customers")
+            customer_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT COUNT(*) FROM accounts") 
-        account_count = cursor.fetchone()[0]
+        account_count = 0
+        if self._table_exists('accounts'):
+            cursor.execute("SELECT COUNT(*) FROM accounts") 
+            account_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT COUNT(*) FROM transactions")
-        transaction_count = cursor.fetchone()[0]
+        transaction_count = 0
+        if self._table_exists('transactions'):
+            cursor.execute("SELECT COUNT(*) FROM transactions")
+            transaction_count = cursor.fetchone()[0]
         
         # Get database size
         db_size_kb = self.database_path.stat().st_size / 1024
         
-        # Get unique profiles (handle databases without profile_description column)
-        try:
-            cursor.execute("SELECT COUNT(DISTINCT profile_description) FROM customers WHERE profile_description IS NOT NULL")
-            unique_profiles = cursor.fetchone()[0]
-        except sqlite3.OperationalError:
-            # Column doesn't exist, set to 0
-            unique_profiles = 0
+        # Get unique profiles (handle databases without customers table or profile_description column)
+        unique_profiles = 0
+        if self._table_exists('customers'):
+            try:
+                cursor.execute("SELECT COUNT(DISTINCT profile_description) FROM customers WHERE profile_description IS NOT NULL")
+                unique_profiles = cursor.fetchone()[0]
+            except sqlite3.OperationalError:
+                # Column doesn't exist, set to 0
+                unique_profiles = 0
         
         # Get transaction date range if transactions exist
         date_range = None
-        if transaction_count > 0:
-            cursor.execute("SELECT MIN(DATE(transaction_date)), MAX(DATE(transaction_date)) FROM transactions")
-            result = cursor.fetchone()
-            if result[0] and result[1]:
-                date_range = (
-                    datetime.strptime(result[0], '%Y-%m-%d').date(),
-                    datetime.strptime(result[1], '%Y-%m-%d').date()
-                )
+        if transaction_count > 0 and self._table_exists('transactions'):
+            try:
+                cursor.execute("SELECT MIN(DATE(transaction_date)), MAX(DATE(transaction_date)) FROM transactions")
+                result = cursor.fetchone()
+                if result[0] and result[1]:
+                    date_range = (
+                        datetime.strptime(result[0], '%Y-%m-%d').date(),
+                        datetime.strptime(result[1], '%Y-%m-%d').date()
+                    )
+            except sqlite3.OperationalError:
+                # transaction_date column doesn't exist
+                date_range = None
         
         return ProfileSummary(
             database_path=str(self.database_path),
