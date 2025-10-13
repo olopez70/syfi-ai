@@ -41,6 +41,72 @@ Adhere to Core Principles of software design, including: Separation of Concerns,
 
 Code changes should be tested and verified using existing test suites. If a test suite does not exist for the changed code, create one.
 
+## Database Schema Management Guidelines
+
+### Schema-Aware Development Rules
+**CRITICAL**: All database operations must be schema-aware to prevent runtime errors due to missing tables/columns.
+
+#### Database Access Pattern
+```python
+# ❌ AVOID: Direct hardcoded database queries
+cursor.execute("SELECT status FROM accounts WHERE account_id = ?", (id,))
+
+# ✅ PREFER: Schema-aware database access
+from src.syfi.database.schema_aware_db import SchemaAwareConnection
+db = SchemaAwareConnection(db_path)
+if db.column_exists('accounts', 'status'):
+    # Use status column
+else:
+    # Fallback logic or use alternative columns
+```
+
+#### Required Practices
+1. **Always Check Table Existence**: Use `db.table_exists(table_name)` before queries
+2. **Validate Column Availability**: Use `db.column_exists(table, column)` for optional columns  
+3. **Provide Graceful Fallbacks**: Handle missing tables/columns without crashing
+4. **Use Adaptive Queries**: Build queries that work with different schema versions
+5. **Schema Version Compatibility**: Test code against multiple schema versions
+
+#### Schema Evolution Strategy
+- **Required Columns**: Must exist in all schema versions (customer_id, account_id, etc.)
+- **Optional Columns**: May not exist (status, is_active, profile_description, etc.)  
+- **Legacy Support**: Code must work with minimal and extended schemas
+- **Migration Path**: Use `SchemaManager` for version detection and validation
+
+#### Testing Requirements  
+- **Multi-Schema Tests**: Test components against different database schemas
+- **Missing Column Tests**: Verify graceful handling of missing optional columns
+- **Empty Database Tests**: Ensure components work with minimal/empty schemas
+- **Schema Validation**: Validate expected vs actual schema before operations
+
+#### Common Schema Variations
+```python
+# Account Status: Multiple possible column names
+status_column = 'status' if db.column_exists('accounts', 'status') else 'is_active' 
+
+# Customer Profiles: Optional advanced columns
+has_profiles = db.column_exists('customers', 'profile_description')
+
+# Transaction Dates: May use different date column names  
+date_column = 'transaction_date' if db.column_exists('transactions', 'transaction_date') else 'created_date'
+```
+
+### Schema Manager Usage
+```python
+from src.syfi.database.schema_manager import get_schema_manager, SCHEMA_DEFINITIONS
+
+# Validate compatibility before operations
+schema_manager = get_schema_manager(db_path)
+required_schema = SCHEMA_DEFINITIONS[SchemaVersion.V1_2_ENHANCED]
+issues = schema_manager.validate_schema_compatibility(required_schema)
+
+if issues['missing_tables'] or issues['missing_columns']:
+    # Handle schema incompatibility gracefully
+    logger.warning(f"Schema compatibility issues: {issues}")
+```
+
+Code changes should be tested and verified using existing test suites. If a test suite does not exist for the changed code, create one.
+
 ## Web Application Design Guidelines
 
 ### Design Philosophy
