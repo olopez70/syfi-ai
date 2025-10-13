@@ -205,6 +205,17 @@ class SQLiteCustomerRepository(CustomerRepository):
     
     def __init__(self, db_manager):
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from ..schema_management.schema_aware_db import SchemaAwareConnection
+        if isinstance(db_manager, str):
+            self._schema_db = SchemaAwareConnection(db_manager)
+        else:
+            # Use db_manager's database path for schema awareness
+            db_path = getattr(db_manager, 'db_path', None)
+            if db_path:
+                self._schema_db = SchemaAwareConnection(db_path)
+            else:
+                self._schema_db = None
     
     def save(self, customer: Customer) -> str:
         return self.save_batch([customer])[0]
@@ -213,48 +224,100 @@ class SQLiteCustomerRepository(CustomerRepository):
         return self.db_manager.insert_customers(customers)
     
     def find_by_id(self, customer_id: str) -> Optional[Customer]:
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("SELECT * FROM customers WHERE customer_id = ?", (customer_id,))
-        row = cursor.fetchone()
-        
-        if row:
-            return self._row_to_customer(row)
+        # Use schema-aware query if available, fallback to legacy
+        if self._schema_db and self._schema_db.table_exists('customers'):
+            result = self._schema_db.safe_execute(
+                "SELECT * FROM customers WHERE customer_id = ?", 
+                (customer_id,)
+            )
+            # safe_execute returns list for SELECT queries
+            if result and len(result) > 0:
+                return self._row_to_customer(result[0])
+        else:
+            # Fallback to legacy db_manager approach
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT * FROM customers WHERE customer_id = ?", (customer_id,))
+            row = cursor.fetchone()
+            
+            if row:
+                return self._row_to_customer(row)
         return None
     
     def find_all(self) -> List[Customer]:
-        customers_data = self.db_manager.get_all_customers()
-        return [self._dict_to_customer(data) for data in customers_data]
+        # Schema-aware implementation with graceful ordering
+        if self._schema_db and self._schema_db.table_exists('customers'):
+            # Try different ordering columns based on schema version
+            order_clause = ""
+            if self._schema_db.column_exists('customers', 'created_date'):
+                order_clause = " ORDER BY created_date"
+            elif self._schema_db.column_exists('customers', 'customer_id'):
+                order_clause = " ORDER BY customer_id"
+            
+            result = self._schema_db.safe_execute(f"SELECT * FROM customers{order_clause}")
+            return [self._row_to_customer(row) for row in result] if result else []
+        else:
+            # Legacy fallback
+            customers_data = self.db_manager.get_all_customers()
+            return [self._dict_to_customer(data) for data in customers_data]
     
     def find_by_income_range(self, min_income: float, max_income: float) -> List[Customer]:
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute(
-            "SELECT * FROM customers WHERE household_income BETWEEN ? AND ?", 
-            (min_income, max_income)
-        )
-        rows = cursor.fetchall()
-        
-        return [self._row_to_customer(row) for row in rows]
+        # Schema-aware implementation with graceful fallback
+        if self._schema_db and self._schema_db.table_exists('customers'):
+            # Check if household_income column exists in current schema
+            if self._schema_db.column_exists('customers', 'household_income'):
+                result = self._schema_db.safe_execute(
+                    "SELECT * FROM customers WHERE household_income BETWEEN ? AND ?", 
+                    (min_income, max_income)
+                )
+                # safe_execute returns list for SELECT queries
+                return [self._row_to_customer(row) for row in result] if result else []
+            else:
+                # Income column not available in this schema version
+                return []
+        else:
+            # Legacy fallback
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute(
+                "SELECT * FROM customers WHERE household_income BETWEEN ? AND ?", 
+                (min_income, max_income)
+            )
+            rows = cursor.fetchall()
+            
+            return [self._row_to_customer(row) for row in rows]
     
     def count(self) -> int:
-        return self.db_manager.count_customers()
+        # Schema-aware count
+        if self._schema_db and self._schema_db.table_exists('customers'):
+            return self._schema_db.safe_count('customers')
+        else:
+            # Legacy fallback  
+            return self.db_manager.count_customers()
     
     def _row_to_customer(self, row) -> Customer:
-        """Convert database row to Customer object."""
+        """Convert database row to Customer object with schema awareness."""
         from decimal import Decimal
         
+        # Helper function to safely get column value with fallback handling
+        def safe_get(column_name, default=None):
+            try:
+                value = row[column_name]
+                return value if value is not None else default
+            except (KeyError, IndexError):
+                return default
+        
         return Customer(
-            customer_id=row['customer_id'],
-            first_name=row['first_name'],
-            last_name=row['last_name'],
-            email=row['email'],
-            phone=row['phone'],
-            household_income=Decimal(str(row['household_income'])) if row['household_income'] else None,
-            household_size=row['household_size'] or 1,
-            employment_status=row['employment_status']
+            customer_id=row['customer_id'],  # Required field
+            first_name=row['first_name'],    # Required field
+            last_name=row['last_name'],      # Required field
+            email=safe_get('email', ''),
+            phone=safe_get('phone', ''),
+            household_income=Decimal(str(safe_get('household_income', 0))) if safe_get('household_income') else None,
+            household_size=safe_get('household_size', 1) or 1,
+            employment_status=safe_get('employment_status', '')
         )
     
     def _dict_to_customer(self, data: Dict[str, Any]) -> Customer:
@@ -278,6 +341,17 @@ class SQLiteAccountRepository(AccountRepository):
     
     def __init__(self, db_manager):
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from ..schema_management.schema_aware_db import SchemaAwareConnection
+        if isinstance(db_manager, str):
+            self._schema_db = SchemaAwareConnection(db_manager)
+        else:
+            # Use db_manager's database path for schema awareness
+            db_path = getattr(db_manager, 'db_path', None)
+            if db_path:
+                self._schema_db = SchemaAwareConnection(db_path)
+            else:
+                self._schema_db = None
     
     def save(self, account: Account) -> str:
         return self.save_batch([account])[0]
@@ -286,38 +360,107 @@ class SQLiteAccountRepository(AccountRepository):
         return self.db_manager.insert_accounts(accounts)
     
     def find_by_id(self, account_id: str) -> Optional[Account]:
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("SELECT * FROM accounts WHERE account_id = ?", (account_id,))
-        row = cursor.fetchone()
-        
-        if row:
-            return self._row_to_account(row)
+        # Use schema-aware query if available, fallback to legacy
+        if self._schema_db and self._schema_db.table_exists('accounts'):
+            result = self._schema_db.safe_execute(
+                "SELECT * FROM accounts WHERE account_id = ?", 
+                (account_id,)
+            )
+            # safe_execute returns list for SELECT queries
+            if result and len(result) > 0:
+                return self._row_to_account(result[0])
+        else:
+            # Fallback to legacy db_manager approach
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT * FROM accounts WHERE account_id = ?", (account_id,))
+            row = cursor.fetchone()
+            
+            if row:
+                return self._row_to_account(row)
         return None
     
     def find_by_customer_id(self, customer_id: str) -> List[Account]:
-        accounts_data = self.db_manager.get_accounts_for_customer(customer_id)
-        return [self._dict_to_account(data) for data in accounts_data]
+        # Schema-aware implementation with graceful handling of status columns
+        if self._schema_db and self._schema_db.table_exists('accounts'):
+            # Build query based on available columns
+            query = "SELECT * FROM accounts WHERE customer_id = ?"
+            params = (customer_id,)
+            
+            # Add status filter if available
+            if self._schema_db.column_exists('accounts', 'status'):
+                query += " AND status != 'closed'"
+            elif self._schema_db.column_exists('accounts', 'is_active'):
+                query += " AND is_active = 1"
+            
+            # Add ordering if available
+            if self._schema_db.column_exists('accounts', 'created_date'):
+                query += " ORDER BY created_date"
+            elif self._schema_db.column_exists('accounts', 'account_id'):
+                query += " ORDER BY account_id"
+            
+            result = self._schema_db.safe_execute(query, params)
+            return [self._row_to_account(row) for row in result] if result else []
+        else:
+            # Legacy fallback
+            accounts_data = self.db_manager.get_accounts_for_customer(customer_id)
+            return [self._dict_to_account(data) for data in accounts_data]
     
     def find_all(self) -> List[Account]:
-        accounts_data = self.db_manager.get_all_accounts()
-        return [self._dict_to_account(data) for data in accounts_data]
+        # Schema-aware implementation with graceful ordering
+        if self._schema_db and self._schema_db.table_exists('accounts'):
+            # Try different ordering columns based on schema version
+            order_clause = ""
+            if self._schema_db.column_exists('accounts', 'created_date'):
+                order_clause = " ORDER BY created_date"
+            elif self._schema_db.column_exists('accounts', 'account_id'):
+                order_clause = " ORDER BY account_id"
+            
+            result = self._schema_db.safe_execute(f"SELECT * FROM accounts{order_clause}")
+            return [self._row_to_account(row) for row in result] if result else []
+        else:
+            # Legacy fallback
+            accounts_data = self.db_manager.get_all_accounts()
+            return [self._dict_to_account(data) for data in accounts_data]
     
     def count(self) -> int:
-        return self.db_manager.count_accounts()
+        # Schema-aware count with graceful status handling
+        if self._schema_db and self._schema_db.table_exists('accounts'):
+            # Build count query based on available columns
+            if self._schema_db.column_exists('accounts', 'status'):
+                return self._schema_db.safe_count('accounts', "status != 'closed'")
+            elif self._schema_db.column_exists('accounts', 'is_active'):
+                return self._schema_db.safe_count('accounts', "is_active = 1")
+            else:
+                return self._schema_db.safe_count('accounts')
+        else:
+            # Legacy fallback
+            return self.db_manager.count_accounts()
     
     def _row_to_account(self, row) -> Account:
-        """Convert database row to Account object."""
+        """Convert database row to Account object with schema awareness."""
         from decimal import Decimal
         from ..models import AccountType
         
+        # Helper function to safely get column value with fallback handling
+        def safe_get(column_name, default=None):
+            try:
+                value = row[column_name]
+                return value if value is not None else default
+            except (KeyError, IndexError):
+                return default
+        
+        # Get balance and available_balance safely
+        balance = safe_get('balance', '0.00')
+        available_balance = safe_get('available_balance', balance)
+        
         return Account(
-            account_id=row['account_id'],
-            customer_id=row['customer_id'],
-            account_type=AccountType(row['account_type']),
-            balance=Decimal(str(row['balance'])),
-            available_balance=Decimal(str(row['available_balance']))
+            account_id=row['account_id'],          # Required field
+            customer_id=row['customer_id'],       # Required field
+            account_type=AccountType(safe_get('account_type', 'checking')),
+            balance=Decimal(str(balance)),
+            available_balance=Decimal(str(available_balance))
         )
     
     def _dict_to_account(self, data: Dict[str, Any]) -> Account:
@@ -339,6 +482,17 @@ class SQLiteTransactionRepository(TransactionRepository):
     
     def __init__(self, db_manager):
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from ..schema_management.schema_aware_db import SchemaAwareConnection
+        if isinstance(db_manager, str):
+            self._schema_db = SchemaAwareConnection(db_manager)
+        else:
+            # Use db_manager's database path for schema awareness
+            db_path = getattr(db_manager, 'db_path', None)
+            if db_path:
+                self._schema_db = SchemaAwareConnection(db_path)
+            else:
+                self._schema_db = None
     
     def save(self, transaction: Transaction) -> str:
         return self.save_batch([transaction])[0]
@@ -347,53 +501,107 @@ class SQLiteTransactionRepository(TransactionRepository):
         return self.db_manager.insert_transactions(transactions)
     
     def find_by_id(self, transaction_id: str) -> Optional[Transaction]:
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("SELECT * FROM transactions WHERE transaction_id = ?", (transaction_id,))
-        row = cursor.fetchone()
-        
-        if row:
-            return self._row_to_transaction(row)
+        # Use schema-aware query if available, fallback to legacy
+        if self._schema_db and self._schema_db.table_exists('transactions'):
+            result = self._schema_db.safe_execute(
+                "SELECT * FROM transactions WHERE transaction_id = ?", 
+                (transaction_id,)
+            )
+            # safe_execute returns list for SELECT queries
+            if result and len(result) > 0:
+                return self._row_to_transaction(result[0])
+        else:
+            # Fallback to legacy db_manager approach
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT * FROM transactions WHERE transaction_id = ?", (transaction_id,))
+            row = cursor.fetchone()
+            
+            if row:
+                return self._row_to_transaction(row)
         return None
     
     def find_by_account_id(self, account_id: str) -> List[Transaction]:
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("SELECT * FROM transactions WHERE account_id = ? ORDER BY transaction_date", 
-                      (account_id,))
-        rows = cursor.fetchall()
-        
-        return [self._row_to_transaction(row) for row in rows]
+        # Schema-aware implementation with adaptive ordering
+        if self._schema_db and self._schema_db.table_exists('transactions'):
+            # Check for available date columns for ordering
+            order_clause = ""
+            if self._schema_db.column_exists('transactions', 'transaction_date'):
+                order_clause = " ORDER BY transaction_date"
+            elif self._schema_db.column_exists('transactions', 'created_date'):
+                order_clause = " ORDER BY created_date"
+            
+            query = f"SELECT * FROM transactions WHERE account_id = ?{order_clause}"
+            result = self._schema_db.safe_execute(query, (account_id,))
+            # safe_execute returns list for SELECT queries
+            return [self._row_to_transaction(row) for row in result] if result else []
+        else:
+            # Legacy fallback
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT * FROM transactions WHERE account_id = ? ORDER BY transaction_date", 
+                          (account_id,))
+            rows = cursor.fetchall()
+            
+            return [self._row_to_transaction(row) for row in rows]
     
     def find_by_date_range(self, start_date: date, end_date: date) -> List[Transaction]:
         transactions_data = self.db_manager.get_transactions_for_period(start_date, end_date)
         return [self._dict_to_transaction(data) for data in transactions_data]
     
     def find_all(self) -> List[Transaction]:
-        transactions_data = self.db_manager.get_all_transactions()
-        return [self._dict_to_transaction(data) for data in transactions_data]
+        # Schema-aware implementation with graceful ordering
+        if self._schema_db and self._schema_db.table_exists('transactions'):
+            # Try different ordering columns based on schema version
+            order_clause = ""
+            if self._schema_db.column_exists('transactions', 'transaction_date'):
+                order_clause = " ORDER BY transaction_date"
+            elif self._schema_db.column_exists('transactions', 'created_date'):
+                order_clause = " ORDER BY created_date"
+            elif self._schema_db.column_exists('transactions', 'transaction_id'):
+                order_clause = " ORDER BY transaction_id"
+            
+            result = self._schema_db.safe_execute(f"SELECT * FROM transactions{order_clause}")
+            return [self._row_to_transaction(row) for row in result] if result else []
+        else:
+            # Legacy fallback
+            transactions_data = self.db_manager.get_all_transactions()
+            return [self._dict_to_transaction(data) for data in transactions_data]
     
     def count(self) -> int:
-        return self.db_manager.count_transactions()
+        # Schema-aware count
+        if self._schema_db and self._schema_db.table_exists('transactions'):
+            return self._schema_db.safe_count('transactions')
+        else:
+            # Legacy fallback
+            return self.db_manager.count_transactions()
     
     def _row_to_transaction(self, row) -> Transaction:
-        """Convert database row to Transaction object."""
+        """Convert database row to Transaction object with schema awareness."""
         from decimal import Decimal
-        from datetime import datetime
+        from datetime import datetime, date
         from ..models import TransactionType, TransactionCategory
         
+        # Helper function to safely get column value with fallback handling
+        def safe_get(column_name, default=None):
+            try:
+                value = row[column_name]
+                return value if value is not None else default
+            except (KeyError, IndexError):
+                return default
+        
         return Transaction(
-            transaction_id=row['transaction_id'],
-            account_id=row['account_id'],
-            transaction_type=TransactionType(row['transaction_type']),
-            amount=Decimal(str(row['amount'])),
-            description=row['description'],
-            category=TransactionCategory(row['category']),
-            transaction_date=datetime.fromisoformat(row['transaction_date']) if isinstance(row['transaction_date'], str) else row['transaction_date'],
-            merchant_name=row['merchant_name'],
-            balance_after=Decimal(str(row['balance_after'])) if row['balance_after'] else None
+            transaction_id=row['transaction_id'],     # Required field
+            account_id=row['account_id'],            # Required field
+            transaction_type=TransactionType(safe_get('transaction_type', 'other')),
+            amount=Decimal(str(safe_get('amount', '0.00'))),
+            description=safe_get('description', ''),
+            category=TransactionCategory(safe_get('category', 'other')),
+            transaction_date=safe_get('transaction_date', safe_get('created_date', date.today())),
+            merchant_name=safe_get('merchant_name', ''),
+            balance_after=Decimal(str(safe_get('balance_after', '0.00'))) if safe_get('balance_after') else None
         )
     
     def _dict_to_transaction(self, data: Dict[str, Any]) -> Transaction:

@@ -217,56 +217,98 @@ class MetricsCollector(Observer):
 
 
 class DatabaseEventLogger(Observer):
-    """Observer that logs events to database."""
+    """Observer that logs generation events to database with schema awareness."""
     
     def __init__(self, db_manager):
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from ..schema_management.schema_aware_db import SchemaAwareConnection
+        if hasattr(db_manager, 'db_path'):
+            self._schema_db = SchemaAwareConnection(db_manager.db_path)
+        else:
+            self._schema_db = None
         self._ensure_events_table()
     
     def _ensure_events_table(self):
-        """Ensure events table exists."""
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS generation_events (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                event_type TEXT NOT NULL,
-                timestamp DATETIME NOT NULL,
-                source TEXT,
-                data TEXT,  -- JSON
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-        conn.commit()
+        """Ensure events table exists with schema awareness."""
+        if self._schema_db:
+            # Check if events table already exists
+            if not self._schema_db.table_exists('generation_events'):
+                # Use schema-aware connection to create table (simplified query)
+                create_query = """CREATE TABLE IF NOT EXISTS generation_events (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    event_type TEXT NOT NULL,
+                    timestamp DATETIME NOT NULL,
+                    source TEXT,
+                    data TEXT,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )"""
+                self._schema_db.safe_execute(create_query)
+                # Clear cache to reflect new table
+                self._schema_db._table_cache.pop('generation_events', None)
+        else:
+            # Legacy fallback
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS generation_events (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    event_type TEXT NOT NULL,
+                    timestamp DATETIME NOT NULL,
+                    source TEXT,
+                    data TEXT,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+            conn.commit()
     
     def update(self, event_data: GenerationEventData) -> None:
-        """Log event to database."""
+        """Log event to database with schema awareness."""
         import json
         
-        conn = self.db_manager.get_connection()
-        cursor = conn.cursor()
-        
-        cursor.execute("""
-            INSERT INTO generation_events (event_type, timestamp, source, data)
-            VALUES (?, ?, ?, ?)
-        """, (
-            event_data.event_type.value,
-            event_data.timestamp.isoformat(),
-            event_data.source,
-            json.dumps(event_data.data, default=str)
-        ))
-        conn.commit()
+        if self._schema_db and self._schema_db.table_exists('generation_events'):
+            # Use schema-aware logging
+            self._schema_db.safe_execute("""
+                INSERT INTO generation_events (event_type, timestamp, source, data)
+                VALUES (?, ?, ?, ?)
+            """, (
+                event_data.event_type.value,
+                event_data.timestamp.isoformat(),
+                event_data.source,
+                json.dumps(event_data.data, default=str)
+            ))
+        else:
+            # Legacy fallback
+            conn = self.db_manager.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT INTO generation_events (event_type, timestamp, source, data)
+                VALUES (?, ?, ?, ?)
+            """, (
+                event_data.event_type.value,
+                event_data.timestamp.isoformat(),
+                event_data.source,
+                json.dumps(event_data.data, default=str)
+            ))
+            conn.commit()
 
 
 # Observable Data Generator
 
 class ObservableDataGenerator(Subject):
-    """Data generator that notifies observers of progress."""
+    """Data generator that notifies observers of progress with schema awareness."""
     
     def __init__(self, db_manager):
         super().__init__()
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from ..schema_management.schema_aware_db import SchemaAwareConnection
+        if hasattr(db_manager, 'db_path'):
+            self._schema_db = SchemaAwareConnection(db_manager.db_path)
+        else:
+            self._schema_db = None
     
     def generate_banking_data(self, profile, start_date, end_date):
         """Generate banking data with progress notifications."""

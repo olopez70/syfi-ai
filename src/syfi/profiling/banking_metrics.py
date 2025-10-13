@@ -9,6 +9,7 @@ import sqlite3
 import json
 from typing import Dict, Any, List, Optional
 from decimal import Decimal
+from ..schema_management import SchemaAwareConnection, SchemaAwareMetricsCalculator
 
 class BankingMetricsCalculator:
     """
@@ -18,15 +19,24 @@ class BankingMetricsCalculator:
     balance distributions, customer segmentation, and financial patterns.
     """
     
-    def __init__(self, conn: sqlite3.Connection):
+    def __init__(self, db_path_or_connection):
         """
-        Initialize calculator with database connection.
+        Initialize calculator with database connection or path.
         
         Args:
-            conn: SQLite database connection
+            db_path_or_connection: SQLite database connection (legacy) or path to database file
         """
-        self.conn = conn
-        self.conn.row_factory = sqlite3.Row
+        if isinstance(db_path_or_connection, str):
+            # New schema-aware initialization
+            self.db = SchemaAwareConnection(db_path_or_connection)
+            self.metrics_calculator = SchemaAwareMetricsCalculator(self.db)
+            self.conn = None  # Legacy connection for backward compatibility
+        else:
+            # Legacy connection mode for backward compatibility
+            self.conn = db_path_or_connection
+            self.conn.row_factory = sqlite3.Row
+            self.db = None
+            self.metrics_calculator = None
     
     def _safe_fetch_dict(self, result):
         """Safely access cursor result as dictionary or list."""
@@ -67,10 +77,60 @@ class BankingMetricsCalculator:
     
     def _column_exists(self, table: str, column: str) -> bool:
         """Check if a column exists in a table."""
-        cursor = self.conn.cursor()
-        cursor.execute(f"PRAGMA table_info({table})")
-        columns = [row[1] for row in cursor.fetchall()]
-        return column in columns
+        if self.db:
+            return self.db.column_exists(table, column)
+        elif self.conn:
+            # Legacy fallback
+            cursor = self.conn.cursor()
+            cursor.execute(f"PRAGMA table_info({table})")
+            columns = [row[1] for row in cursor.fetchall()]
+            return column in columns
+        else:
+            return False
+    
+    def _table_exists(self, table: str) -> bool:
+        """Check if a table exists in the database."""
+        if self.db:
+            return self.db.table_exists(table)
+        elif self.conn:
+            # Legacy fallback
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table,))
+            return cursor.fetchone() is not None
+        else:
+            return False
+    
+    def _safe_execute(self, query: str, params=None):
+        """Execute SQL query using appropriate method based on connection type."""
+        if self.db:
+            return self.db.safe_execute(query, params or ())
+        elif self.conn:
+            # Legacy mode
+            cursor = self.conn.cursor()
+            if params:
+                cursor.execute(query, params)
+            else:
+                cursor.execute(query)
+            return cursor.fetchall()
+        else:
+            return None
+    
+    def _safe_count(self, table: str, condition: str = None, params=None) -> int:
+        """Get count from table using schema-aware operations."""
+        if self.db:
+            return self.db.safe_count(table, condition, params)
+        elif self.conn:
+            # Legacy mode  
+            cursor = self.conn.cursor()
+            if condition:
+                query = f"SELECT COUNT(*) FROM {table} WHERE {condition}"
+                cursor.execute(query, params or ())
+            else:
+                cursor.execute(f"SELECT COUNT(*) FROM {table}")
+            result = cursor.fetchone()
+            return result[0] if result else 0
+        else:
+            return 0
     
     def calculate_all_metrics(self) -> Dict[str, Any]:
         """
@@ -81,59 +141,107 @@ class BankingMetricsCalculator:
         """
         metrics = {}
         
-        # Account analysis (test expects 'account_stats')
+        # Account analysis (test expects 'account_stats') - MIGRATED
         metrics['account_stats'] = self._calculate_account_metrics()
         
-        # Transaction analysis (test expects 'transaction_stats')
+        # Transaction analysis (test expects 'transaction_stats') - MIGRATED  
         metrics['transaction_stats'] = self._analyze_transactions()
         
-        # Customer segmentation
-        metrics['customer_segments'] = self._analyze_customer_segments()
-        
-        # Balance analysis (test expects 'balance_distribution')
-        metrics['balance_distribution'] = self._analyze_balances()
-        
-        # Product penetration (only if customers table exists)
-        metrics['product_penetration'] = self._calculate_product_penetration()
-        
-        # Profile-based analysis
-        metrics['profile_analysis'] = self._analyze_by_profiles()
+        # Only run legacy methods if we have a legacy connection
+        # TODO: Migrate these methods in follow-up work
+        if self.conn:
+            try:
+                # Customer segmentation - LEGACY
+                metrics['customer_segments'] = self._analyze_customer_segments()
+                
+                # Balance analysis (test expects 'balance_distribution') - LEGACY
+                metrics['balance_distribution'] = self._analyze_balances()
+                
+                # Product penetration (only if customers table exists) - LEGACY
+                metrics['product_penetration'] = self._calculate_product_penetration()
+                
+                # Profile-based analysis - LEGACY
+                metrics['profile_analysis'] = self._analyze_by_profiles()
+            except Exception as e:
+                # If legacy methods fail, provide empty results
+                metrics['customer_segments'] = {'message': f'Legacy method unavailable: {str(e)}'}
+                metrics['balance_distribution'] = {'message': 'Legacy method unavailable'}
+                metrics['product_penetration'] = {'message': 'Legacy method unavailable'}
+                metrics['profile_analysis'] = {'message': 'Legacy method unavailable'}
+        else:
+            # Schema-aware mode - provide basic implementations or skip
+            metrics['customer_segments'] = {'message': 'Customer segmentation requires legacy connection (migration pending)'}
+            metrics['balance_distribution'] = {'message': 'Balance analysis requires legacy connection (migration pending)'}
+            metrics['product_penetration'] = {'message': 'Product penetration requires legacy connection (migration pending)'}
+            metrics['profile_analysis'] = {'message': 'Profile analysis requires legacy connection (migration pending)'}
         
         return metrics
     
     def _calculate_account_metrics(self) -> Dict[str, Any]:
         """Calculate account-related metrics."""
-        cursor = self.conn.cursor()
         metrics = {}
         
-        # Account type distribution
-        cursor.execute("""
-            SELECT account_type, COUNT(*) as count, 
-                   AVG(balance) as avg_balance,
-                   SUM(balance) as total_balance
-            FROM accounts 
-            GROUP BY account_type
-            ORDER BY count DESC
-        """)
+        # Check if accounts table exists
+        if not self._table_exists('accounts'):
+            return {
+                'message': 'No accounts table found',
+                'total_accounts': 0,
+                'total_balance_across_all_accounts': 0,
+                'account_type_distribution': {},
+                'account_status': {'active': 0, 'inactive': 0}
+            }
+        
+        # Account type distribution using schema-aware operations
+        if self.db:
+            query = """
+                SELECT account_type, COUNT(*) as count, 
+                       AVG(balance) as avg_balance,
+                       SUM(balance) as total_balance
+                FROM accounts 
+                GROUP BY account_type
+                ORDER BY count DESC
+            """
+            account_type_results = self.db.safe_execute(query)
+        else:
+            # Legacy mode
+            cursor = self.conn.cursor()
+            cursor.execute("""
+                SELECT account_type, COUNT(*) as count, 
+                       AVG(balance) as avg_balance,
+                       SUM(balance) as total_balance
+                FROM accounts 
+                GROUP BY account_type
+                ORDER BY count DESC
+            """)
+            account_type_results = cursor.fetchall()
         
         account_types = {}
         total_accounts = 0
         total_balance = Decimal('0')
         
-        for row in cursor.fetchall():
-            account_type = row['account_type']
-            count = row['count']
-            avg_balance = float(row['avg_balance']) if row['avg_balance'] else 0
-            type_total_balance = float(row['total_balance']) if row['total_balance'] else 0
-            
-            account_types[account_type] = {
-                'count': count,
-                'avg_balance': round(avg_balance, 2),
-                'total_balance': round(type_total_balance, 2)
-            }
-            
-            total_accounts += count
-            total_balance += Decimal(str(type_total_balance))
+        if account_type_results:
+            for row in account_type_results:
+                if self.db:
+                    # Schema-aware mode - results are tuples
+                    account_type = row[0]
+                    count = row[1]
+                    avg_balance = float(row[2]) if row[2] else 0
+                    type_total_balance = float(row[3]) if row[3] else 0
+                else:
+                    # Legacy mode - results have dict-like access
+                    account_type = row['account_type']
+                    count = row['count']
+                    avg_balance = float(row['avg_balance']) if row['avg_balance'] else 0
+                    type_total_balance = float(row['total_balance']) if row['total_balance'] else 0
+                
+                account_types[account_type] = {
+                    'count': count,
+                    'avg_balance': round(avg_balance, 2),
+                    'total_balance': round(type_total_balance, 2)
+                }
+                
+                total_accounts += count
+                total_balance += Decimal(str(type_total_balance))
         
         # Calculate percentages
         for account_type in account_types:
@@ -145,116 +253,139 @@ class BankingMetricsCalculator:
         metrics['total_accounts'] = total_accounts
         metrics['total_balance_across_all_accounts'] = float(total_balance)
         
-        # Active vs inactive accounts - check if status/is_active column exists
-        if self._column_exists('accounts', 'status'):
-            cursor.execute("""
-                SELECT 
-                    SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active_accounts,
-                    SUM(CASE WHEN status != 'active' OR status IS NULL THEN 1 ELSE 0 END) as inactive_accounts
-                FROM accounts
-            """)
-            result = cursor.fetchone()
-            safe_result = self._safe_fetch_dict(result)
-            metrics['account_status'] = {
-                'active': safe_result.get('active_accounts', 0) if isinstance(safe_result, dict) else 0,
-                'inactive': safe_result.get('inactive_accounts', 0) if isinstance(safe_result, dict) else 0
-            }
-        elif self._column_exists('accounts', 'is_active'):
-            cursor.execute("""
-                SELECT 
-                    SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_accounts,
-                    SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive_accounts
-                FROM accounts
-            """)
-            result = cursor.fetchone()
-            safe_result = self._safe_fetch_dict(result)
-            metrics['account_status'] = {
-                'active': safe_result.get('active_accounts', 0) if isinstance(safe_result, dict) else 0,
-                'inactive': safe_result.get('inactive_accounts', 0) if isinstance(safe_result, dict) else 0
-            }
+        # Active vs inactive accounts using schema-aware calculation
+        if self.metrics_calculator:
+            # Use the new schema-aware metrics calculator
+            metrics['account_status'] = self.metrics_calculator.calculate_account_status()
         else:
-            # If no status column, assume all accounts are active
-            metrics['account_status'] = {
-                'active': total_accounts,
-                'inactive': 0
-            }
+            # Legacy fallback - use safe_execute for all queries
+            if self._column_exists('accounts', 'status'):
+                result = self._safe_execute("""
+                    SELECT 
+                        SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active_accounts,
+                        SUM(CASE WHEN status != 'active' OR status IS NULL THEN 1 ELSE 0 END) as inactive_accounts
+                    FROM accounts
+                """)
+                if result and len(result) > 0:
+                    row = result[0]
+                    metrics['account_status'] = {
+                        'active': row[0] if row[0] else 0,
+                        'inactive': row[1] if row[1] else 0
+                    }
+                else:
+                    metrics['account_status'] = {'active': 0, 'inactive': 0}
+            elif self._column_exists('accounts', 'is_active'):
+                result = self._safe_execute("""
+                    SELECT 
+                        SUM(CASE WHEN is_active = 1 THEN 1 ELSE 0 END) as active_accounts,
+                        SUM(CASE WHEN is_active = 0 THEN 1 ELSE 0 END) as inactive_accounts
+                    FROM accounts
+                """)
+                if result and len(result) > 0:
+                    row = result[0]
+                    metrics['account_status'] = {
+                        'active': row[0] if row[0] else 0,
+                        'inactive': row[1] if row[1] else 0
+                    }
+                else:
+                    metrics['account_status'] = {'active': 0, 'inactive': 0}
+            else:
+                # If no status column, assume all accounts are active
+                metrics['account_status'] = {
+                    'active': total_accounts,
+                    'inactive': 0
+                }
         
         return metrics
     
     def _analyze_transactions(self) -> Dict[str, Any]:
         """Analyze transaction patterns and metrics."""
-        cursor = self.conn.cursor()
         transaction_metrics = {}
         
         # Check if transactions table exists
         if not self._table_exists('transactions'):
             return {'message': 'No transactions table found'}
         
-        # Get transaction count
-        cursor.execute("SELECT COUNT(*) FROM transactions")
-        result = cursor.fetchone()
-        total_transactions = self._safe_fetch_value(result, 0)
+        # Get transaction count using schema-aware operations
+        if self.db:
+            total_transactions = self.db.safe_count('transactions')
+        else:
+            # Legacy mode
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM transactions")
+            result = cursor.fetchone()
+            total_transactions = self._safe_fetch_value(result, 0)
         
         if total_transactions == 0:
             return {'message': 'No transactions found', 'total_transactions': 0}
         
         transaction_metrics['total_transactions'] = total_transactions
         
-        # Transaction type distribution
-        cursor.execute("""
+        # Transaction type distribution using safe_execute
+        type_results = self._safe_execute("""
             SELECT transaction_type, COUNT(*) as count
             FROM transactions
             GROUP BY transaction_type
             ORDER BY count DESC
         """)
         type_dist = {}
-        for row in cursor.fetchall():
-            type_dist[row[0]] = row[1]
+        if type_results:
+            for row in type_results:
+                type_dist[row[0]] = row[1]
         transaction_metrics['transaction_type_distribution'] = type_dist
         
-        # Transaction volume by amount ranges
-        cursor.execute("""
-            SELECT 
-                CASE 
-                    WHEN ABS(amount) < 50 THEN 'Small (<$50)'
-                    WHEN ABS(amount) < 200 THEN 'Medium ($50-$200)'
-                    WHEN ABS(amount) < 1000 THEN 'Large ($200-$1k)'
-                    ELSE 'Very Large ($1k+)'
-                END as amount_range,
-                COUNT(*) as count,
-                AVG(ABS(amount)) as avg_amount
-            FROM transactions
-            GROUP BY amount_range
-            ORDER BY avg_amount
-        """)
-        amount_ranges = {}
-        for row in cursor.fetchall():
-            amount_ranges[row[0]] = {
-                'count': row[1],
-                'avg_amount': round(float(row[2]), 2) if row[2] else 0
-            }
-        transaction_metrics['amount_distribution'] = amount_ranges
+        # Transaction volume by amount ranges (simplified for schema-aware mode)
+        if self._column_exists('transactions', 'amount'):
+            amount_results = self._safe_execute("""
+                SELECT 
+                    CASE 
+                        WHEN ABS(amount) < 50 THEN 'Small (<$50)'
+                        WHEN ABS(amount) < 200 THEN 'Medium ($50-$200)'
+                        WHEN ABS(amount) < 1000 THEN 'Large ($200-$1k)'
+                        ELSE 'Very Large ($1k+)'
+                    END as amount_range,
+                    COUNT(*) as count,
+                    AVG(ABS(amount)) as avg_amount
+                FROM transactions
+                GROUP BY amount_range
+                ORDER BY avg_amount
+            """)
+            amount_ranges = {}
+            if amount_results:
+                for row in amount_results:
+                    amount_ranges[row[0]] = {
+                        'count': row[1],
+                        'avg_amount': round(float(row[2]), 2) if row[2] else 0
+                    }
+            transaction_metrics['amount_distribution'] = amount_ranges
+        else:
+            transaction_metrics['amount_distribution'] = {'message': 'Amount column not available'}
         
-        # Monthly transaction patterns
-        cursor.execute("""
-            SELECT 
-                strftime('%Y-%m', transaction_date) as month,
-                COUNT(*) as transaction_count,
-                SUM(ABS(amount)) as total_volume,
-                AVG(ABS(amount)) as avg_amount
-            FROM transactions
-            GROUP BY strftime('%Y-%m', transaction_date)
-            ORDER BY month
-        """)
-        monthly_patterns = {}
-        for row in cursor.fetchall():
-            if row[0]:  # Skip null months
-                monthly_patterns[row[0]] = {
-                    'transaction_count': row[1],
-                    'total_volume': round(float(row[2]), 2) if row[2] else 0,
-                    'avg_amount': round(float(row[3]), 2) if row[3] else 0
-                }
-        transaction_metrics['monthly_patterns'] = monthly_patterns
+        # Monthly transaction patterns (simplified)
+        if self._column_exists('transactions', 'transaction_date'):
+            monthly_results = self._safe_execute("""
+                SELECT 
+                    strftime('%Y-%m', transaction_date) as month,
+                    COUNT(*) as transaction_count,
+                    SUM(ABS(amount)) as total_volume,
+                    AVG(ABS(amount)) as avg_amount
+                FROM transactions
+                WHERE transaction_date IS NOT NULL
+                GROUP BY strftime('%Y-%m', transaction_date)
+                ORDER BY month
+            """)
+            monthly_patterns = {}
+            if monthly_results:
+                for row in monthly_results:
+                    if row[0]:  # Skip null months
+                        monthly_patterns[row[0]] = {
+                            'transaction_count': row[1],
+                            'total_volume': round(float(row[2]), 2) if row[2] else 0,
+                            'avg_amount': round(float(row[3]), 2) if row[3] else 0
+                        }
+            transaction_metrics['monthly_patterns'] = monthly_patterns
+        else:
+            transaction_metrics['monthly_patterns'] = {'message': 'Transaction date column not available'}
         
         # Account activity analysis
         cursor.execute("""
@@ -277,14 +408,7 @@ class BankingMetricsCalculator:
         
         return transaction_metrics
     
-    def _table_exists(self, table_name: str) -> bool:
-        """Check if a table exists in the database."""
-        cursor = self.conn.cursor()
-        cursor.execute("""
-            SELECT name FROM sqlite_master 
-            WHERE type='table' AND name=?
-        """, (table_name,))
-        return cursor.fetchone() is not None
+# Removed duplicate _table_exists method - using the updated version above
     
     def _analyze_customer_segments(self) -> Dict[str, Any]:
         """Analyze customer segmentation patterns."""

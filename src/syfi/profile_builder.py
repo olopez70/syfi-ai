@@ -19,18 +19,25 @@ from .generators import CustomerGenerator
 
 class ProfileBuilder:
     """
-    Builds detailed profiles from templates and generates banking data.
+    Builds customer profiles and templates from natural language descriptions.
     """
     
     def __init__(self, db_manager: DatabaseManager, seed: Optional[int] = None):
         """
-        Initialize ProfileBuilder.
+        Initialize ProfileBuilder with schema-aware capabilities.
         
         Args:
             db_manager: DatabaseManager instance for data storage
             seed: Random seed for reproducible generation
         """
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from .schema_management.schema_aware_db import SchemaAwareConnection
+        if hasattr(db_manager, 'db_path'):
+            self._schema_db = SchemaAwareConnection(db_manager.db_path)
+        else:
+            # Fallback - extract path from connection if possible
+            self._schema_db = None
         self.seed = seed or random.randint(1000, 9999)
         
     def save_profile_template(self, template: ProfileTemplate) -> str:
@@ -269,12 +276,19 @@ class BankingDataGenerator:
     
     def __init__(self, db_manager: DatabaseManager):
         """
-        Initialize BankingDataGenerator.
+        Initialize BankingDataGenerator with schema-aware capabilities.
         
         Args:
             db_manager: DatabaseManager instance for data storage
         """
         self.db_manager = db_manager
+        # Initialize schema-aware connection for safe operations
+        from .schema_management.schema_aware_db import SchemaAwareConnection
+        if hasattr(db_manager, 'db_path'):
+            self._schema_db = SchemaAwareConnection(db_manager.db_path)
+        else:
+            # Fallback - extract path from connection if possible
+            self._schema_db = None
     
     def generate_banking_data(self, profile: Profile, start_date: date, end_date: date) -> Dict[str, Any]:
         """

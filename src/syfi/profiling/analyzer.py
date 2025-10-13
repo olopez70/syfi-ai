@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass
 from decimal import Decimal
+from ..schema_management import SchemaAwareConnection, get_schema_manager
 
 @dataclass
 class ProfileSummary:
@@ -82,14 +83,18 @@ class BankingDataProfiler:
         if not self.database_path.exists():
             raise FileNotFoundError(f"Database not found: {database_path}")
         
+        # Initialize schema-aware database connection
         try:
-            self.conn = sqlite3.connect(str(self.database_path))
-            # Test the connection with a simple query to validate the database
-            cursor = self.conn.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            self.db = SchemaAwareConnection(str(database_path))
+            self.schema_manager = get_schema_manager(str(database_path))
+            # Validate database accessibility
+            self.db.safe_execute("SELECT name FROM sqlite_master WHERE type='table'")
         except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
             raise sqlite3.DatabaseError(f"Invalid database file: {database_path}") from e
-        self.conn.row_factory = sqlite3.Row  # Enable dict-like access
+        
+        # Maintain legacy connection for backward compatibility where needed
+        self.conn = sqlite3.connect(str(self.database_path))
+        self.conn.row_factory = sqlite3.Row
         
     def __enter__(self):
         """Context manager entry."""
@@ -102,10 +107,7 @@ class BankingDataProfiler:
     
     def _column_exists(self, table: str, column: str) -> bool:
         """Check if a column exists in a table."""
-        cursor = self.conn.cursor()
-        cursor.execute(f"PRAGMA table_info({table})")
-        columns = [row[1] for row in cursor.fetchall()]
-        return column in columns
+        return self.db.column_exists(table, column)
     
     def generate_full_profile(self) -> Dict[str, Any]:
         """
@@ -127,60 +129,38 @@ class BankingDataProfiler:
     
     def _table_exists(self, table_name: str) -> bool:
         """Check if a table exists in the database."""
-        cursor = self.conn.cursor()
-        cursor.execute("""
-            SELECT name FROM sqlite_master 
-            WHERE type='table' AND name=?
-        """, (table_name,))
-        return cursor.fetchone() is not None
+        return self.db.table_exists(table_name)
     
     def _generate_summary(self) -> ProfileSummary:
         """Generate high-level database summary."""
-        cursor = self.conn.cursor()
         
-        # Get table counts (check if tables exist first)
-        customer_count = 0
-        if self._table_exists('customers'):
-            cursor.execute("SELECT COUNT(*) FROM customers")
-            customer_count = cursor.fetchone()[0]
-        
-        account_count = 0
-        if self._table_exists('accounts'):
-            cursor.execute("SELECT COUNT(*) FROM accounts") 
-            account_count = cursor.fetchone()[0]
-        
-        transaction_count = 0
-        if self._table_exists('transactions'):
-            cursor.execute("SELECT COUNT(*) FROM transactions")
-            transaction_count = cursor.fetchone()[0]
+        # Get table counts using schema-aware operations
+        customer_count = self.db.safe_count('customers')
+        account_count = self.db.safe_count('accounts')
+        transaction_count = self.db.safe_count('transactions')
         
         # Get database size
         db_size_kb = self.database_path.stat().st_size / 1024
         
-        # Get unique profiles (handle databases without customers table or profile_description column)
+        # Get unique profiles using schema-aware operations
         unique_profiles = 0
-        if self._table_exists('customers'):
-            try:
-                cursor.execute("SELECT COUNT(DISTINCT profile_description) FROM customers WHERE profile_description IS NOT NULL")
-                unique_profiles = cursor.fetchone()[0]
-            except sqlite3.OperationalError:
-                # Column doesn't exist, set to 0
-                unique_profiles = 0
+        if self._table_exists('customers') and self._column_exists('customers', 'profile_description'):
+            result = self.db.safe_execute("SELECT COUNT(DISTINCT profile_description) FROM customers WHERE profile_description IS NOT NULL")
+            if result and len(result) > 0:
+                unique_profiles = result[0][0] if result[0][0] else 0
         
-        # Get transaction date range if transactions exist
+        # Get transaction date range using schema-aware operations
         date_range = None
-        if transaction_count > 0 and self._table_exists('transactions'):
-            try:
-                cursor.execute("SELECT MIN(DATE(transaction_date)), MAX(DATE(transaction_date)) FROM transactions")
-                result = cursor.fetchone()
-                if result[0] and result[1]:
+        if transaction_count > 0 and self._table_exists('transactions') and self._column_exists('transactions', 'transaction_date'):
+            result = self.db.safe_execute("SELECT MIN(DATE(transaction_date)), MAX(DATE(transaction_date)) FROM transactions")
+            if result and len(result) > 0 and result[0][0] and result[0][1]:
+                try:
                     date_range = (
-                        datetime.strptime(result[0], '%Y-%m-%d').date(),
-                        datetime.strptime(result[1], '%Y-%m-%d').date()
+                        datetime.strptime(result[0][0], '%Y-%m-%d').date(),
+                        datetime.strptime(result[0][1], '%Y-%m-%d').date()
                     )
-            except sqlite3.OperationalError:
-                # transaction_date column doesn't exist
-                date_range = None
+                except (ValueError, TypeError):
+                    date_range = None
         
         return ProfileSummary(
             database_path=str(self.database_path),
@@ -274,7 +254,8 @@ class BankingDataProfiler:
         """Calculate banking-specific metrics."""
         from .banking_metrics import BankingMetricsCalculator
         
-        calculator = BankingMetricsCalculator(self.conn)
+        # Use schema-aware BankingMetricsCalculator
+        calculator = BankingMetricsCalculator(str(self.database_path))
         return calculator.calculate_all_metrics()
     
     def _analyze_relationships(self) -> Dict[str, Any]:
