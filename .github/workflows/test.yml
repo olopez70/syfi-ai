@@ -122,7 +122,7 @@ jobs:
         pip install bandit safety
 
     - name: Run security check with bandit
-      run: bandit -r src/ -f json -o bandit-report.json
+      run: bandit -r src/ -f json -o bandit-report.json --config .bandit
 
     - name: Check for known vulnerabilities with safety
       run: safety check --json --output safety-report.json
