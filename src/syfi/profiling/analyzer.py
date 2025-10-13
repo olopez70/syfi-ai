@@ -200,8 +200,12 @@ class BankingDataProfiler:
             columns.append(col_dict)
             data_types[col[1]] = col[2]
         
+        # Validate table name (security: prevent injection)
+        if not table_name.replace('_', '').isalnum():
+            raise ValueError(f"Invalid table name: {table_name}")
+        
         # Get row count
-        cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
+        cursor.execute(f"SELECT COUNT(*) FROM {table_name}")  # nosec B608 - table_name validated
         row_count = cursor.fetchone()[0]
         
         # Analyze each column if table has data
@@ -211,16 +215,20 @@ class BankingDataProfiler:
         
         if row_count > 0:
             for col_name in data_types.keys():
+                # Validate column name (security: prevent injection)
+                if not col_name.replace('_', '').isalnum():
+                    continue  # Skip invalid column names
+                
                 # Count nulls
-                cursor.execute(f"SELECT COUNT(*) FROM {table_name} WHERE {col_name} IS NULL")
+                cursor.execute(f"SELECT COUNT(*) FROM {table_name} WHERE {col_name} IS NULL")  # nosec B608 - validated
                 null_counts[col_name] = cursor.fetchone()[0]
                 
                 # Count unique values
-                cursor.execute(f"SELECT COUNT(DISTINCT {col_name}) FROM {table_name}")
+                cursor.execute(f"SELECT COUNT(DISTINCT {col_name}) FROM {table_name}")  # nosec B608 - validated
                 unique_counts[col_name] = cursor.fetchone()[0]
                 
                 # Get sample values (up to 5)
-                cursor.execute(f"SELECT DISTINCT {col_name} FROM {table_name} WHERE {col_name} IS NOT NULL LIMIT 5")
+                cursor.execute(f"SELECT DISTINCT {col_name} FROM {table_name} WHERE {col_name} IS NOT NULL LIMIT 5")  # nosec B608 - validated
                 samples = [row[0] for row in cursor.fetchall()]
                 sample_values[col_name] = samples
         
@@ -327,11 +335,12 @@ class BankingDataProfiler:
         
         # Profile completeness
         if self._table_exists('customers'):
-            # Build query dynamically based on available columns
+            # Build query safely using predefined column expressions
             profile_check = "SUM(CASE WHEN profile_description IS NOT NULL THEN 1 ELSE 0 END)" if self._column_exists('customers', 'profile_description') else "0"
             email_check = "SUM(CASE WHEN email IS NOT NULL THEN 1 ELSE 0 END)" if self._column_exists('customers', 'email') else "0"
             phone_check = "SUM(CASE WHEN phone IS NOT NULL THEN 1 ELSE 0 END)" if self._column_exists('customers', 'phone') else "0"
             
+            # Safe query execution - expressions are predefined constants, not user input
             cursor.execute(f"""
                 SELECT 
                     COUNT(*) as total_customers,
@@ -339,7 +348,7 @@ class BankingDataProfiler:
                     {email_check} as customers_with_email,
                     {phone_check} as customers_with_phone
                 FROM customers
-            """)
+            """)  # nosec B608 - expressions are safe constants
             result = cursor.fetchone()
             total = result[0]
             quality_metrics['customer_completeness'] = {

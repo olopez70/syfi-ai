@@ -49,16 +49,40 @@ def demo_natural_language_parsing():
         try:
             config = parser.parse(prompt)
             print("✅ Parsed successfully!")
-            print(f"   - Transaction Type: {config.get('transaction_type', 'N/A')}")
-            print(f"   - Category: {config.get('category', 'N/A')}")
-            print(f"   - Amount Type: {config.get('amount_type', 'N/A')}")
-            print(f"   - Amount Value: ${config.get('amount', 0)}")
-            print(f"   - Frequency: {config.get('frequency', 'N/A')}")
+            
+            # Handle different return types properly
+            if isinstance(config, dict):
+                print(f"   - Transaction Type: {config.get('transaction_type', 'N/A')}")
+                print(f"   - Category: {config.get('category', 'N/A')}")
+                print(f"   - Amount Type: {config.get('amount_type', 'N/A')}")
+                print(f"   - Amount Value: ${config.get('amount', 0)}")
+                print(f"   - Frequency: {config.get('frequency', 'N/A')}")
+            else:
+                # Handle Configuration object with attribute access
+                print(f"   - Configuration type: {type(config).__name__}")
+                print(f"   - Transaction Type: {getattr(config, 'transaction_type', 'N/A')}")
+                print(f"   - Category: {getattr(config, 'category', 'N/A')}")
+                print(f"   - Amount Type: {getattr(config, 'amount_type', 'N/A')}")
+                print(f"   - Amount Value: ${getattr(config, 'amount', 0)}")
+                print(f"   - Frequency: {getattr(config, 'frequency', 'N/A')}")
             
             # Save example config
             config_file = f"example_config_{i}.json"
-            with open(config_file, 'w') as f:
-                json.dump(config, f, indent=2)
+            if isinstance(config, dict):
+                with open(config_file, 'w') as f:
+                    json.dump(config, f, indent=2)
+            else:
+                # Convert dataclass to dict for JSON serialization
+                import dataclasses
+                if dataclasses.is_dataclass(config):
+                    config_dict = dataclasses.asdict(config)
+                    with open(config_file, 'w') as f:
+                        json.dump(config_dict, f, indent=2, default=str)
+                else:
+                    # Fallback: convert object to dict using __dict__
+                    config_dict = getattr(config, '__dict__', {})
+                    with open(config_file, 'w') as f:
+                        json.dump(config_dict, f, indent=2, default=str)
             print(f"   - Saved to: {config_file}")
             
         except Exception as e:
@@ -217,6 +241,10 @@ def realistic_banking_data_demo():
     db_path = project_root / "data" / "example_complete_demo.db"
     (project_root / "data").mkdir(exist_ok=True)
     
+    # Remove existing database to ensure fresh schema
+    if db_path.exists():
+        db_path.unlink()
+    
     db_manager = DatabaseManager(db_path)
     db_manager.initialize_schema()
     
@@ -239,7 +267,7 @@ def realistic_banking_data_demo():
     profiles = []
     for i, name in enumerate(profile_names, 1):
         # Create ProfileBuilder with unique seed for each family
-        builder = ProfileBuilder(seed=1000 + i)
+        builder = ProfileBuilder(db_manager, seed=1000 + i)
         
         # Build profile from template
         profile = builder.build_profile(template, name)

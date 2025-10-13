@@ -23,7 +23,6 @@ pyarrow>=12.0.0          # Parquet file format support
 flask>=2.3.0             # Web framework for database browser
 
 # Database support
-sqlite3                  # SQLite database (built-in)
 sqlalchemy>=2.0.0        # ORM and database abstraction
 
 # CLI interface

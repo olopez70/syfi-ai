@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent / 'src'))
 from src.syfi.models import Customer, Account, Transaction, AccountType, TransactionType
 
 
-@pytest.mark.banking
+@pytest.mark.domain
 class TestAccountValidation:
     """Test banking account business rules."""
     
@@ -87,7 +87,7 @@ class TestAccountValidation:
         assert savings_account.balance >= 0
 
 
-@pytest.mark.banking
+@pytest.mark.domain
 class TestTransactionValidation:
     """Test transaction business rules."""
     
@@ -171,7 +171,7 @@ class TestTransactionValidation:
         assert posted_date >= transaction_date
 
 
-@pytest.mark.banking
+@pytest.mark.domain
 class TestCustomerValidation:
     """Test customer data business rules."""
     
@@ -227,7 +227,7 @@ class TestCustomerValidation:
         assert 10 <= len(digits_only) <= 15  # US phones typically 10 digits
 
 
-@pytest.mark.banking
+@pytest.mark.domain
 class TestBalanceConsistency:
     """Test balance consistency across accounts and transactions."""
     
