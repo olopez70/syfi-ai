@@ -38,6 +38,45 @@ Utilize Gang of Four design patterns where applicable.
 Apply the Don't Repeat Yourself (DRY) principle to avoid code duplication.
 Adhere to Core Principles of software design, including: Separation of Concerns, Single Responsibility Principle, and Interface Segregation Principle, Open/Closed Principle, and Dependency Inversion Principle, Liskov Substitution Principle.
 
+## Git Workflow and Branch Management
+
+### Branch Naming Convention
+**CRITICAL**: All feature branches must follow the standardized naming convention for consistent project management.
+
+#### Required Branch Naming Pattern
+```
+feature/issue-{number}-{brief-description}
+```
+
+#### Examples
+- `feature/issue-10-production-hardening` - Production hardening implementation
+- `feature/issue-5-improve-test-coverage` - Test coverage improvements
+- `feature/issue-1-story-redesign-home-page-for-improved-user-experie` - UI redesign work
+
+#### Branch Management Rules
+1. **Issue-Based Development**: Every feature branch must correspond to a GitHub issue
+2. **Descriptive Names**: Use kebab-case with clear, concise descriptions
+3. **Consistent Prefixes**: Always use `feature/issue-{number}-` prefix
+4. **Length Consideration**: Keep descriptions brief but meaningful
+5. **No Direct Main Commits**: All changes must go through feature branches and pull requests
+
+#### Workflow Steps
+```bash
+# Create new feature branch from main
+git checkout main
+git pull origin main
+git checkout -b feature/issue-{number}-{description}
+
+# Rename existing branch if needed
+git branch -m old-branch-name feature/issue-{number}-{description}
+
+# Work on feature, commit changes
+git add .
+git commit -m "feat(issue-{number}): implement feature description"
+
+# Push feature branch
+git push origin feature/issue-{number}-{description}
+```
 
 Code changes should be tested and verified using existing test suites. If a test suite does not exist for the changed code, create one.
 

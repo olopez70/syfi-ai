@@ -11,24 +11,41 @@ from typing import Any, Dict, List, Optional, Set, Union
 from contextlib import contextmanager
 
 class SchemaAwareConnection:
-    """Database connection wrapper with schema awareness."""
+    """Database connection wrapper with schema awareness and production resilience."""
     
-    def __init__(self, db_path: str, schema_manager=None):
+    def __init__(self, db_path: str, schema_manager=None, enable_resilience: bool = True):
         self.db_path = db_path
         self.schema_manager = schema_manager
         self.logger = logging.getLogger(__name__)
         self._table_cache = {}
         self._column_cache = {}
+        
+        # Initialize resilient database if enabled
+        if enable_resilience:
+            try:
+                from ..database.resilience import ResilientDatabase
+                self._resilient_db = ResilientDatabase(db_path)
+            except ImportError:
+                self.logger.warning("Resilience framework not available, using basic connection")
+                self._resilient_db = None
+        else:
+            self._resilient_db = None
     
     @contextmanager
     def get_connection(self):
         """Get database connection with proper cleanup."""
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        try:
-            yield conn
-        finally:
-            conn.close()
+        if self._resilient_db:
+            # Use resilient database connection pool
+            with self._resilient_db.pool.get_connection() as conn:
+                yield conn
+        else:
+            # Fallback to direct connection for legacy compatibility
+            conn = sqlite3.connect(self.db_path)
+            conn.row_factory = sqlite3.Row
+            try:
+                yield conn
+            finally:
+                conn.close()
     
     def table_exists(self, table_name: str) -> bool:
         """Check if table exists, with caching."""
@@ -71,24 +88,47 @@ class SchemaAwareConnection:
     
     def safe_execute(self, query: str, params: tuple = (), 
                     fallback_result: Any = None) -> Any:
-        """Execute query with graceful error handling."""
+        """Execute query with graceful error handling and resilience."""
         try:
-            with self.get_connection() as conn:
-                cursor = conn.cursor()
-                cursor.execute(query, params)
-                
+            # Use resilient database if available
+            if self._resilient_db:
                 if query.strip().upper().startswith('SELECT'):
-                    return cursor.fetchall()
+                    fetch_mode = 'all' if fallback_result is None or isinstance(fallback_result, list) else 'one'
+                    return self._resilient_db.execute_query(query, params, fetch_mode)
                 else:
-                    conn.commit()
-                    return cursor.rowcount
+                    # For non-SELECT queries, use transaction for safety
+                    operations = [{'query': query, 'params': params}]
+                    success = self._resilient_db.execute_transaction(operations)
+                    return 1 if success else 0
+            else:
+                # Fallback to direct execution
+                with self.get_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(query, params)
                     
+                    if query.strip().upper().startswith('SELECT'):
+                        return cursor.fetchall()
+                    else:
+                        conn.commit()
+                        return cursor.rowcount
+                        
         except sqlite3.OperationalError as e:
             self.logger.warning(f"Safe execute failed: {e}, returning fallback")
             return fallback_result
         except Exception as e:
             self.logger.error(f"Unexpected error in safe_execute: {e}")
-            raise
+            # Import and raise SyFi exceptions if available
+            try:
+                from ..exceptions import SyFiDatabaseError
+                raise SyFiDatabaseError(
+                    f"Database operation failed: {query[:50]}...",
+                    query=query,
+                    params=params,
+                    database_path=self.db_path,
+                    original_exception=e
+                )
+            except ImportError:
+                raise
     
     def safe_count(self, table_name: str, where_clause: str = "", 
                    params: tuple = ()) -> int:
